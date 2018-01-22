@@ -16,7 +16,7 @@ Software implementing a CNN that can take in DNA sequences from multiple patient
 TensorFlow, Python, skl. 
   
 # Team & Contact:  
-Suraj Jena <skjena@ucdavis.edu>,
-Kumud Ravisankaran <kravisankaran@ucdavis.edu>,
-Valeria Brewer <valramirez@ucdavis.edu>,
-Ninad Mehta <ntmehta@ucdavis.edu>,
+|Suraj Jena                <skjena@ucdavis.edu>|  
+|Kumud Ravisankaran <kravisankaran@ucdavis.edu>|  
+|Valeria Brewer        <valramirez@ucdavis.edu>|  
+|Ninad Mehta              <ntmehta@ucdavis.edu>|  
