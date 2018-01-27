@@ -14,6 +14,9 @@ Software implementing a CNN that can take in DNA sequences from multiple patient
 
 ## Platforms: 
 TensorFlow, Python, skl. 
+
+## Installations:
+Installing Tensorflow: https://www.tensorflow.org/versions/r1.2/install/
   
 ## Team & Contact:  
 |Suraj Jena                <skjena@ucdavis.edu>|  
