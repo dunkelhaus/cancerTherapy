@@ -20,7 +20,7 @@ Installing Tensorflow: https://www.tensorflow.org/versions/r1.2/install/
 
 
 ## pmsignature:
-Psignature is an R package which Dr.Quon introduced us to believing that it would prove helpful to us. It extracts characteristic mutation patterns from sets of mutations. To install pmsignature, follow the link below and read carefully through the README.md file. 
+Pmsignature is an R package which Dr.Quon introduced us to believing that it would prove helpful to us. It extracts characteristic mutation patterns from sets of mutations. To install pmsignature, follow the link below and read carefully through the README.md file. 
 https://github.com/friend1ws/pmsignature
   
 ## Team & Contact:  
