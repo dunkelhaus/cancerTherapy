@@ -1,0 +1,13 @@
+#Packages needed for installing pmsignature
+source("http://bioconductor.org/biocLite.R")
+biocLite(c("GenomicRanges", "BSgenome.Hsapiens.UCSC.hg19"))
+install.packages("devtools")
+install.packages("ggplot2")
+install.packages("Rcpp")
+library(devtools)
+devtools::install_github("friend1ws/pmsignature")
+library(pmsignature)
+inputFile <- system.file("extdata/Nik_Zainal_2012.mutationPositionFormat.txt.gz", package="pmsignature")
+print(inputFile)
+inputFile <- system.file("extdata/Hoang_MFVF.ind.txt.gz", package="pmsignature")
+print(inputFile)
