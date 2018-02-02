@@ -1,4 +1,8 @@
 #Packages needed for installing pmsignature
+local({r <- getOption("repos")
+r["CRAN"] <- "https://cran.cnr.berkeley.edu" 
+options(repos=r)
+})
 source("http://bioconductor.org/biocLite.R")
 biocLite(c("GenomicRanges", "BSgenome.Hsapiens.UCSC.hg19"))
 install.packages("devtools")
@@ -7,7 +11,8 @@ install.packages("Rcpp")
 library(devtools)
 devtools::install_github("friend1ws/pmsignature")
 library(pmsignature)
-inputFile <- system.file("extdata/Nik_Zainal_2012.mutationPositionFormat.txt.gz", package="pmsignature")
+inputFile <- system.file("extdata/Hoang_MFVF.IND.txt", package="pmsignature")
 print(inputFile)
-inputFile <- system.file("extdata/Hoang_MFVF.ind.txt.gz", package="pmsignature")
-print(inputFile)
+ 
+#G <- readMFVFile("/Users/kravisankaran/code/cs193a/cnnCancerTherapy/wrappers/mfv.txt", numBases = 3, type="independent", trDir=TRUE)
+
