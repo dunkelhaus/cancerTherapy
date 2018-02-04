@@ -15,13 +15,15 @@ import pandas as pd
 def readTable():
     df= pd.read_table("../data/fm_mutations_independent.tab", sep ="\t")
     cols = df.columns.tolist()
-    cols= ['sample_name', 'C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G', '5A', '5C', '5G', '5T', '3A', '3C', '3G', '3T']
-    df = df[cols]
+    newcols= ['sample_name', 'C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G', '5A', '5C', '5G', '5T', '3A', '3C', '3G', '3T']
+    df = df[newcols]
     dataFrameRows= df['C>A'].count()
     col1=[]
     for x in range(1,dataFrameRows): col1.append(x)
     df.insert(0, 'serialNumber', range(1, 1+len(df)))
     return df
+
+
 
 
 def symbolTableConversion():
@@ -44,6 +46,7 @@ def symbolTableConversion():
     dataFrame['3C'][dataFrame['3C']== 1] = 2
     dataFrame['3G'][dataFrame['3G']== 1] = 3
     dataFrame['3T'][dataFrame['3T']== 1] = 4
+
     df = pd.DataFrame(columns=['serialNumber','Direction'])
     for x in range(1,dataFrameRows):
         col1.append(2)
@@ -55,7 +58,9 @@ def symbolTableConversion():
     df.insert(2, '5PrimeFlank',(dataFrame['5A']+ dataFrame['5C']+ dataFrame['5G']+ dataFrame ['5T']))
     df.insert(3, '2nd5PrimeFlank',(dataFrame['5A']+dataFrame['5C']+dataFrame['5G']+dataFrame['5T']))
     df.insert(4, '3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
-    df.insert(5, '2nd3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
+    df.insert(5, '2nd3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T'])
+    df = df[(df != 0).all(1)]
+    print(df)
     return df
 
 def writeFile():
