@@ -58,7 +58,7 @@ def symbolTableConversion():
     df.insert(2, '5PrimeFlank',(dataFrame['5A']+ dataFrame['5C']+ dataFrame['5G']+ dataFrame ['5T']))
     df.insert(3, '2nd5PrimeFlank',(dataFrame['5A']+dataFrame['5C']+dataFrame['5G']+dataFrame['5T']))
     df.insert(4, '3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
-    df.insert(5, '2nd3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T'])
+    df.insert(5, '2nd3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
     df = df[(df != 0).all(1)]
     print(df)
     return df
