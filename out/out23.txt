@@ -10,7 +10,7 @@
 #trial: 10; #iteration:    5; time(s): 0.00; convergence: TRUE; loglikelihood: -0.0000
 An object of class "EstimatedParameters"
 Slot "sampleList":
- [1] "10AA" "1AA"  "2AA"  "3AA"  "4AA"  "5AA"  "6AA"  "7AA"  "8AA"  "9AA" 
+ [1] "10AA" "1AA"  "2AA"  "3AA"  "4AA"  "5AA"  "6AA"  "7AA"  "8AA"  "9AA"
 
 Slot "signatureNum":
 [1] 23
@@ -242,4 +242,3 @@ Slot "transcriptionDirection":
 
 Slot "possibleFeatures":
 [1] 6 4 4 4 4 2
-
