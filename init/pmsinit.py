@@ -15,7 +15,7 @@ args = ['--default-packages=methods,utils', 'pmsinit.R', '7']
 cmd = [command] + args
 result = subprocess.check_output(cmd, universal_newlines=True)
 print(result)
-file7 = open("/home/valeria/ECS193/cnnCancerTherapy/out/out7.txt", "w+")
+file7 = open("/home/valeria/ECS193/cnnCancerTherapy/out/Test7.txt", "w+")
 file7.write(result)
 file7.close()
 
@@ -24,7 +24,7 @@ args = ['--default-packages=methods,utils', 'pmsinit.R', '13']
 cmd = [command] + args
 result = subprocess.check_output(cmd, universal_newlines=True)
 print(result)
-file7 = open("/home/valeria/ECS193/cnnCancerTherapy/out/out13.txt", "w+")
+file7 = open("/home/valeria/ECS193/cnnCancerTherapy/out/Test13.txt", "w+")
 file7.write(result)
 file7.close()
 
@@ -33,6 +33,6 @@ args = ['--default-packages=methods,utils', 'pmsinit.R', '23']
 cmd = [command] + args
 result = subprocess.check_output(cmd, universal_newlines=True)
 print(result)
-file7 = open("/home/valeria/ECS193/cnnCancerTherapy/out/out23.txt", "w+")
+file7 = open("/home/valeria/ECS193/cnnCancerTherapy/out/Test23.txt", "w+")
 file7.write(result)
 file7.close()
