@@ -50,15 +50,11 @@ def symbolTableConversion():
     df = pd.DataFrame(columns=['serialNumber','Direction'])
     for x in range(1,dataFrameRows):
         col1.append(2)
-        col2.append("AA")
     df['Direction']=col1
     df['serialNumber']= dataFrame['serialNumber'].astype(str)
-    df['serialNumber'] = df['serialNumber'].str.cat(col2, sep='')
     df.insert(1, 'transcriptionColumn',(dataFrame['C>A']+ dataFrame ['C>G'] + dataFrame['C>T'] + dataFrame['T>A']+ dataFrame['T>C']+ dataFrame['T>G'] ))
     df.insert(2, '5PrimeFlank',(dataFrame['5A']+ dataFrame['5C']+ dataFrame['5G']+ dataFrame ['5T']))
-    df.insert(3, '2nd5PrimeFlank',(dataFrame['5A']+dataFrame['5C']+dataFrame['5G']+dataFrame['5T']))
-    df.insert(4, '3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
-    df.insert(5, '2nd3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
+    df.insert(3, '3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
     df = df[(df != 0).all(1)]
     print(df)
     return df
