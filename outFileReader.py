@@ -11,8 +11,27 @@ import shlex
 
 serialNumber = []
 xy = ("\"")
+quoted = re.compile('"[^"]*"')
 def hasNumbers(inputString):
+    #print(inputString)
     return any(char.isdigit() for char in inputString)
+lis = []
+def removeIndices(test_str):
+    ret = ''
+    skip1c = 0
+    skip2c = 0
+    for i in test_str:
+        if i == '[':
+            skip1c += 1
+        elif i == '(':
+            skip2c += 1
+        elif i == ']' and skip1c > 0:
+            skip1c -= 1
+        elif i == ')'and skip2c > 0:
+            skip2c -= 1
+        elif skip1c == 0 and skip2c == 0:
+            ret += i
+    return ret
 
 
 with open('./out/out7.txt') as fh:
@@ -26,8 +45,14 @@ with open('./out/out7.txt') as fh:
 
     # Second while loop to process the rest of the file
     while line:
+        line = line.strip()
         if hasNumbers(line) :
-           line.split('\n')
+            line = removeIndices(line)
+            for value in quoted.findall(line):
+                if hasNumbers(value):
+                    serialNumber.append(value)
+                    serialNumber = [i.replace('"', '') for i in serialNumber]
 
-           print(line)
+
         line = fh.readline()
+print(serialNumber)
