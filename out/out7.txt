@@ -10,7 +10,7 @@
 #trial: 10; #iteration:    7; time(s): 0.00; convergence: TRUE; loglikelihood: -3.2958
 An object of class "EstimatedParameters"
 Slot "sampleList":
- [1] "1"  "10" "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9" 
+[1] "1"  "10" "2"  "3"  "4"  "5"  "6"  "7"  "8"  "9" 
 
 Slot "signatureNum":
 [1] 7
@@ -113,4 +113,3 @@ Slot "transcriptionDirection":
 
 Slot "possibleFeatures":
 [1] 6 4 4 2
-

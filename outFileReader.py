@@ -7,9 +7,13 @@ import numpy as np
 import pandas as pd
 from itertools import dropwhile
 import re
+import shlex
 
+serialNumber = []
+xy = ("\"")
 def hasNumbers(inputString):
     return any(char.isdigit() for char in inputString)
+
 
 with open('./out/out7.txt') as fh:
     # Skip initial comments that starts with #
@@ -23,5 +27,7 @@ with open('./out/out7.txt') as fh:
     # Second while loop to process the rest of the file
     while line:
         if hasNumbers(line) :
+           line.split('\n')
+
            print(line)
         line = fh.readline()
