@@ -13,7 +13,7 @@ import pandas as pd
 
 #Reading the given mutation data into a dataFrame
 def readTable():
-    df= pd.read_table("../data/fm_mutations_independent.tab", sep ="\t")
+    df= pd.read_table("../data/initial/fm_mutations_independent.tab", sep ="\t")
     cols = df.columns.tolist()
     newcols= ['sample_name', 'C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G', '5A', '5C', '5G', '5T', '3A', '3C', '3G', '3T']
     df = df[newcols]
@@ -61,6 +61,6 @@ def symbolTableConversion():
 
 def writeFile():
     df = symbolTableConversion()
-    df.to_csv('./mfv.tab',sep='\t', index=False, header=False, mode='w')
+    df.to_csv('../data/generated/mfv.tab',sep='\t', index=False, header=False, mode='w')
 
 writeFile()

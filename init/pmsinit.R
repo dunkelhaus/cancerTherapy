@@ -15,7 +15,7 @@ library(devtools)
 #devtools::install_github(“friend1ws/pmsignature”)
 library(stats)
 library(pmsignature, lib.loc="/home/valeria/R/x86_64-pc-linux-gnu-library/3.2")
-G <- readMFVFile("/home/valeria/ECS193/cnnCancerTherapy/wrappers/mfvmod.tab", numBases = 5, type="independent", trDir=TRUE)
+G <- readMFVFile("/home/valeria/ECS193/cnnCancerTherapy/data/generated/mfv.tab", numBases = 3, type="independent", trDir=TRUE)
 
 
 #Get command line argument and store it in nums
