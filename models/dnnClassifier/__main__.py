@@ -21,6 +21,7 @@ import argparse
 import tensorflow as tf
 
 import pmsignature
+import DNNClassifierModel
 from DNNClassifierModel import classifierModel
 
 # the CLI argument parser called argparse used to grab the [optional]
@@ -72,7 +73,7 @@ def main(argv):
     # Train the model
     # Provide a lambda function to the train method for the actual input function with (features, labels, batch_size)
     classifier.train(
-        input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, args.batch_size),
+        input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, DNNClassifierModel.batch_size()),
         steps=args.train_steps)
 
     # Evaluate the model
@@ -99,7 +100,7 @@ def main(argv):
     # But in predict mode - that function handles two modes, predict and evaluate
     # This takes predict_x as it's labels if no labels are provided, and
     predictions = classifier.predict(
-        input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=args.batch_size))
+        input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=DNNClassifierModel.batch_size()))
 
     # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
     # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")
