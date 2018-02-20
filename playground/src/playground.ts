@@ -936,6 +936,18 @@ export function getOutputWeights(network: nn.Node[][]): number[] {
   return weights;
 }
 
+function toJson(onStartup=false){
+
+  var jsonObj = {"dataset" : state.dataset, "newDataset" : state.regDataset, "numHiddenLayers" : state.numHiddenLayers,
+                          "networkShape" : state.networkShape, "showTestData" : state.showTestData, "discretize" : state.discretize,
+                          "percTrainData" : state.percTrainData, "noise" : state.noise, "batchSize" : state.batchSize,
+                          "activation" : state.activation, "learningRate" : state.learningRate, "regularization" : state.regularization,
+                          "regularizationRate" : state.regularizationRate, "problem" : state.problem,
+                          "initZero" : state.initZero, "tutorial" : state.tutorial  };
+
+    return jsonObj;
+};
+
 function reset(onStartup=false) {
   lineChart.reset();
   state.serialize();
@@ -948,6 +960,18 @@ function reset(onStartup=false) {
   d3.select("#layers-label").text("Hidden layer" + suffix);
   d3.select("#num-layers").text(state.numHiddenLayers);
 
+// Adding code (Ninad)
+// Trying to make a server request
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open("POST", "./"); // request of type POST, unsure about this argument --> "./"
+                                              // Look up XMLHttpRequest.open()
+
+xmlhttp.setRequestHeader("Content-Type", "application/json"); // unsure about "application/json"
+
+//Now sending json data to our python server
+console.log(toJson());
+xmlhttp.send(JSON.stringify(toJson()));
   // Make a simple network.
   iter = 0;
   let numInputs = constructInput(0 , 0).length;
