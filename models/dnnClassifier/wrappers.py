@@ -21,41 +21,41 @@
 """
 import json
 
-def learningRateWrapper(object):
+def learningRateWrapper(callback):
     #check for changes in learning rate    
 
-def activationWrapper(object):
+def activationWrapper(callback):
     #check for changes in activation function
 
-def regularizationWrapper(object):
+def regularizationWrapper(callback):
     #check for changes in regularization
 
-def regularizationRateWrapper(object):
+def regularizationRateWrapper(callback):
     #check for changes in regularization rate
 
-def problemTypeWrapper(object):
+def problemTypeWrapper(callback):
     #check for changes in problem type
 
-def ratioWrapper(object):
+def ratioWrapper(callback):
     #check for changes in ratio of training to test data
 
-def noiseWrapper(object):
+def noiseWrapper(callback):
     #check for changes in noise
 
-def batchWrapper(object):
+def batchWrapper(callback):
     #check for changes in batch size
 
-def featuresWrapper(object):
+def featuresWrapper(callback):
     #check for changes in features to feed in
 
-def addHiddenLayer(object):
+def addHiddenLayer(callback):
     #check for changes in number of hidden layers (add)
 
-def rmHiddenLayer(object):
+def rmHiddenLayer(callback):
     #check for changes in number of hidden layers (subtract)
 
-def addNeuron(object):
+def addNeuron(callback):
     #check for changes in neuron count for layer (add)
 
-def rmNeuron(object):
+def rmNeuron(callback):
     #check for changes in neuron count for layer (subtract)
