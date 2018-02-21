@@ -13,7 +13,7 @@ import pandas as pd
 
 #Reading the given mutation data into a dataFrame
 def readTable():
-    df= pd.read_table("../data/fm_mutations_independent.tab", sep ="\t")
+    df= pd.read_table("../data/initial/fm_mutations_independent.tab", sep ="\t")
     cols = df.columns.tolist()
     newcols= ['sample_name', 'C>A', 'C>G', 'C>T', 'T>A', 'T>C', 'T>G', '5A', '5C', '5G', '5T', '3A', '3C', '3G', '3T']
     df = df[newcols]
@@ -50,21 +50,17 @@ def symbolTableConversion():
     df = pd.DataFrame(columns=['serialNumber','Direction'])
     for x in range(1,dataFrameRows):
         col1.append(2)
-        col2.append("AA")
     df['Direction']=col1
     df['serialNumber']= dataFrame['serialNumber'].astype(str)
-    df['serialNumber'] = df['serialNumber'].str.cat(col2, sep='')
     df.insert(1, 'transcriptionColumn',(dataFrame['C>A']+ dataFrame ['C>G'] + dataFrame['C>T'] + dataFrame['T>A']+ dataFrame['T>C']+ dataFrame['T>G'] ))
     df.insert(2, '5PrimeFlank',(dataFrame['5A']+ dataFrame['5C']+ dataFrame['5G']+ dataFrame ['5T']))
-    df.insert(3, '2nd5PrimeFlank',(dataFrame['5A']+dataFrame['5C']+dataFrame['5G']+dataFrame['5T']))
-    df.insert(4, '3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
-    df.insert(5, '2nd3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
+    df.insert(3, '3PrimeFlank',(dataFrame['3A']+dataFrame['3C']+dataFrame['3G']+dataFrame['3T']))
     df = df[(df != 0).all(1)]
     print(df)
     return df
 
 def writeFile():
     df = symbolTableConversion()
-    df.to_csv('./mfv.tab',sep='\t', index=False, header=False, mode='w')
+    df.to_csv('../data/generated/mfv.tab',sep='\t', index=False, header=False, mode='w')
 
 writeFile()

@@ -20,6 +20,60 @@ from __future__ import print_function
 import argparse
 import tensorflow as tf
 
+def activation():
+    #if <changes to activation>
+    #    return activationWrapper(callback)
+
+    #return tf.nn.relu
+
+def learningRate():
+    #if <changes to learning rate [nu]:
+    #    return learningRateWrapper(callback)
+
+    #return 0.01
+
+def regularization():
+    #if <changes to regularization>:
+    #    return regularizationWrapper(callback)
+
+    #return L1
+
+def regularizationRate():
+    #if <changes to regularization rate>:
+    #    return regularizationRateWrapper(callback)
+
+    #return 0
+
+def problemType():
+    #if <changes to problem type>:
+    #    return problemTypeWrapper(callback)
+
+    #return 0
+
+def ratio():
+    #if <changes to ratio of train:test data>:
+    #    return ratioWrapper(callback)
+
+    #return 50:50
+
+def noise():
+    #if <changes to noise coefficient>:
+    #    return noiseWrapper(callback)
+
+    #return 0
+
+def batchSize():
+    #if <changes to batch size>:
+    #    return batchSizeWrapper(callback)
+
+    #return 10
+
+def featureSelection():
+    #if <changes to active features>:
+    #    return featureSelectionWrapper(callback)
+
+    #return x1, x2
+
 #REVIEW Verify if each and every line of routine lines up with our dataset requirements
 #TODO Adjust model for our particular inputs after redefining and designing neural net
 #XXX Priority 2
