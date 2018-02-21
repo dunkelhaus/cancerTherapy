@@ -962,16 +962,47 @@ function reset(onStartup=false) {
 
 // Adding code (Ninad)
 // Trying to make a server request
+/* 
+ * VB: XMLHTTPRequest object can be used to (1) request data from a web server, (2) update a web page 
+ * without reloading the page, (3) request data from a server - after the page has loaded, (4) receive 
+ * data from a server - after the page has loaded The responseXML property will be a DOM Object 
+ * containing a parsed XML document.
+ * 
+ * XML document can be analyzed using either:
+ * XPath (address or point to parts of it) or 
+ * XMLSerializer (serialize DOM trees to strings or to files) or 
+ * by manually parsing the XML to strings. 
+ * 
+ * HTML vs XML:
+ * XML is designed to carry data while HTML is designed to display data.
+*/
 
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("POST", "./"); // request of type POST, unsure about this argument --> "./"
                                               // Look up XMLHttpRequest.open()
 
-xmlhttp.setRequestHeader("Content-Type", "application/json"); // unsure about "application/json"
+/* VB
+ * setRequestHeader(Header, Value) adds HTTP headers to the request
+ * Header: specifies the header name
+ * Value: specifies the header value
+*/
+xmlhttp.setRequestHeader("Content-Type", "application/json"); 
 
 //Now sending json data to our python server
 console.log(toJson());
 xmlhttp.send(JSON.stringify(toJson()));
+
+
+/* VB
+ * If the code above doesn't work, try this:
+ * var url = "insert url"
+ * var xmlhttp = new XMLHttpRequest();
+ * xmlhttp.open("POST", url, true)
+ * xmlhttp.setRequestHeader("Content-Type", "application/json"); 
+ * xmlhttp.send(JSON.stringify(toJson()));
+*/
+
+
   // Make a simple network.
   iter = 0;
   let numInputs = constructInput(0 , 0).length;
