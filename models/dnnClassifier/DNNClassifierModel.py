@@ -30,31 +30,45 @@ def checkForChanges():
 def dataset():
     if checkForChanges():
        return datasetWrapper(datasetWrapper)
+    else:
+        return 'gauss'
 
 def newDataset():
     if checkForChanges():
        return newDataSetWrapper(newDatasetWrapper)
+    else: 
+        return 'reg-plane'
 
 def numHiddenLayers():
     if checkForChanges():
        return numHiddenLayersWrapper(numHiddenLayersWrapper)
+    else: 
+        return 2
 
 def networkShape():
     #state.ts shows this as follows: networkShape: number[] = [10, 10];
     if checkForChanges():
         return networkShapeWrapper(networkShapeWrapper)
+    else:
+        return [10,10]
 
 def showTestData():
     if checkForChanges():
         return showTestDataWrapper(showTestDataWrapper)
+    else: 
+        return False
 
 def discretize():
     if checkForChanges():
         return discretizeWrapper(discretizeWrapper)
+    else:
+        return False
 
 def percTrainData():
     if checkForChanges():
         return percTrainDataWrapper(percTrainDataWrapper)
+    else:
+        return 50
 
 def noise():
     if checkForChanges():
@@ -72,10 +86,10 @@ def activation():
     global stateObjStatus
     if checkForChanges():
         activation = activationWrapper(activationWrapper)
-        stateObjStatus = 1
+        stateObjStatus = True
         return activation
     else:
-        stateObjStatus = 1
+        stateObjStatus = True
         return tf.nn.relu
 
 def learningRate():
@@ -141,7 +155,7 @@ def classifierModel(features, labels, mode, params):
     # returns a dense Tensor as the input layer based on provided feature_columns
     net = tf.feature_column.input_layer(features, params['feature_columns'])
 
-    stateObjStatus = 0
+    stateObjStatus = False
 
     for units in params['hidden_units']:
         # units is the number of output neurons in a layer
@@ -149,7 +163,7 @@ def classifierModel(features, labels, mode, params):
         # net signifies input layer during first iteration - when new layer is created, previous layers -
         # output is in net
 
-    while stateObjStatus == 0:
+    while stateObjStatus == False:
         # wait 
 
     # Compute logits (one per class)

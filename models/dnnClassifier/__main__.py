@@ -58,13 +58,15 @@ def main(argv):
         feature_columns.append(tf.feature_column.numeric_column(key=key))
 
     # Build DNN with 2 hidden layers, and 10, 10 units respectively (for each layer) [units are the number of output neurons]
+    # take hidden_units from DNNClassifierModel which checks for changes in networkShape
+    # May need to *wait* for DNNClassifierModel.networkShape() to return with value
     classifier = tf.estimator.Estimator(
         model_fn=classifierModel,
         params={
             # Send the feature columns in params
             'feature_columns' : feature_columns,
             # Enter hidden layer units, 2 of X nodes each [used 10 as a placeholder]
-            'hidden_units' : [10, 10],
+            'hidden_units' : DNNClassifierModel.networkShape(), # [10, 10],
             # The model must choose between X classes [3 used as placeholder]
             'n_classes' : 3,
         }
@@ -72,8 +74,10 @@ def main(argv):
 
     # Train the model
     # Provide a lambda function to the train method for the actual input function with (features, labels, batch_size)
+    # Take batch size from DNNClassifierModel which checks for changes in value
+    # May need to *wait* for DNNClassifierModel.batchSize() to return with value
     classifier.train(
-        input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, DNNClassifierModel.batch_size()),
+        input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, DNNClassifierModel.batchSize()),
         steps=args.train_steps)
 
     # Evaluate the model
@@ -100,7 +104,7 @@ def main(argv):
     # But in predict mode - that function handles two modes, predict and evaluate
     # This takes predict_x as it's labels if no labels are provided, and
     predictions = classifier.predict(
-        input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=DNNClassifierModel.batch_size()))
+        input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=DNNClassifierModel.batchSize()))
 
     # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
     # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")
