@@ -25,7 +25,7 @@ SECRET_KEY = '45$mxn_ry6s$=wk(__#z2ke730wxp=+u#i2ry751ie@8o)8s=*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['62b19883.ngrok.io']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'helloapp',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
