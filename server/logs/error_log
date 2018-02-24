@@ -1,6 +1,0 @@
-[Tue Feb 20 04:00:09.163324 2018] [mpm_event:notice] [pid 15302:tid 140100984387328] AH00489: Apache/2.4.29 (Unix) mod_wsgi/4.5.24 Python/2.7 configured -- resuming normal operations
-[Tue Feb 20 04:00:09.163590 2018] [core:notice] [pid 15302:tid 140100984387328] AH00094: Command line: '/home/skjena/Code/cancerTherapy/server//bin/httpd'
-[Tue Feb 20 04:00:29.510170 2018] [mpm_event:notice] [pid 15302:tid 140100984387328] AH00491: caught SIGTERM, shutting down
-[Tue Feb 20 04:00:43.132856 2018] [mpm_event:notice] [pid 15429:tid 139843372422912] AH00489: Apache/2.4.29 (Unix) mod_wsgi/4.5.24 Python/2.7 configured -- resuming normal operations
-[Tue Feb 20 04:00:43.133037 2018] [core:notice] [pid 15429:tid 139843372422912] AH00094: Command line: '/home/skjena/Code/cancerTherapy/server//bin/httpd'
-[Tue Feb 20 04:01:08.656298 2018] [mpm_event:notice] [pid 15429:tid 139843372422912] AH00491: caught SIGTERM, shutting down
