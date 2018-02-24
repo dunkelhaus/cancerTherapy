@@ -20,59 +20,96 @@ from __future__ import print_function
 import argparse
 import tensorflow as tf
 
-def activation():
-    #if <changes to activation>
-    #    return activationWrapper(callback)
+# this function checks whether there has been changes
+def checkForChanges():
+    if <changes>:
+        return True
+    else:
+        return False
 
-    #return tf.nn.relu
+def dataset():
+    if checkForChanges():
+       return datasetWrapper(datasetWrapper)
 
-def learningRate():
-    #if <changes to learning rate [nu]:
-    #    return learningRateWrapper(callback)
+def newDataset():
+    if checkForChanges():
+       return newDataSetWrapper(newDatasetWrapper)
 
-    #return 0.01
+def numHiddenLayers():
+    if checkForChanges():
+       return numHiddenLayersWrapper(numHiddenLayersWrapper)
 
-def regularization():
-    #if <changes to regularization>:
-    #    return regularizationWrapper(callback)
+def networkShape():
+    #state.ts shows this as follows: networkShape: number[] = [10, 10];
+    if checkForChanges():
+        return networkShapeWrapper(networkShapeWrapper)
 
-    #return L1
+def showTestData():
+    if checkForChanges():
+        return showTestDataWrapper(showTestDataWrapper)
 
-def regularizationRate():
-    #if <changes to regularization rate>:
-    #    return regularizationRateWrapper(callback)
+def discretize():
+    if checkForChanges():
+        return discretizeWrapper(discretizeWrapper)
 
-    #return 0
-
-def problemType():
-    #if <changes to problem type>:
-    #    return problemTypeWrapper(callback)
-
-    #return 0
-
-def ratio():
-    #if <changes to ratio of train:test data>:
-    #    return ratioWrapper(callback)
-
-    #return 50:50
+def percTrainData():
+    if checkForChanges():
+        return percTrainDataWrapper(percTrainDataWrapper)
 
 def noise():
-    #if <changes to noise coefficient>:
-    #    return noiseWrapper(callback)
-
-    #return 0
+    if checkForChanges():
+        return noiseWrapper(noiseWrapper)
+    else:
+        return 0
 
 def batchSize():
-    #if <changes to batch size>:
-    #    return batchSizeWrapper(callback)
+    if checkForChanges():
+        return batchSizeWrapper(batchSizeWrapper)
+    else:
+        return 10
 
-    #return 10
+def activation():
+    global stateObjStatus
+    if checkForChanges():
+        activation = activationWrapper(activationWrapper)
+        stateObjStatus = 1
+        return activation
+    else:
+        stateObjStatus = 1
+        return tf.nn.relu
 
-def featureSelection():
-    #if <changes to active features>:
-    #    return featureSelectionWrapper(callback)
+def learningRate():
+    if checkForChanges():
+        return learningRateWrapper(learningRateWrapper)
+    else:
+        return 0.01
 
-    #return x1, x2
+def regularization():
+    if checkForChanges():
+        return regularizationWrapper(regularizationWrapper)
+    else:
+        return L1
+
+def regularizationRate():
+    if checkForChanges():
+        return regularizationRateWrapper(regularizationRateWrapper)
+    else:
+        return 0
+
+def problemType():
+    if checkForChanges():
+        return problemTypeWrapper(problemTypeWrapper)
+    else:
+        return 0
+
+def initZero():
+    if checkForChanges():
+        return initZeroWrapper(initZeroWrapper)
+
+def tutorial():
+    if checkForChanges():
+        return tutorialWrapper(tutorialWrapper)
+
 
 #REVIEW Verify if each and every line of routine lines up with our dataset requirements
 #TODO Adjust model for our particular inputs after redefining and designing neural net
@@ -98,14 +135,22 @@ def classifierModel(features, labels, mode, params):
                     If mode is EVALUATE :- compute the evaluation metrics, the necessary ones chosen in the model_fn,
                                                     and return an EstimatorSpec(tf.estimator.ModeKeys.EVALUATE, loss, eval_metric_ops).
     """
+    
+    global stateObjStatus
+
     # returns a dense Tensor as the input layer based on provided feature_columns
     net = tf.feature_column.input_layer(features, params['feature_columns'])
 
+    stateObjStatus = 0
+
     for units in params['hidden_units']:
         # units is the number of output neurons in a layer
-        net = tf.layers.dense(net, units=units, activation=tf.nn.relu) # Using the ReLu activation function
+        net = tf.layers.dense(net, units=units, activation=activation()) # Using the ReLu activation function
         # net signifies input layer during first iteration - when new layer is created, previous layers -
         # output is in net
+
+    while stateObjStatus == 0:
+        # wait 
 
     # Compute logits (one per class)
     # No activation function defines this as the output layer
@@ -155,3 +200,4 @@ def classifierModel(features, labels, mode, params):
     # Only when in TRAIN mode, model returns an EstimatorSpec containing the mode, loss and
     # the training operation defined above
     return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
+ 
