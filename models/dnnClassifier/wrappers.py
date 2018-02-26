@@ -3,59 +3,81 @@
 # Write wrappers for TypeScript files in playground/
 
 import json
+import requests
 
+#/v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
+#/v1/run:
+#/v1/reset:
+#/v1/...: 
 
 #this loads the correct data from json object
-def JSONload(value):
-    #do something and return new value from json
+def JSONload(url):
+    #The incoming JSON object will come by POST request. 
+    req = requests.get(url)
+    json = req.json()
+    return json
 
 def datasetWrapper(callback):
-    return JSONload('dataset')
+    json = JSONload('')
+    return json['dataset']
 
 def newDatasetWrapper(callback):
-    return JSONload('newDataset')
+    json = JSONload('')
+    return json['newDataset']
 
 def numHiddenLayersWrapper(callback):
-    return JSONload('numHiddenLayerss')
+    json = JSONload('/v/1/state')
+    return json['numHiddenLayers']
 
 def networkShapeWrapper(callback):
-    return JSONload('networkShape')
+    json = JSONload('/v/1/state')
+    return json['networkShape']
 
 def showTestDataWrapper(callback):
-    #check for changes in test data
-    return JSONload('showTestData')
+    json = JSONload('')
+    return json['showTestData']
 
 def discretizeWrapper(callback):
-    #check for changes
-    return JSONload('discretize')
+    json = JSONload('')
+    return json['discretize']
 
 def percTrainDataWrapper(callback):
-    return JSONload('percTrainData')
+    json = JSONload('/v/1/state')
+    return json['percTrainData']
 
 def noiseWrapper(callback):
-    return JSONload('noise')  
+    json = JSONload('/v/1/state')
+    return json['noise']  
 
 def batchSizeWrapper(callback):
-    return JSONload('batchSize')
+    json = JSONload('/v/1/state')
+    return json['batchSize']
 
 def activationWrapper(callback):
-    return JSONload('activation')   
+    json = JSONload('')
+    return json['activation']
 
 def learningRateWrapper(callback):
-    return JSONload('learningRate')  
+    json = JSONload('')
+    return json['learningRate']    
 
 def regularizationWrapper(callback):
-    return JSONload('regularization')  
+    json = JSONload('')
+    return json['regularization']
 
 def regularizationRateWrapper(callback):
-    return JSONload('regularizationRate')  
+    json = JSONload('')
+    return json['regularizationRate']
 
 def problemTypeWrapper(callback):
-    return JSONload('problem')   
+    json = JSONload('')
+    return json['problem']
 
 def initZeroWrapper(callback):
-    return JSONload('initZero')
+    json = JSONload('')
+    return json['initZero']
 
 def tutorialWrapper(callback):
-    return JSONload('tutorial')
+    json = JSONload('')
+    return json['tutorial']
   
