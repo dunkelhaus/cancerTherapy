@@ -20,5 +20,6 @@ from helloapp import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', views.home_view, name='home'),
+    #URL path can be whatever you want
     url(r'^api-auth/', include('rest_framework.urls'))
 ]
