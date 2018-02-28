@@ -17,18 +17,8 @@ from django.conf.urls import url
 from django.conf.urls import include
 from django.contrib import admin
 from helloapp import views
-from rest_framework.views import Home
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', views.home_view, name='home'),
-
-    #URL path can be whatever you want
-    url(r'^api-auth/', include('rest_framework.urls'))
-    url(r'^v1/', Home.as_view(), name='v1-home')
-    url(r'^v1/run/', Home.as_view(), name='v1-run')
-    url(r'^v1/settings/', Home.as_view(), name='v1-settings')
-    url(r'^v1/state/', Home.as_view(), name='v1-state')
-    url(r'^v1/arguents/', Home.as_view(), name='v1-arguments')
-    url(r'^v1/features/', Home.as_view(), name='v1-features')
 ]
