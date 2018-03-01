@@ -17,8 +17,14 @@ from django.conf.urls import url
 from django.conf.urls import include
 from django.contrib import admin
 from helloapp import views
+from mutationDnnWeb import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', views.home_view, name='home'),
+    #url(r'^', views.home_view, name='home'),
+    url(r'^v1/arguments/', views.ArgumentList.as_view()),
+    url(r'^v1/state/', views.StateList.as_view()),
+    url(r'^v1/run/', views.RunList.as_view()),
+    url(r'^v1/features/', views.FeatureList.as_view()),
+    url(r'^v1/settings/', views.SettingsList.as_view()),
 ]
