@@ -39,6 +39,7 @@ limitations under the License.
   <link rel="stylesheet" href="bundle.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
   <script src="lib.js"></script>
+  <script src="requests.js"></script>
 </head>
 <body>
   <!-- GitHub link -->
@@ -278,10 +279,10 @@ limitations under the License.
         <div style="display:flex; align-items:center;">
 
           <!-- Gradient color scale -->
-          <div class="label" style="width:105px; margin-right: 10px">
-            Colors shows data, neuron and weight values.
+          <div class="label" style="width:45px; margin-right: 10px">
+            Not BRCA
           </div>
-          <svg width="150" height="30" id="colormap">
+          <svg width="170" height="30" id="colormap">
             <defs>
               <linearGradient id="gradient" x1="0%" y1="100%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#f59322" stop-opacity="1"></stop>
@@ -293,6 +294,9 @@ limitations under the License.
               <rect width="144" height="10" style="fill: url('#gradient');"></rect>
             </g>
           </svg>
+          <div class="label" style="width:45px; margin-right: 10px">
+            BRCA
+          </div>
         </div>
         <br/>
         <div style="display:flex;">

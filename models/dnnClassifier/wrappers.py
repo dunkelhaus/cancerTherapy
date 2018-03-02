@@ -2,60 +2,82 @@
 
 # Write wrappers for TypeScript files in playground/
 
-""" 
-  Wrappers Needed: 
-        learning rate, 
-        activation function, 
-        regularization, 
-        regularization rate, 
-        problem type, 
-        ratio of training to test data,
-        noise,
-        batch size,
-        which features do you want to feed in,
-        add hidden layer,
-        subtract hidden layer,
-        add neuron to layer[i],
-        remove neuron from layer[i]
-        
-"""
 import json
+import requests
 
-def learningRateWrapper(callback):
-    #check for changes in learning rate    
+#/v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
+#/v1/run:
+#/v1/reset:
+#/v1/...: 
 
-def activationWrapper(callback):
-    #check for changes in activation function
+#this loads the correct data from json object
+def JSONload(url):
+    #The incoming JSON object will come by POST request. 
+    req = requests.get(url)
+    json = req.json()
+    return json
 
-def regularizationWrapper(callback):
-    #check for changes in regularization
+def datasetWrapper(callback):
+    json = JSONload('')
+    return json['dataset']
 
-def regularizationRateWrapper(callback):
-    #check for changes in regularization rate
+def newDatasetWrapper(callback):
+    json = JSONload('')
+    return json['newDataset']
 
-def problemTypeWrapper(callback):
-    #check for changes in problem type
+def numHiddenLayersWrapper(callback):
+    json = JSONload('/v/1/state')
+    return json['numHiddenLayers']
 
-def ratioWrapper(callback):
-    #check for changes in ratio of training to test data
+def networkShapeWrapper(callback):
+    json = JSONload('/v/1/state')
+    return json['networkShape']
+
+def showTestDataWrapper(callback):
+    json = JSONload('')
+    return json['showTestData']
+
+def discretizeWrapper(callback):
+    json = JSONload('')
+    return json['discretize']
+
+def percTrainDataWrapper(callback):
+    json = JSONload('/v/1/state')
+    return json['percTrainData']
 
 def noiseWrapper(callback):
-    #check for changes in noise
+    json = JSONload('/v/1/state')
+    return json['noise']  
 
-def batchWrapper(callback):
-    #check for changes in batch size
+def batchSizeWrapper(callback):
+    json = JSONload('/v/1/state')
+    return json['batchSize']
 
-def featuresWrapper(callback):
-    #check for changes in features to feed in
+def activationWrapper(callback):
+    json = JSONload('')
+    return json['activation']
 
-def addHiddenLayer(callback):
-    #check for changes in number of hidden layers (add)
+def learningRateWrapper(callback):
+    json = JSONload('')
+    return json['learningRate']    
 
-def rmHiddenLayer(callback):
-    #check for changes in number of hidden layers (subtract)
+def regularizationWrapper(callback):
+    json = JSONload('')
+    return json['regularization']
 
-def addNeuron(callback):
-    #check for changes in neuron count for layer (add)
+def regularizationRateWrapper(callback):
+    json = JSONload('')
+    return json['regularizationRate']
 
-def rmNeuron(callback):
-    #check for changes in neuron count for layer (subtract)
+def problemTypeWrapper(callback):
+    json = JSONload('')
+    return json['problem']
+
+def initZeroWrapper(callback):
+    json = JSONload('')
+    return json['initZero']
+
+def tutorialWrapper(callback):
+    json = JSONload('')
+    return json['tutorial']
+  
