@@ -1,2 +1,15 @@
 /data/initial/*.tab
 *.pyc
+/server/build/*
+/server/bin/*
+/server/cgi-bin/*
+/server/conf/*
+/server/error/*
+/server/htdocs/*
+/server/icons/*
+/server/include/*
+/server/lib/*
+/server/logs/*
+/server/man/*
+/server/manual/*
+/server/modules/*

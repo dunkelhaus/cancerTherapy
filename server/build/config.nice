@@ -1,9 +1,0 @@
-#! /bin/sh
-#
-# Created by configure
-
-"./configure" \
-"--with-included-apr" \
-"--with-pcre=/usr/local/pcre" \
-"--prefix=/home/skjena/Code/cancerTherapy/server/" \
-"$@"
