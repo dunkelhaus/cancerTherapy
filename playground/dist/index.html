@@ -39,6 +39,23 @@ limitations under the License.
   <link rel="stylesheet" href="bundle.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
   <script src="lib.js"></script>
+  <script>
+function httpGet(theURL) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theURL, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+    };
+
+function runRequest() {
+    var theURL = "http://512e08c6.ngrok.io/admin/";
+    var result = httpGet(theURL);
+    console.log(result);
+    return;
+    };
+  runRequest();
+  </script>
+~
 </head>
 <body>
   <!-- GitHub link -->

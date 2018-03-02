@@ -14,7 +14,7 @@ SECRET_KEY = '45$mxn_ry6s$=wk(__#z2ke730wxp=+u#i2ry751ie@8o)8s=*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['512e08c6.ngrok.io', 'localhost']
+ALLOWED_HOSTS = ['512e08c6.ngrok.io', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'helloapp',
-    #'rest_framework'
+    'rest_framework',
+    'mutationDnnWeb',
 ]
 
 MIDDLEWARE = [
