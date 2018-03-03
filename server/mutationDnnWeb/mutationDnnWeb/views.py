@@ -6,6 +6,28 @@ from rest_framework import status
 from .models import State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer
 
+#/v1/
+#@api_view(['GET'])
+class V1List(APIView):
+	def get(self, request):
+		if request.method == 'GET':
+			v1 = V1.objects.all()
+			serializer = V1Serializer(v1, many=True)
+			return Response(serializer.data)
+		else:
+			print("ERROR from views.py! GET ")
+
+	def post(self, request):
+		if request.method == 'POST':
+			v1 = V1.objects.all()
+			serializer = V1Serializer(data=request.data)
+			if serializer.is_Valid():
+				serializer.save()
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                else:
+                        print("ERROR from views.py! POST ")
+
 #/v1/arguments/
 #@api_view(['GET', 'POST'])
 class ArgumentList(APIView):

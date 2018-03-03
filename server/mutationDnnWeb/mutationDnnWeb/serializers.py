@@ -1,7 +1,11 @@
 from rest_framework import serializers
-from .models import State, Run, Arguments, Features, Settings
+from .models import V1, State, Run, Arguments, Features, Settings
 
 class V1Serializer(serializers.ModelSerializer):
+
+	class V1:
+		model = V1
+		fields = '__all__'
 	
 	class Arguments:
 		model = Arguments

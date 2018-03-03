@@ -23,6 +23,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^', views.home_view, name='home'),
+    url(r'^v1/', views.V1List.as_view()),
     url(r'^v1/arguments/', views.ArgumentList.as_view()),
     url(r'^v1/state/', views.StateList.as_view()),
     url(r'^v1/run/', views.RunList.as_view()),
