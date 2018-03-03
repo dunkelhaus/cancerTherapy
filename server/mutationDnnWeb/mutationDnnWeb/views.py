@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import State, Run, Arguments, Features, Settings
+from .models import V1, State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer
 
 #/v1/
