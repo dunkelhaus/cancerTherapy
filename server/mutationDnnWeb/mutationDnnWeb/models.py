@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-7 -*-
 from __future__ import unicode_literals
 
 from django.db import models
@@ -26,7 +26,7 @@ class State(models.Model):
 
 class Run(models.Model):
 	reset = models.BooleanField()
-	play = models.BooleanField()
+	play =  models.BooleanField()
 	pause = models.BooleanField()
 	showTestData = models.BooleanField()
 	discretize = models.BooleanField()
