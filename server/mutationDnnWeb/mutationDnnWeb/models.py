@@ -15,7 +15,7 @@ class V1(models.Model):
 	noise = models.IntegerField()
 	trainToTestRatio = models.FloatField()
 	numHiddenLayers = models.IntegerField()
-	networkShape = models.CharField()
+	networkShape = models.CharField(max_length=20)
 	reset = models.BooleanField()
 	play =  models.BooleanField()
 	pause = models.BooleanField()
@@ -43,7 +43,7 @@ class State(models.Model):
 	noise = models.IntegerField()
 	trainToTestRatio = models.FloatField()
 	numHiddenLayers = models.IntegerField()
-	networkShape = models.CharField()
+	networkShape = models.CharField(max_length=20)
 
 	def __str__(self):
 		return self.numHiddenLayers
