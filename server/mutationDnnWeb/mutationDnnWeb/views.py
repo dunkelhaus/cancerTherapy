@@ -34,7 +34,7 @@ class ArgumentList(APIView):
 	def get(self, request):
 		if request.method == 'GET':
 			args = Arguments.objects.all()
-			serializer = V1Serializer(args, many=True)
+			serializer = ArgSerializer(args, many=True)
 			return Response(serializer.data)
 		else:
 			print("ERROR from views.py! GET ")
@@ -42,7 +42,7 @@ class ArgumentList(APIView):
 	def post(self, request):
 		if request.method == 'POST':
 			args = Arguments.objects.all()
-			serializer = V1Serializer(data=request.data)
+			serializer = ArgSerializer(data=request.data)
 			if serializer.is_Valid():
 				serializer.save()
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -56,7 +56,7 @@ class StateList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
 			state = State.objects.all()
-			serializer = V1Serializer(state, many=True)
+			serializer = StateSerializer(state, many=True)
 			return Response(serializer.data)
                 else:
                         print("ERROR from views.py! GET ")
@@ -64,7 +64,7 @@ class StateList(APIView):
 	def post(self, request):
 		if request.method == 'POST':
 			args = State.objects.all()
-			serializer = V1Serializer(data=request.data)
+			serializer = StateSerializer(data=request.data)
 
 			if serializer.is_Valid():
 				serializer.save()
@@ -81,7 +81,7 @@ class RunList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
 			run = Run.objects.all()
-			serializer = V1Serializer(run, many=True)
+			serializer = RunSerializer(run, many=True)
 			return Response(serializer.data)
                 else:
                         print("ERROR from views.py! GET ")
@@ -90,7 +90,7 @@ class RunList(APIView):
 	def post(self, request):
 		if request.method == 'POST':
 			args = Run.objects.all()
-			serializer = V1Serializer(data=request.data)
+			serializer = RunSerializer(data=request.data)
 
 			if serializer.is_Valid():
 				serializer.save()
@@ -107,7 +107,7 @@ class FeatureList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
 			features = Features.objects.all()
-			serializer = V1Serializer(features, many=True)
+			serializer = FeatureSerializer(features, many=True)
 			return Response(serializer.data)
                 else:
                         print("ERROR from views.py! GET ")
@@ -116,7 +116,7 @@ class FeatureList(APIView):
 	def post(self, request):
 		if request.method == 'POST':
 			args = Features.objects.all()
-			serializer = V1Serializer(data=request.data)
+			serializer = FeatureSerializer(data=request.data)
 
 			if serializer.is_Valid():
 				serializer.save()
@@ -133,7 +133,7 @@ class SettingsList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
 			settings = Settings.objects.all()
-			serializer = V1Serializer(settings, many=True)
+			serializer = SettingsSerializer(settings, many=True)
 			return Response(serializer.data)
                 else:
                         print("ERROR from views.py! GET ")
@@ -141,7 +141,7 @@ class SettingsList(APIView):
 	def post(self, request):
 		if request.method == 'POST':
 			args = Features.objects.all()
-			serializer = V1Serializer(data=request.data)
+			serializer = SettingsSerializer(data=request.data)
 
 			if serializer.is_Valid():
 				serializer.save()
