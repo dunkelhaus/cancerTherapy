@@ -21,9 +21,9 @@ class V1(models.Model):
 	pause = models.BooleanField()
 	showTestData = models.BooleanField()
 	discretize = models.BooleanField()
-	features = 0 
-	dataset = 0 
-	weights = 0
+	features = models.CharField(max_length=20)
+	dataset = models.CharField(max_length=20)
+	weights = models.CharField(max_length=20)
 
 	def __Str__(self):
 		return self.activation
