@@ -46,7 +46,7 @@ class State(models.Model):
 	networkShape = models.CharField(max_length=20)
 
 	def __str__(self):
-		return self.numHiddenLayers
+		return self.networkShape
 
 class Run(models.Model):
 	reset = models.BooleanField()
@@ -56,12 +56,11 @@ class Run(models.Model):
 	discretize = models.BooleanField()
 
 	def __str__(self):
-		return self.reset
-
+		return u'%s' % (self.reset)
 
 class Features(models.Model):
 	#Not sure how to represent our features. 0 for now
-	features = 0
+	features = models.CharField(max_length=20)
 
 	def __str__(self):
 		return self.features
@@ -69,8 +68,8 @@ class Features(models.Model):
 
 class Settings(models.Model):
 	#Not sure how to represent dataset and weights. 0 for now
-	dataset = 0
-	weights = 0
+	dataset = models.CharField(max_length=20)
+	weights = models.CharField(max_length=20)
 
 	def __str__(self):
 		return self.weights
