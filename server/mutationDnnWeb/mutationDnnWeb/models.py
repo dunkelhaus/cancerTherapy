@@ -15,7 +15,7 @@ class V1(models.Model):
 	noise = models.IntegerField()
 	trainToTestRatio = models.FloatField()
 	numHiddenLayers = models.IntegerField()
-	#networkShape:[10,10]
+	networkShape = models.CharField()
 	reset = models.BooleanField()
 	play =  models.BooleanField()
 	pause = models.BooleanField()
@@ -43,7 +43,7 @@ class State(models.Model):
 	noise = models.IntegerField()
 	trainToTestRatio = models.FloatField()
 	numHiddenLayers = models.IntegerField()
-	#networkShape:[10,10]
+	networkShape = models.CharField()
 
 	def __str__(self):
 		return self.numHiddenLayers
@@ -51,7 +51,7 @@ class State(models.Model):
 class Run(models.Model):
 	reset = models.BooleanField()
 	play =  models.BooleanField()
-	pause = models.BooleanField()
+	nextButton = models.BooleanField() #can't use 'next' because its a keyword 
 	showTestData = models.BooleanField()
 	discretize = models.BooleanField()
 

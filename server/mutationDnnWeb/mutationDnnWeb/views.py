@@ -7,7 +7,7 @@ from .models import V1, State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer
 
 #/v1/
-#@api_view(['GET'])
+#@api_view(['GET', 'POST'])
 class V1List(APIView):
 	def get(self, request):
 		if request.method == 'GET':
