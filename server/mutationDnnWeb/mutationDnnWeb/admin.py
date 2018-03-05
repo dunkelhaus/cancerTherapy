@@ -5,8 +5,9 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import State, Run, Arguments, Features, Settings
+from .models import V1, State, Run, Arguments, Features, Settings
 
+admin.site.register(V1)
 admin.site.register(State)
 admin.site.register(Run)
 admin.site.register(Arguments)
