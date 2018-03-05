@@ -1,13 +1,11 @@
-#from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import V1, State, Run, Arguments, Features, Settings
-from .serializers import V1Serializer
+from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 
 #/v1/
-#@api_view(['GET', 'POST'])
 class V1List(APIView):
 	def get(self, request):
 		if request.method == 'GET':
@@ -29,7 +27,6 @@ class V1List(APIView):
                         print("ERROR from views.py! POST ")
 
 #/v1/arguments/
-#@api_view(['GET', 'POST'])
 class ArgumentList(APIView):
 	def get(self, request):
 		if request.method == 'GET':
@@ -51,7 +48,6 @@ class ArgumentList(APIView):
                         print("ERROR from views.py! POST ")
 
 #/v1/state/
-#@api_view(['GET', 'POST'])
 class StateList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
@@ -76,7 +72,6 @@ class StateList(APIView):
 
 
 #/v1/run/
-#@api_view(['GET', 'POST'])
 class RunList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
@@ -102,7 +97,6 @@ class RunList(APIView):
 
 
 #/v1/features/
-#@api_view(['GET', 'POST'])
 class FeatureList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
@@ -128,7 +122,6 @@ class FeatureList(APIView):
 
 
 #/v1/settings/
-#@api_view(['GET', 'POST'])
 class SettingsList(APIView):
 	def get(self, request):
                 if request.method == 'GET':
