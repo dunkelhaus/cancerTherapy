@@ -17,9 +17,9 @@ class V1List(APIView):
 
 	def post(self, request):
 		if request.method == 'POST':
-			v1 = V1.objects.all()
-			serializer = V1Serializer(data=request.data)
-			if serializer.is_Valid():
+			v1 = V1.objects.all().first()
+			serializer = V1Serializer(v1, data=request.data)
+			if serializer.is_valid():
 				serializer.save()
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -38,9 +38,9 @@ class ArgumentList(APIView):
 
 	def post(self, request):
 		if request.method == 'POST':
-			args = Arguments.objects.all()
-			serializer = ArgSerializer(data=request.data)
-			if serializer.is_Valid():
+			args = Arguments.objects.all().first()
+			serializer = ArgSerializer(args, data=request.data)
+			if serializer.is_valid():
 				serializer.save()
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -59,10 +59,9 @@ class StateList(APIView):
 
 	def post(self, request):
 		if request.method == 'POST':
-			args = State.objects.all()
-			serializer = StateSerializer(data=request.data)
-
-			if serializer.is_Valid():
+			state = State.objects.all().first()
+			serializer = StateSerializer(state, data=request.data)
+			if serializer.is_valid():
 				serializer.save()
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -84,10 +83,9 @@ class RunList(APIView):
 
 	def post(self, request):
 		if request.method == 'POST':
-			args = Run.objects.all()
-			serializer = RunSerializer(data=request.data)
-
-			if serializer.is_Valid():
+			run = Run.objects.all().first()
+			serializer = RunSerializer(run, data=request.data)
+			if serializer.is_valid():
 				serializer.save()
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -109,10 +107,9 @@ class FeatureList(APIView):
 	
 	def post(self, request):
 		if request.method == 'POST':
-			args = Features.objects.all()
-			serializer = FeatureSerializer(data=request.data)
-
-			if serializer.is_Valid():
+			features = Features.objects.all().first()
+			serializer = FeatureSerializer(features, data=request.data)
+			if serializer.is_valid():
 				serializer.save()
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -133,10 +130,9 @@ class SettingsList(APIView):
 
 	def post(self, request):
 		if request.method == 'POST':
-			args = Features.objects.all()
-			serializer = SettingsSerializer(data=request.data)
-
-			if serializer.is_Valid():
+			settings = Settings.objects.all().first()
+			serializer = SettingsSerializer(settings, data=request.data)
+			if serializer.is_valid():
 				serializer.save()
 				return Response(serializer.data, status=status.HTTP_201_CREATED)
 
