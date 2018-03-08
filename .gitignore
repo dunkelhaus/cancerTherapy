@@ -1,4 +1,4 @@
-/data/initial/*.tab
+
 *.pyc
 /server/build/*
 /server/bin/*
