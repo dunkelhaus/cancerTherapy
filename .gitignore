@@ -13,3 +13,4 @@
 /server/man/*
 /server/manual/*
 /server/modules/*
+*.log
