@@ -19,31 +19,87 @@ from __future__ import print_function
 
 import argparse
 import tensorflow as tf
+import pp
 
-#/v1/: ALL
-#/v1/arguments: learningRate, activation, regularization, regularizationRate, problemType
-#/v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
-#/v1/run: reset, play, nextButton, showTestData, discretize
-#/v1/settings: dataset, weights
-#/v1/features: features
+"""
+** /v1/: ALL Fields
+** /v1/arguments: learningRate, activation, regularization, regularizationRate, problemType
+** /v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
+** /v1/run: reset, play, nextButton, showTestData, discretize
+** /v1/settings: dataset, weights
+** /v1/features: features
 
-def v1Wrapper(callback):
-    callback('/v1/')
-    
-def argWrapper(callback):
-    callback('/v1/arguments/')
+** I used the method shown in link below to implement this:
+** https://www.parallelpython.com/content/view/15/30/
+"""
+def JSONload(url):
+    done = 0
+    while done == 0:
+        if """GET request comes in""":
+            done = 1
+            return jsonObj
+        else: 
+            pass
 
-def stateWrapper(callbackc):
-    callback('/v1/state/')
+# specify a field to return
+def v1Wrapper(field):
+    job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/")
+    jsonObj = job()
+    #return specified field
+    return jsonObj[field]
+ 
+# specify a field to return   
+def argWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/arguments/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/arguments/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/arguments/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
 
-def runWrapper(callback):
-    callback('/v1/run/')
+# specify a field to return
+def stateWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/state/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/state/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/state/")
+    jsonObj = job()
+    #return specified field
+    return jsonObj[field]
 
-def settingsWrapper(callback):
-    callback('/v1/settings/')
+# specify a field to return
+def runWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/run/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/run/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/run/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
 
-def featuresWrapper(callback):
-    callback('/v1/features/')
+# specify a field to return
+def settingsWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/settings/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/settings/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/settings/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
+
+# specify a field to return
+def featuresWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/features/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/features/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/features/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
 
 
 #REVIEW Verify if each and every line of routine lines up with our dataset requirements
