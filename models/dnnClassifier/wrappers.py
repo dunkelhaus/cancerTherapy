@@ -12,7 +12,6 @@ import requests
 #/v1/settings: dataset, weights
 #/v1/features: features
 
-#Request data using XMLHttpRequest and return the appropriate JSON object
 def JSONload(url):
     done = 0
     while done == 0:
@@ -23,7 +22,7 @@ def JSONload(url):
             pass
 
 
-
+"""
 def datasetWrapper(callback):
     json = JSONload('/v1/settings/')
     return json['dataset']
@@ -75,3 +74,4 @@ def regularizationRateWrapper(callback):
 def problemTypeWrapper(callback):
     json = JSONload('/v1/arguments/')
     return json['problem']
+"""
