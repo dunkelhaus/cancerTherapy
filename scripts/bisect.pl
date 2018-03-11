@@ -11,7 +11,16 @@ use bytes;
 $samplefile = shift;
 open(TAB, "<$samplefile") or die "Can't open file $samplefile \n";
 
-open(my $fh, '>>', 'headerline.out');
-print $fh <TAB>;
-close $fh;
+$count = 0;
+open(my $fh, '>>', 'headerline.out'); # Configure out file
+while($line = <TAB>) {
+    if ($count < 1) {
+        print $fh $line;
+        close $fh;
+        $count++;
+    }
+    else {
+        print "Running through other lines here."
+    }
+}
 print "Done. \n";
