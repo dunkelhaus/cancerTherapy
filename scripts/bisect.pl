@@ -13,7 +13,7 @@ open(TAB, "<$samplefile") or die "Can't open file $samplefile \n";
 
 $count = 0;
 open(my $headerline, '>>', 'headerline.out'); # Configure out file for headerline
-open(my $lungadL1, '>>', 'lungadL1.out'); # Configure out file for lungadL1
+open(my $lungad10, '>>', 'lungad10.out'); # Configure out file for lungad10
 
 while($line = <TAB>) {
     if ($count == 0) { # This is for the header line
@@ -23,8 +23,8 @@ while($line = <TAB>) {
     }
     else {
         if ($count == 1) { # This is for the header line
-            print $lungadL1 $line;
-            close $lungadL1;
+            print $lungad10 $line;
+            close $lungad10;
             $count++;
         }
         else {
