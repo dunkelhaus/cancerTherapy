@@ -66,7 +66,7 @@ def main(argv):
             # Send the feature columns in params
             'feature_columns' : feature_columns,
             # Enter hidden layer units, 2 of X nodes each [used 10 as a placeholder]
-            'hidden_units' : DNNClassifierModel.networkShape(), # [10, 10],
+            'hidden_units' : [10, 10],
             # The model must choose between X classes [3 used as placeholder]
             'n_classes' : 3,
         }
@@ -77,7 +77,7 @@ def main(argv):
     # Take batch size from DNNClassifierModel which checks for changes in value
     # May need to *wait* for DNNClassifierModel.batchSize() to return with value
     classifier.train(
-        input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, DNNClassifierModel.batchSize()),
+        input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, args.batch_size),
         steps=args.train_steps)
 
     # Evaluate the model
@@ -104,7 +104,7 @@ def main(argv):
     # But in predict mode - that function handles two modes, predict and evaluate
     # This takes predict_x as it's labels if no labels are provided, and
     predictions = classifier.predict(
-        input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=DNNClassifierModel.batchSize()))
+        input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=args.batch_size))
 
     # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
     # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")

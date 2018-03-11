@@ -14,12 +14,15 @@ import requests
 
 #Request data using XMLHttpRequest and return the appropriate JSON object
 def JSONload(url):
-    var xmlHttp = new XMLHttpRequest()
-    xmlHttp.open("GET", url, true, "vbrewer", "mlkillscancer") 
-    xmlHttp.responseType = "json"
-    xmlHttp.send(null);
-    if xmlHttp.readyState == xmlHttp.DONE:
-    	return xmlHttp.responseText
+    done = 0
+    while done == 0:
+        if """GET request comes in""":
+            done = 1
+            return jsonObj
+        else: 
+            pass
+
+
 
 def datasetWrapper(callback):
     json = JSONload('/v1/settings/')
