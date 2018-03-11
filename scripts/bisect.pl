@@ -9,8 +9,9 @@ use bytes;
 
 # Take input from file
 $samplefile = shift;
-open(TAB, "<$samplefile") or die "Can't open file $samplefile";
+open(TAB, "<$samplefile") or die "Can't open file $samplefile \n";
 
-while($sample = <TAB>) {
-    print "Sample is: $sample";
-}
+open(my $fh, '>>', 'headerline.out');
+print $fh <TAB>;
+close $fh;
+print "Done. \n";
