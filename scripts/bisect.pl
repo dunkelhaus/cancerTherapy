@@ -21,13 +21,15 @@ while($line = <TAB>) {
         close $headerline;
         $count++;
     }
-    if ($count == 1) { # This is for the header line
-        print $lungadL1 $line;
-        close $lungadL1;
-        $count++;
-    }
     else {
-        print "Running through other lines here. \n"
+        if ($count == 1) { # This is for the header line
+            print $lungadL1 $line;
+            close $lungadL1;
+            $count++;
+        }
+        else {
+            print "Running through other lines here. \n"
+        }
     }
 }
 print "Done. \n";
