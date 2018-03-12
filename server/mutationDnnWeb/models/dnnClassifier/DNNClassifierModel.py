@@ -267,7 +267,7 @@ class DNNClassifierModel:
         # May need to *wait* for DNNClassifierModel.batchSize() to return with value
         classifier.train(
             input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, self.network.state.batchSize),
-            steps=args.train_steps)
+            steps=self.network.arguments.learningRate) #learningRate yet to be integrated with gradient descent
 
         # Evaluate the model
         # Provide a lambda function to the evaluate function of the classifier, which is pmsignature's eval input print_function
