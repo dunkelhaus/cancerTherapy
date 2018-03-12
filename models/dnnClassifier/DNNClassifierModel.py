@@ -19,125 +19,87 @@ from __future__ import print_function
 
 import argparse
 import tensorflow as tf
+import pp
 
-#/v1/: ALL
-#/v1/arguments: learningRate, activation, regularization, regularizationRate, problemType
-#/v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
-#/v1/run: reset, play, nextButton, showTestData, discretize
-#/v1/settings: dataset, weights
-#/v1/features: features
-
-""" 
-    This function checks whether there has been changes
-    
-    To determine whether a change has been made: 
-        compare value stored in ../v1/ to the value in ../v1/xxxx/
-
-    When a value is changed in the playground, ../v1/xxxx/ is updated.
-    However, ../v1/ is not changed at this time and so is the two tables 
-    do not match, then we know that there has been a change. 
 """
-def checkForChanges(url, field):
-    var xmlHttpV1 = new XMLHttpRequest()
-    xmlHttpV1.open("GET", "/v1/", true, "vbrewer", "mlkillscancer") 
-    xmlHttpV1.responseType = "json"
-    xmlHttpV1.send(null);
+** /v1/: ALL Fields
+** /v1/arguments: learningRate, activation, regularization, regularizationRate, problemType
+** /v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
+** /v1/run: reset, play, nextButton, showTestData, discretize
+** /v1/settings: dataset, weights
+** /v1/features: features
 
-    var xmlHttp = new XMLHttpRequest()
-    xmlHttp.open("GET", url, true, "vbrewer", "mlkillscancer") 
-    xmlHttp.responseType = "json"
-    xmlHttp.send(null);
+** I used the method shown in link below to implement this:
+** https://www.parallelpython.com/content/view/15/30/
+"""
+def JSONload(url):
+    done = 0
+    while done == 0:
+        if """GET request comes in""":
+            done = 1
+            return jsonObj
+        else: 
+            pass
 
-    # need to retrieve field from both xmlHttpV1.responseText and 
-    # xmlHttp.responseText and compare them
-    if <changes>:
-        return True
-    else:
-        return False
+# specify a field to return
+def v1Wrapper(field):
+    job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/")
+    jsonObj = job()
+    #return specified field
+    return jsonObj[field]
+ 
+# specify a field to return   
+def argWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/arguments/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/arguments/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/arguments/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
 
-def dataset():
-    if checkForChanges("/v1/settings/","dataset"):
-       return datasetWrapper(datasetWrapper)
-    else:
-        return 'gauss'
+# specify a field to return
+def stateWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/state/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/state/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/state/")
+    jsonObj = job()
+    #return specified field
+    return jsonObj[field]
 
-def numHiddenLayers():
-    if checkForChanges("/v1/state/", "numHiddenLayers"):
-       return numHiddenLayersWrapper(numHiddenLayersWrapper)
-    else: 
-        return 2
+# specify a field to return
+def runWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/run/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/run/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/run/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
 
-def networkShape():
-    #state.ts shows this as follows: networkShape: number[] = [10, 10];
-    if checkForChanges("/v1/state/", "networkShape"):
-        return networkShapeWrapper(networkShapeWrapper)
-    else:
-        return [10,10]
+# specify a field to return
+def settingsWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/settings/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/settings/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/settings/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
 
-def showTestData():
-    if checkForChanges("/v1/run/", "showTestData"):
-        return showTestDataWrapper(showTestDataWrapper)
-    else: 
-        return False
-
-def discretize():
-    if checkForChanges("/v1/run/", "/v1/run/","discretize"):
-        return discretizeWrapper(discretizeWrapper)
-    else:
-        return False
-
-def percTrainData():
-    if checkForChanges("/v1/state/", "percTrainData"):
-        return percTrainDataWrapper(percTrainDataWrapper)
-    else:
-        return 50
-
-def noise():
-    if checkForChanges("/v1/state/", "noise"):
-        return noiseWrapper(noiseWrapper)
-    else:
-        return 0
-
-def batchSize():
-    if checkForChanges("/v1/state/", "batchSize"):
-        return batchSizeWrapper(batchSizeWrapper)
-    else:
-        return 10
-
-def activation():
-    global stateObjStatus
-    if checkForChanges("/v1/arguments/", "activation"):
-        activation = activationWrapper(activationWrapper)
-        stateObjStatus = True
-        return activation
-    else:
-        stateObjStatus = True
-        return tf.nn.relu
-
-def learningRate():
-    if checkForChanges("/v1/arguments/", "learningRate"):
-        return learningRateWrapper(learningRateWrapper)
-    else:
-        return 0.01
-
-def regularization():
-    if checkForChanges("/v1/arguments/", "regularization"):
-        return regularizationWrapper(regularizationWrapper)
-    else:
-        return L1
-
-def regularizationRate():
-    if checkForChanges("/v1/arguments/", "regularizationRate"):
-        return regularizationRateWrapper(regularizationRateWrapper)
-    else:
-        return 0
-
-def problemType():
-    if checkForChanges("/v1/arguments/", "problemType"):
-        return problemTypeWrapper(problemTypeWrapper)
-    else:
-        return 0
-
+# specify a field to return
+def featuresWrapper(field):
+	job_server = pp.Server()
+    # equiuvalent to JSONload("/v1/features/") and importing json and requests modules
+    job = job_server.submit(JSONload, ("/v1/features/"), ("json", "requests"))
+    # retrieve result of JSONload("/v1/features/")
+    jsonObj = job()	
+    #return specified field
+    return jsonObj[field]
 
 
 #REVIEW Verify if each and every line of routine lines up with our dataset requirements
@@ -172,9 +134,9 @@ def classifierModel(features, labels, mode, params):
 
     stateObjStatus = False
 
-    for units in numHiddenLayers(): #params['hidden_units']:
+    for units in params['hidden_units']:
         # units is the number of output neurons in a layer
-        net = tf.layers.dense(net, units=units, activation=activation()) # Using the ReLu activation function
+        net = tf.layers.dense(net, units=units, aactivation=tf.nn.relu) # Using the ReLu activation function
         # net signifies input layer during first iteration - when new layer is created, previous layers -
         # output is in net
 
