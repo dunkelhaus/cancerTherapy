@@ -54,7 +54,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newLearningRate = None
 
-        model.learningRateCallback(newLearningRate)
+        newLearningRatePlaceholder = model.learningRateCallback(newLearningRate)
 
         # activation
         try:
@@ -62,7 +62,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newActivation = None
 
-        model.activationCallback(newActivation)
+        newActivationPlaceholder = model.activationCallback(newActivation)
 
         # regularization
         try:
@@ -70,7 +70,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newRegularization = None
 
-        model.regularizationCallback(newRegularization)
+        newRegularizationplaceholder = model.regularizationCallback(newRegularization)
 
         # regularizationRate
         try:
@@ -78,7 +78,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newRegularizationRate = None
 
-        model.regularizationRateCallback(newRegularizationRate)
+        newRegularizationRatePlaceholder = model.regularizationRateCallback(newRegularizationRate)
 
         # problemType
         try:
@@ -86,7 +86,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newProblemType = None
 
-        model.problemTypeCallback(newProblemType)
+        newProblemTypePlaceholder = model.problemTypeCallback(newProblemType)
 
 
 #/v1/state/
@@ -123,7 +123,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newBatchSize = None
 
-        model.batchSizeCallback(newBatchSize)
+        newBatchSizePlaceholder = model.batchSizeCallback(newBatchSize)
 
         # noise
         try:
@@ -131,7 +131,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newNoise = None
 
-        model.noiseCallback(newNoise)
+        newNoisePlaceholder = model.noiseCallback(newNoise)
 
         # trainToTestRatio
         try:
@@ -139,7 +139,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newTrainToTestRatio = None
 
-        model.trainToTestRatioCallback(newTrainToTestRatio)
+        newTrainToTestRatioPlaceholder = model.trainToTestRatioCallback(newTrainToTestRatio)
 
         # numHiddenLayers
         try:
@@ -147,7 +147,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newNumHiddenLayers = None
 
-        model.numHiddenLayersCallback(newNumHiddenLayers)
+        newNumHiddenLayersPlaceholder = model.numHiddenLayersCallback(newNumHiddenLayers)
 
         # networkShape
         try:
@@ -155,7 +155,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newNetworkShape = None
 
-        model.networkShapeCallback(newNetworkShape)
+        newNetworkShapePlaceholder = model.networkShapeCallback(newNetworkShape)
 
 #/v1/run/
 class RunList(APIView):
@@ -191,7 +191,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newReset = None
 
-        model.resetCallback(newReset)
+        newResetPlaceholder = model.resetCallback(newReset)
 
         # play
         try:
@@ -199,7 +199,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newPlay = None
 
-        model.playCallback(newPlay)
+        newPlayPlaceholder = model.playCallback(newPlay)
 
         # nextButton
         try:
@@ -207,7 +207,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newNextButton = None
 
-        model.nextButtonCallback(newNextButton)
+        newNextButtonPlaceholder = model.nextButtonCallback(newNextButton)
 
         # showTestData
         try:
@@ -215,7 +215,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newShowTestData = None
 
-        model.showTestDataCallback(newShowTestData)
+        newShowTestDataPlaceholder = model.showTestDataCallback(newShowTestData)
 
         # discretize
         try:
@@ -223,7 +223,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newDiscretize = None
 
-        model.discretizeCallback(newDiscretize)
+        newDiscretizePlaceholder = model.discretizeCallback(newDiscretize)
 
 #/v1/features/
 class FeatureList(APIView):
@@ -260,7 +260,7 @@ class FeatureList(APIView):
         except ObjectDoesNotExist:
             newFeatures = None
 
-        model.featuresCallback(newFeatures)
+        newFeaturesPlaceholder = model.featuresCallback(newFeatures)
 
 #/v1/settings/
 class SettingsList(APIView):
@@ -295,7 +295,7 @@ class SettingsList(APIView):
         except ObjectDoesNotExist:
             newDataset = None
 
-        model.datasetCallback(newDataset)
+        newDatasetPlaceholder = model.datasetCallback(newDataset)
 
         # weights
         try:
@@ -303,4 +303,4 @@ class SettingsList(APIView):
         except ObjectDoesNotExist:
             newWeights = None
 
-        model.weightsCallback(newWeights)
+        newWeightsPlaceholder = model.weightsCallback(newWeights)

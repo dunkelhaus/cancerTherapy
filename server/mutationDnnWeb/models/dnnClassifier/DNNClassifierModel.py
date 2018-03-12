@@ -68,144 +68,79 @@ class DNNClassifierModel:
         else:
             return False
 
-    def dataset():
-        if checkForChanges("/v1/settings/","dataset"):
-            return datasetWrapper(datasetWrapper)
-        else:
-            return 'gauss'
+    #REVIEW Verify functions are correct
 
-    def numHiddenLayers():
-        if checkForChanges("/v1/state/", "numHiddenLayers"):
-            return numHiddenLayersWrapper(numHiddenLayersWrapper)
-        else:
-            return 2
-
-    def networkShape():
-        #state.ts shows this as follows: networkShape: number[] = [10, 10];
-        if checkForChanges("/v1/state/", "networkShape"):
-            return networkShapeWrapper(networkShapeWrapper)
-        else:
-            return [10,10]
-
-    def showTestData():
-        if checkForChanges("/v1/run/", "showTestData"):
-            return showTestDataWrapper(showTestDataWrapper)
-        else:
-            return False
-
-    def discretize():
-        if checkForChanges("/v1/run/", "/v1/run/","discretize"):
-            return discretizeWrapper(discretizeWrapper)
-        else:
-            return False
-
-    def percTrainData():
-        if checkForChanges("/v1/state/", "percTrainData"):
-            return percTrainDataWrapper(percTrainDataWrapper)
-        else:
-            return 50
-
-    def noise():
-        if checkForChanges("/v1/state/", "noise"):
-            return noiseWrapper(noiseWrapper)
-        else:
-            return 0
-
-    def batchSize():
-        if checkForChanges("/v1/state/", "batchSize"):
-            return batchSizeWrapper(batchSizeWrapper)
-        else:
-            return 10
-
-    def activation():
-        global stateObjStatus
-        if checkForChanges("/v1/arguments/", "activation"):
-            activation = activationWrapper(activationWrapper)
-            stateObjStatus = True
-            return activation
-        else:
-            stateObjStatus = True
-            return tf.nn.relu
-
-    def learningRate():
-        if checkForChanges("/v1/arguments/", "learningRate"):
-            return learningRateWrapper(learningRateWrapper)
-        else:
-            return 0.01
-
-    def regularization():
-        if checkForChanges("/v1/arguments/", "regularization"):
-            return regularizationWrapper(regularizationWrapper)
-        else:
-            return L1
-
-    def regularizationRate():
-        if checkForChanges("/v1/arguments/", "regularizationRate"):
-            return regularizationRateWrapper(regularizationRateWrapper)
-        else:
-            return 0
-
-    def problemType():
-        if checkForChanges("/v1/arguments/", "problemType"):
-            return problemTypeWrapper(problemTypeWrapper)
-        else:
-            return 0
-
-    #REVIEW Very callback functions are correct
-    #Callback functions here
     def learningRateCallback(self, args):
         self.network.arguments.learningRate = args
+        return self.network.arguments.learningRate
 
     def activationCallback(self, args):
         self.network.arguments.activation = args
+        return self.network.arguments.activation
 
     def regularizationCallback(self, args):
         self.network.arguments.regularization = args
+        return self.network.arguments.regularization
 
     def regularizationRateCallback(self, args):
         self.network.arguments.regularizationRate = args
+        return self.network.arguments.regularizationRate
 
     def problemTypeCallback(self, args):
         self.network.arguments.problemType = args
+        return self.network.arguments.problemType
 
     def batchSizeCallback(self, args):
         self.network.state.batchSize = args
+        return self.network.state.batchSize
 
     def noiseCallback(self, args):
         self.network.state.noise = args
+        return self.network.state.noise
 
     def trainToTestRatioCallback(self, args):
         self.network.state.trainToTestRatio = args
+        return self.network.state.trainToTestRatio
 
     def numHiddenLayersCallback(self, args):
         self.network.state.numHiddenLayers = args
+        return self.network.state.numHiddenLayers
 
     def networkShapeCallback(self, args):
         self.network.state.networkShape = args
+        return self.network.state.networkShape
 
     def resetCallback(self, args):
         self.network.run.reset = args
+        return self.network.run.reset
 
     def playCallback(self, args):
         self.network.run.play = args
+        return self.network.run.play
 
     def nextButtonCallback(self, args):
         self.network.run.nextButton = args
+        return self.network.run.nextButton
 
     def showTestDataCallback(self, args):
         self.network.run.showTestData = args
+        return self.network.run.showTestData
 
     def discretizeCallback(self, args):
         self.network.run.discretize = args
+        return self.network.run.discretize
 
     def featuresCallback(self, args):
         self.network.features.features = args
+        return self.network.features.features
 
     def datasetCallback(self, args):
         self.network.settings.dataset = args
+        return self.network.settings.dataset
 
     def weightsCallback(self, args):
         self.network.settings.weights = args
+        return self.network.settings.weights
 
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements
@@ -240,9 +175,9 @@ class DNNClassifierModel:
 
         stateObjStatus = False
 
-        for units in numHiddenLayers(): #params['hidden_units']:
+        for units in self.network.state.numHiddenLayers(): #params['hidden_units']:
             # units is the number of output neurons in a layer
-            net = tf.layers.dense(net, units=units, activation=nobj.args.activation) # Using the ReLu activation function
+            net = tf.layers.dense(net, units=units, activation=self.network.arguments.activation) # Using the ReLu activation function
             # net signifies input layer during first iteration - when new layer is created, previous layers -
             # output is in net
 

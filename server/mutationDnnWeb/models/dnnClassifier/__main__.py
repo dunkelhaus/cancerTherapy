@@ -8,7 +8,7 @@ Ninad Mehta | Suraj Jena
 
 A custom TensorFlow Estimator for a DNNClassifier for pmsignature classification.
 
-This code runs the files: ./DNNClassifierModel.py, and ./pmsignature.py
+This code runs the files: ./dnnClassifierModel.py, and ./pmsignature.py
 """
 # REVIEW Do Not Run
 #=======================================================
@@ -21,8 +21,8 @@ import argparse
 import tensorflow as tf
 
 import pmsignature
-import DNNClassifierModel
-from DNNClassifierModel import classifierModel
+import dnnClassifierModel
+from dnnClassifierModel import classifierModel
 
 # the CLI argument parser called argparse used to grab the [optional]
 # batch_size and train_steps arguments from the console-in
@@ -68,7 +68,7 @@ def main(argv):
             # Enter hidden layer units, 2 of X nodes each [used 10 as a placeholder]
             'hidden_units' : [10, 10],
             # The model must choose between X classes [3 used as placeholder]
-            'n_classes' : 3,
+            'n_classes' : 2,
         }
     )
 
