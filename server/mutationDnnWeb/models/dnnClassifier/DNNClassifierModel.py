@@ -142,11 +142,47 @@ class DNNClassifierModel:
         self.network.settings.weights = args
         return self.network.settings.weights
 
+    def appendToFeatureColumn(self, trainX, trainY, testX, testY): #Appends to feature_columns
+
+        feature_columns = []
+        # for each key in the trainX dictionary
+        #REVIEW after data loads successfully
+        for key in trainX.keys():
+            # append a numeric feature column to the list, with key same as the training set key
+            feature_columns.append(tf.feature_column.numeric_column(key=key))
+
+        return feature_columns
+
+    def trainData(self, classifier, trainX, trainY):
+        # Train the model
+        # Provide a lambda function to the train method for the actual input function with (features, labels, batch_size)
+        # Take batch size from DNNClassifierModel which checks for changes in value
+        # May need to *wait* for DNNClassifierModel.batchSize() to return with value
+        classifier.train(
+            input_fn=lambda:pmsignature.train_input_fn(trainX, trainY, self.network.state.batchSize),
+            steps=args.train_steps)
+
+    def customEstimator(self, feature_columns):
+        # Build DNN with 2 hidden layers, and 10, 10 units respectively (for each layer) [units are the number of output neurons]
+        # take hidden_units from DNNClassifierModel which checks for changes in networkShape
+        # May need to *wait* for DNNClassifierModel.networkShape() to return with value
+        classifier = tf.estimator.Estimator(
+            model_fn=classifierModel,
+            params={
+                # Send the feature columns in params
+                'feature_columns' : feature_columns,
+                # Enter hidden layer units, 2 of X nodes each [used 10 as a placeholder]
+                'hidden_units' : [10, 10],
+                # The model must choose between X classes [3 used as placeholder]
+                'n_classes' : 2,
+                } )
+
+        return classifier
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements
     #TODO Adjust model for our particular inputs after redefining and designing neural net
     #XXX Priority 2
-    def classifierModel(features, labels, mode, params):
+    def classifierModel(self, features, labels, mode, params):
         """
         NAME: classifierModel (dnnClassifier)
         INPUTS: (features: dictionary) - A mapping from key to tensors, the key being the type of feature e.g. '5a'

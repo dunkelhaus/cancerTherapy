@@ -21,15 +21,9 @@ import argparse
 import tensorflow as tf
 
 import pmsignature
-import dnnClassifierModel
+from dnnClassifierModel import DNNClassifierModel
 from dnnClassifierModel import classifierModel
 
-# the CLI argument parser called argparse used to grab the [optional]
-# batch_size and train_steps arguments from the console-in
-parser = argparse.ArgumentParser()
-parser.add_argument('--batch_size', default=100, type=int, help='batch size')
-parser.add_argument('--train_steps', default=1000, type=int,
-                    help='number of training steps')
 
 #REVIEW EVERY LINE CAREFULLY
 #HACK Comment sections out while testing to help go 1by1
@@ -43,42 +37,20 @@ def main(argv):
                     and classify sample input data defined in the below main method to compute test results in real-time,
                     to observe and test the classifier's functionality.
     """
-    # accept command line parser arguments using argparse's Parser
-    args = parser.parse_args(argv[1:])
 
-    # TODO
+    model = DNNClassifierModel()
+
+    # TODO Have to update the dataset to Dr. Quon's data
     # Fetch the data from the dataset  - done by load_data() in pmsignature/pmsignature.py
     (train_x, train_y), (test_x, test_y) = pmsignature.load_data()
 
-    feature_columns = []
-    # for each key in the train_x dictionary
-    #REVIEW after data loads successfully
-    for key in train_x.keys():
-        # append a numeric feature column to the list, with key same as the training set key
-        feature_columns.append(tf.feature_column.numeric_column(key=key))
+    featureColumns = appendToFeatureColumn(trainX, trainY, testX, testY)
+    # TODO
 
-    # Build DNN with 2 hidden layers, and 10, 10 units respectively (for each layer) [units are the number of output neurons]
-    # take hidden_units from DNNClassifierModel which checks for changes in networkShape
-    # May need to *wait* for DNNClassifierModel.networkShape() to return with value
-    classifier = tf.estimator.Estimator(
-        model_fn=classifierModel,
-        params={
-            # Send the feature columns in params
-            'feature_columns' : feature_columns,
-            # Enter hidden layer units, 2 of X nodes each [used 10 as a placeholder]
-            'hidden_units' : [10, 10],
-            # The model must choose between X classes [3 used as placeholder]
-            'n_classes' : 2,
-        }
-    )
+    #Call customEstimator in class DNNClassifierModel
+    customClassifier = model.customEstimator(featureColumns)
 
-    # Train the model
-    # Provide a lambda function to the train method for the actual input function with (features, labels, batch_size)
-    # Take batch size from DNNClassifierModel which checks for changes in value
-    # May need to *wait* for DNNClassifierModel.batchSize() to return with value
-    classifier.train(
-        input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, args.batch_size),
-        steps=args.train_steps)
+    model.trainData(customClassifier, train_x, train_y)
 
     # Evaluate the model
     # Provide a lambda function to the evaluate function of the classifier, which is pmsignature's eval input print_function
@@ -90,7 +62,7 @@ def main(argv):
 
     # Generate Predictions from the model
     # expected holds the expected classes to be classified into
-    expected = ['BRCA', 'Lung Adeno', 'Other']
+    expected = ['Melanoma', 'Lung Adeno']
     # Predict x holds the test data to be used to display results after the model has been trained and evaluated
     predict_x = {
         'mutation' : [5, 3, 1]
