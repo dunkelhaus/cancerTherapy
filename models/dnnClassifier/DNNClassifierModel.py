@@ -136,7 +136,7 @@ def classifierModel(features, labels, mode, params):
 
     for units in params['hidden_units']:
         # units is the number of output neurons in a layer
-        net = tf.layers.dense(net, units=units, aactivation=tf.nn.relu) # Using the ReLu activation function
+        net = tf.layers.dense(net, units=units, activation=tf.nn.relu) # Using the ReLu activation function
         # net signifies input layer during first iteration - when new layer is created, previous layers -
         # output is in net
 
