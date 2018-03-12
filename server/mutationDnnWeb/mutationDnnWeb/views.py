@@ -6,7 +6,7 @@ from rest_framework import status
 from .models import V1, State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 
-#from mlmodels.dnnClassifier.DNNClassifierModel import djangoToTensorflow
+from models.dnnClassifier.dnnClassifierModel import DNNClassifierModel
 #/v1/
 model = DNNClassifierModel()
 
@@ -16,8 +16,6 @@ class V1List(APIView):
         if request.method == 'GET':
             v1 = V1.objects.all()
             serializer = V1Serializer(v1, many=True)
-            #Callback to tensorflow here
-            #splitV1List(  ,  v1) #Add callback here?
             return Response(serializer.data)
         else:
             print("ERROR from views.py! GET ")
@@ -27,11 +25,11 @@ class V1List(APIView):
 class ArgumentList(APIView):
     def get(self, request):
         if request.method == 'GET':
-            args = Arguments.objects.all()
-            serializer = ArgSerializer(args, many=True)
-            #Callback to tensorflow here
-            #splitArgumentList(  ,  args) #Add callback here?
-            return Response(serializer.data)
+            #args = Arguments.objects.all()  NOTE Not needed, commented for now
+            #serializer = ArgSerializer(args, many=True) NOTE Not needed, commented for now
+            arguments = model.network.getArguments()
+            serializer2 = ArgSerializer(arguments, many=True)
+            return Response(serializer2.data)
         else:
             print("ERROR from views.py! GET ")
 
@@ -95,10 +93,11 @@ class ArgumentList(APIView):
 class StateList(APIView):
     def get(self, request):
         if request.method == 'GET':
-            state = State.objects.all()
-            serializer = StateSerializer(state, many=True)
-            #djangoToTensorflow()
-            return Response(serializer.data)
+            #state = State.objects.all() NOTE Not needed, commented for now
+            #serializer = StateSerializer(state, many=True) NOTE Not needed, commented for now
+            states = model.network.getState()
+            serializer2 = ArgSerializer(states, many=True)
+            return Response(serializer2.data)
         else:
             print("ERROR from views.py! GET ")
 
@@ -162,10 +161,11 @@ class StateList(APIView):
 class RunList(APIView):
     def get(self, request):
         if request.method == 'GET':
-            run = Run.objects.all()
-            serializer = RunSerializer(run, many=True)
-            #djangoToTensorflow()
-            return Response(serializer.data)
+            #run = Run.objects.all() NOTE Not needed, commented for now
+            #serializer = RunSerializer(run, many=True) NOTE Not needed, commented for now
+            runs = model.network.getRun()
+            serializer2 = ArgSerializer(runs, many=True)
+            return Response(serializer2.data)
         else:
             print("ERROR from views.py! GET ")
 
@@ -229,10 +229,11 @@ class RunList(APIView):
 class FeatureList(APIView):
     def get(self, request):
         if request.method == 'GET':
-            features = Features.objects.all()
-            serializer = FeatureSerializer(features, many=True)
-            #djangoToTensorflow()
-            return Response(serializer.data)
+            #features = Features.objects.all() NOTE Not needed, commented for now
+            #serializer = FeatureSerializer(features, many=True) NOTE Not needed, commented for now
+            feature = model.network.getFeatures()
+            serializer2 = ArgSerializer(feature, many=True)
+            return Response(serializer2.data)
         else:
             print("ERROR from views.py! GET ")
 
@@ -265,10 +266,11 @@ class FeatureList(APIView):
 class SettingsList(APIView):
     def get(self, request):
         if request.method == 'GET':
-            settings = Settings.objects.all()
-            serializer = SettingsSerializer(settings, many=True)
-            #djangoToTensorflow()
-            return Response(serializer.data)
+            #settings = Settings.objects.all() NOTE Not needed, commented for now
+            #serializer = SettingsSerializer(settings, many=True) NOTE Not needed, commented for now
+            setting = model.network.getSettings()
+            serializer2 = ArgSerializer(setting, many=True)
+            return Response(serializer2.data)
         else:
             print("ERROR from views.py! GET ")
 

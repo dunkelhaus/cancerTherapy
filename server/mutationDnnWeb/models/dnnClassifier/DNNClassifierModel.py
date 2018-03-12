@@ -16,7 +16,12 @@ This code runs in correlation with ./pmsignature.py, overseen by ./__main__.py
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
+from models.typings.arguments import Arguments
+from models.typings.state import State
+from models.typings.run import Run
+from models.typings.features import Features
+from models.typings.settings import Settings
+from models.typings.network import Network
 import argparse
 import tensorflow as tf
 
@@ -39,6 +44,11 @@ import tensorflow as tf
 """
 
 class DNNClassifierModel:
+
+    network = None
+
+    def __init__(self):
+        self.network = Network()
 
     def checkForChanges(url, field):
         var xmlHttpV1 = new XMLHttpRequest()
@@ -144,58 +154,58 @@ class DNNClassifierModel:
     #REVIEW Very callback functions are correct
     #Callback functions here
     def learningRateCallback(self, args):
+        self.network.arguments.learningRate = args
 
     def activationCallback(self, args):
+        self.network.arguments.activation = args
 
     def regularizationCallback(self, args):
+        self.network.arguments.regularization = args
 
     def regularizationRateCallback(self, args):
+        self.network.arguments.regularizationRate = args
 
     def problemTypeCallback(self, args):
+        self.network.arguments.problemType = args
 
     def batchSizeCallback(self, args):
+        self.network.state.batchSize = args
 
     def noiseCallback(self, args):
+        self.network.state.noise = args
 
     def trainToTestRatioCallback(self, args):
+        self.network.state.trainToTestRatio = args
 
     def numHiddenLayersCallback(self, args):
+        self.network.state.numHiddenLayers = args
 
     def networkShapeCallback(self, args):
+        self.network.state.networkShape = args
 
     def resetCallback(self, args):
+        self.network.run.reset = args
 
     def playCallback(self, args):
-
-    def pauseCallback(self, args):
+        self.network.run.play = args
 
     def nextButtonCallback(self, args):
+        self.network.run.nextButton = args
 
     def showTestDataCallback(self, args):
+        self.network.run.showTestData = args
 
     def discretizeCallback(self, args):
+        self.network.run.discretize = args
 
     def featuresCallback(self, args):
+        self.network.features.features = args
 
     def datasetCallback(self, args):
+        self.network.settings.dataset = args
 
     def weightsCallback(self, args):
-
-    #REVIEW Code from Django grabbed there
-
-    def splitV1List(argumentList):
-
-    def splitArgumentList(argumentList):
-
-    def splitStateList(argumentList):
-
-    def splitRunList(argumentList):
-
-    def splitFeatureList(argumentList):
-
-    def splitSettingsList(argumentList):
-
-
+        self.network.settings.weights = args
 
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements

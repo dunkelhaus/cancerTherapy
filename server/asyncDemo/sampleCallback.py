@@ -8,7 +8,7 @@ from types.features import Features
 from types.run import Run
 from types.network import Network
 
-class DNNClassifierModel():
+class DNNClassifierModel:
 	network = None
 
 	def __init__(self):
@@ -17,6 +17,5 @@ class DNNClassifierModel():
 	def classifierModel(features, labels, mode, params):
 		tf.layers.dense(..., activation = self.network.arguments.activation, ...)
 		# And so on, each dynamic element's actual value, (i.e. the one to be used for computation) comes from the Network object belonging to the main model object, which the Django code
-		# will create when we start the whole thing [server] up - one model obj is created, which contains the network obj that the backend 
-		# updates dynamically based on the latest request. 
-	 
+		# will create when we start the whole thing [server] up - one model obj is created, which contains the network obj that the backend
+		# updates dynamically based on the latest request.
