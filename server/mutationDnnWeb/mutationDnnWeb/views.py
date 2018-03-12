@@ -8,6 +8,8 @@ from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerial
 
 #from mlmodels.dnnClassifier.DNNClassifierModel import djangoToTensorflow
 #/v1/
+model = DNNClassifierModel()
+
 class V1List(APIView):
 
     def get(self, request):
@@ -53,7 +55,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newLearningRate = None
 
-        learningRateCallback(newLearningRate)
+        model.learningRateCallback(newLearningRate)
 
         # activation
         try:
@@ -61,7 +63,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newActivation = None
 
-        activationCallback(newActivation)
+        model.activationCallback(newActivation)
 
         # regularization
         try:
@@ -69,7 +71,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newRegularization = None
 
-        regularizationCallback(newRegularization)
+        model.regularizationCallback(newRegularization)
 
         # regularizationRate
         try:
@@ -77,7 +79,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newRegularizationRate = None
 
-        regularizationRateCallback(newRegularizationRate)
+        model.regularizationRateCallback(newRegularizationRate)
 
         # problemType
         try:
@@ -85,7 +87,7 @@ class ArgumentList(APIView):
         except ObjectDoesNotExist:
             newProblemType = None
 
-        problemTypeCallback(newProblemType)
+        model.problemTypeCallback(newProblemType)
 
 
 #/v1/state/
@@ -121,7 +123,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newBatchSize = None
 
-        batchSizeCallback(newBatchSize)
+        model.batchSizeCallback(newBatchSize)
 
         # noise
         try:
@@ -129,7 +131,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newNoise = None
 
-        noiseCallback(newNoise)
+        model.noiseCallback(newNoise)
 
         # trainToTestRatio
         try:
@@ -137,7 +139,7 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newTrainToTestRatio = None
 
-        trainToTestRatioCallback(newTrainToTestRatio)
+        model.trainToTestRatioCallback(newTrainToTestRatio)
 
         # numHiddenLayers
         try:
@@ -145,13 +147,15 @@ class StateList(APIView):
         except ObjectDoesNotExist:
             newNumHiddenLayers = None
 
+        model.numHiddenLayersCallback(newNumHiddenLayers)
+
         # networkShape
         try:
             newNetworkShape = State.objects.get(name="networkShape")
         except ObjectDoesNotExist:
             newNetworkShape = None
 
-        networkShapeCallback(newNetworkShape)
+        model.networkShapeCallback(newNetworkShape)
 
 #/v1/run/
 class RunList(APIView):
@@ -186,7 +190,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newReset = None
 
-        resetCallback(newReset)
+        model.resetCallback(newReset)
 
         # play
         try:
@@ -194,7 +198,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newPlay = None
 
-        playCallback(newPlay)
+        model.playCallback(newPlay)
 
         # nextButton
         try:
@@ -202,7 +206,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newNextButton = None
 
-        nextButtonCallback(newNextButton)
+        model.nextButtonCallback(newNextButton)
 
         # showTestData
         try:
@@ -210,7 +214,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newShowTestData = None
 
-        showTestDataCallback(newShowTestData)
+        model.showTestDataCallback(newShowTestData)
 
         # discretize
         try:
@@ -218,7 +222,7 @@ class RunList(APIView):
         except ObjectDoesNotExist:
             newDiscretize = None
 
-        discretizeCallback(newDiscretize)
+        model.discretizeCallback(newDiscretize)
 
 #/v1/features/
 class FeatureList(APIView):
@@ -254,7 +258,7 @@ class FeatureList(APIView):
         except ObjectDoesNotExist:
             newFeatures = None
 
-        featuresCallback(newFeatures)
+        model.featuresCallback(newFeatures)
 
 #/v1/settings/
 class SettingsList(APIView):
@@ -288,7 +292,7 @@ class SettingsList(APIView):
         except ObjectDoesNotExist:
             newDataset = None
 
-        datasetCallback(newDataset)
+        model.datasetCallback(newDataset)
 
         # weights
         try:
@@ -296,4 +300,4 @@ class SettingsList(APIView):
         except ObjectDoesNotExist:
             newWeights = None
 
-        weightsCallback(newWeights)
+        model.weightsCallback(newWeights)
