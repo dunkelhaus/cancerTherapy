@@ -1,4 +1,4 @@
-/data/initial/*.tab
+
 *.pyc
 /server/build/*
 /server/bin/*
@@ -13,3 +13,4 @@
 /server/man/*
 /server/manual/*
 /server/modules/*
+*.log

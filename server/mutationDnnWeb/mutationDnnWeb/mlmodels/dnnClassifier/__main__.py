@@ -10,6 +10,9 @@ A custom TensorFlow Estimator for a DNNClassifier for pmsignature classification
 
 This code runs the files: ./DNNClassifierModel.py, and ./pmsignature.py
 """
+
+#Define a global variable NETWORK
+#
 # REVIEW Do Not Run
 #=======================================================
 
