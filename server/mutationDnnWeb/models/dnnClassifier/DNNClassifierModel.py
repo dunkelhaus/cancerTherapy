@@ -251,7 +251,7 @@ class DNNClassifierModel:
         # May need to *wait* for DNNClassifierModel.networkShape() to return with value
         classifier = tf.estimator.Estimator(
             model_fn=classifierModel,
-            params={
+            params={ #NOTE Unsure about hidden_units. Find a way to integrate networkShape here (hiddenLayers with the hiddenUnits)
                 # Send the feature columns in params
                 'feature_columns' : feature_columns,
                 # Enter hidden layer units, 2 of X nodes each [used 10 as a placeholder]
