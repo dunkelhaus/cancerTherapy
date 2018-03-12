@@ -5,7 +5,7 @@ from types.arguments import Arguments
 from types.state import State
 # And so on for the rest of the subtype imports
 
-class Network():
+class Network:
 
 	def __init__(self):
 		self.arguments = Arguments()

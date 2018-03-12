@@ -5,10 +5,10 @@
 model = getDNNClassifierModel() # Gets the DNNClassifierModel from wherever it is first created; from the origin of control flow
 # And stores it as a global variable for future access to the same model object
 
-class V1Arguments():
+class V1Arguments:
 	def argumentDecoder(args):
-		#Split args into: 
-		#		- activation 
+		#Split args into:
+		#		- activation
 		#		- learningRate
 		#		- regularzation
 		#		- regRate
@@ -22,11 +22,11 @@ class V1Arguments():
 		model.problemTypeCallback(problemType)
 
 		return
-		
+
 	def post():
 		args = None # collect args value here
 		argumentDecoder(args)
-		
+
 		return
 
 	def get():
