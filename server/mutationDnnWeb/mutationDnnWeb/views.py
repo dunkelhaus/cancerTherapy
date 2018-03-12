@@ -22,6 +22,7 @@ class V1List(APIView):
         else:
             print("ERROR from views.py! GET ")
 
+
 #/v1/arguments/
 class ArgumentList(APIView):
     def get(self, request):
