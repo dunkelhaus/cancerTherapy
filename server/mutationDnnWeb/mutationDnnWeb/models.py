@@ -10,7 +10,7 @@ class V1(models.Model):
 	activation = models.CharField(max_length=10)
 	regularization = models.CharField(max_length=10)
 	regularizationRate = models.IntegerField()
-	problemType = models.CharField(max_length=20)	
+	problemType = models.CharField(max_length=20)
 	batchSize = models.IntegerField()
 	noise = models.IntegerField()
 	trainToTestRatio = models.FloatField()
@@ -51,7 +51,7 @@ class State(models.Model):
 class Run(models.Model):
 	reset = models.BooleanField()
 	play =  models.BooleanField()
-	nextButton = models.BooleanField() #can't use 'next' because its a keyword 
+	nextButton = models.BooleanField() #can't use 'next' because its a keyword
 	showTestData = models.BooleanField()
 	discretize = models.BooleanField()
 
