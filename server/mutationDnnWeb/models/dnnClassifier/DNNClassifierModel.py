@@ -266,7 +266,7 @@ class DNNClassifierModel:
         # Take batch size from DNNClassifierModel which checks for changes in value
         # May need to *wait* for DNNClassifierModel.batchSize() to return with value
         classifier.train(
-            input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, args.batch_size),
+            input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, self.network.state.batchSize),
             steps=args.train_steps)
 
         # Evaluate the model
@@ -292,7 +292,7 @@ class DNNClassifierModel:
         # But in predict mode - that function handles two modes, predict and evaluate
         # This takes predict_x as it's labels if no labels are provided, and
         predictions = classifier.predict(
-            input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=args.batch_size))
+            input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=self.network.state.batchSize))
 
         # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
         # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")
