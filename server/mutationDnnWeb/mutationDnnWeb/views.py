@@ -5,8 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import V1, State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
-
-from models.dnnClassifier.dnnClassifierModel import DNNClassifierModel
+from classifiers.dnnClassifier.DNNClassifierModel import DNNClassifierModel
 #/v1/
 model = DNNClassifierModel()
 

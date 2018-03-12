@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import url
 from django.conf.urls import include
 from django.contrib import admin
-from helloapp import views
 from mutationDnnWeb.views import V1List, ArgumentList, StateList, RunList, FeatureList, SettingsList
 from rest_framework.urlpatterns import format_suffix_patterns
 
@@ -29,4 +28,3 @@ urlpatterns = [
     url(r'^v1/settings/', SettingsList.as_view()),
     url(r'^v1/', V1List.as_view()),
 ]
-
