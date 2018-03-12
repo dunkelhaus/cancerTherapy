@@ -20,16 +20,6 @@ class V1List(APIView):
         else:
             print("ERROR from views.py! GET ")
 
-    def V1ListDecoder():
-
-        # Extract the following
-
-        # weights
-        try:
-            newWeights = V1.objects.get(name="weights")
-        except ObjectDoesNotExist:
-            newWeights = None
-
 #/v1/arguments/
 class ArgumentList(APIView):
     def get(self, request):
