@@ -8,7 +8,7 @@ from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerial
 
 #from mlmodels.dnnClassifier.DNNClassifierModel import djangoToTensorflow
 #/v1/
-model = DNNClassifierModel()
+# model = DNNClassifierModel()
 
 class V1List(APIView):
 

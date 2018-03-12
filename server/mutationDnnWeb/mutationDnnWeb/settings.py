@@ -14,7 +14,7 @@ SECRET_KEY = '45$mxn_ry6s$=wk(__#z2ke730wxp=+u#i2ry751ie@8o)8s=*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['e9773f4f.ngrok.io', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['dlforcancertherapy.cf', '35.184.171.249', 'localhost', '127.0.0.1']
 
 
 # Application definition
