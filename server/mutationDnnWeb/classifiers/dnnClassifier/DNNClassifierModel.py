@@ -74,74 +74,92 @@ class DNNClassifierModel:
 
     def learningRateCallback(self, args):
         self.network.arguments.learningRate = args
+
         return self.network.arguments.learningRate
 
     def activationCallback(self, args):
         self.network.arguments.activation = args
+
         return self.network.arguments.activation
 
     def regularizationCallback(self, args):
         self.network.arguments.regularization = args
+
         return self.network.arguments.regularization
 
     def regularizationRateCallback(self, args):
         self.network.arguments.regularizationRate = args
+
         return self.network.arguments.regularizationRate
 
     def problemTypeCallback(self, args):
         self.network.arguments.problemType = args
+
         return self.network.arguments.problemType
 
     def batchSizeCallback(self, args):
         self.network.state.batchSize = args
+
         return self.network.state.batchSize
 
     def noiseCallback(self, args):
         self.network.state.noise = args
+
         return self.network.state.noise
 
     def trainToTestRatioCallback(self, args):
         self.network.state.trainToTestRatio = args
+
         return self.network.state.trainToTestRatio
 
     def numHiddenLayersCallback(self, args):
         self.network.state.numHiddenLayers = args
+
         return self.network.state.numHiddenLayers
 
     def networkShapeCallback(self, args):
         self.network.state.networkShape = args
+
         return self.network.state.networkShape
 
     def resetCallback(self, args):
         self.network.run.reset = args
+
         return self.network.run.reset
 
     def playCallback(self, args):
         self.network.run.play = args
+
         return self.network.run.play
 
     def nextButtonCallback(self, args):
         self.network.run.nextButton = args
+
         return self.network.run.nextButton
 
     def showTestDataCallback(self, args):
         self.network.run.showTestData = args
+
         return self.network.run.showTestData
 
     def discretizeCallback(self, args):
         self.network.run.discretize = args
+
         return self.network.run.discretize
 
     def featuresCallback(self, args):
         self.network.features.features = args
+
         return self.network.features.features
 
     def datasetCallback(self, args):
         self.network.settings.dataset = args
+
         return self.network.settings.dataset
 
     def weightsCallback(self, args):
         self.network.settings.weights = args
+
         return self.network.settings.weights
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements
@@ -174,16 +192,11 @@ class DNNClassifierModel:
         # returns a dense Tensor as the input layer based on provided feature_columns
         net = tf.feature_column.input_layer(features, params['feature_columns'])
 
-        stateObjStatus = False
-
         for units in self.network.state.numHiddenLayers(): #params['hidden_units']:
             # units is the number of output neurons in a layer
             net = tf.layers.dense(net, units=units, activation=self.network.arguments.activation) # Using the ReLu activation function
             # net signifies input layer during first iteration - when new layer is created, previous layers -
             # output is in net
-
-        while stateObjStatus == False:
-            # wait
 
         # Compute logits (one per class)
         # No activation function defines this as the output layer
