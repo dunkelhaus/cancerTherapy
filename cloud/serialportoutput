@@ -1,0 +1,3 @@
+#!/bin/bash
+
+gcloud compute instances get-serial-port-output deb-8-data-analysis --zone us-central1-f
