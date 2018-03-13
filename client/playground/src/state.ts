@@ -36,6 +36,14 @@ export let regularizations: {[key: string]: nn.RegularizationFunction} = {
 
 /** A map between dataset names and functions that generate classification data. */
 export let datasets: {[key: string]: dataset.DataGenerator} = {
+  "lungad_1A": dataset.classifyLungad_1A, 
+  "lungad_10A": dataset.classifyLungad_10A, 
+  "melanoma_1A": dataset.classifyMelanoma_1A, 
+  "melanoma_10A": dataset.classifyMelanoma_10A, 
+  "lungad_1B": dataset.classifyLungad_1B, 
+  "lungad_10B": dataset.classifyLungad_10B, 
+  "melanoma_1B": dataset.classifyMelanoma_1B,
+  "melanoma_10B": dataset.classifyMelanoma_10B,
   "circle": dataset.classifyCircleData,
   "xor": dataset.classifyXORData,
   "gauss": dataset.classifyTwoGaussData,
@@ -166,7 +174,9 @@ v1JSON = httpGetAsync("http://dlforcancertherapy.cf/v1/");
   numHiddenLayers = v1JSON.numHiddenLayers;
   //hiddenLayerControls: any[] = [];
   networkShape: number[] = v1JSON.networkShape;
-  //x = true;
+
+  // to be replaced by our features
+  //x = true;   
   //y = true;
   //xTimesY = false;
   //xSquared = false;

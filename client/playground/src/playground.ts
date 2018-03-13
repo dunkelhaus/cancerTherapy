@@ -351,7 +351,7 @@ function makeGUI() {
   let activationDropdown = d3.select("#activations").on("change", function() {
     state.activation = activations[this.value];
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
@@ -363,7 +363,7 @@ function makeGUI() {
   let learningRate = d3.select("#learningRate").on("change", function() {
     state.learningRate = +this.value;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
@@ -376,7 +376,7 @@ function makeGUI() {
       function() {
     state.regularization = regularizations[this.value];
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
@@ -388,7 +388,7 @@ function makeGUI() {
   let regularRate = d3.select("#regularRate").on("change", function() {
     state.regularizationRate = +this.value;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
