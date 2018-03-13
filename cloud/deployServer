@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source /home/skjens/tensorenv/bin/activate
+python /home/skjena/cancerTherapy/server/mutationDnnWeb/manage.py runserver 0.0.0.0:80
+
