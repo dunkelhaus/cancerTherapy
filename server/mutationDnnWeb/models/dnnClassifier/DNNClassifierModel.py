@@ -1,4 +1,4 @@
-#!/usr/bin/python
+.#!/usr/bin/python
 """
 Deep Learning for Cancer Therapy
 
@@ -6,9 +6,9 @@ Authors:
 Kumud Ravisankaran | Valeria Brewer
 Ninad Mehta | Suraj Jena
 
-A custom TensorFlow Estimator for a DNNClassifier for pmsignature classification.
+A custom TensorFlow Estimator for a DNNClassifier for mutation classification.
 
-This code runs in correlation with ./pmsignature.py, overseen by ./__main__.py
+This code runs in correlation with ./dataProcessor.py, overseen by ./__main__.py
 """
 # REVIEW Do Not Run
 #=======================================================
@@ -24,7 +24,7 @@ from models.typings.settings import Settings
 from models.typings.network import Network
 import argparse
 import tensorflow as tf
-import pmsignature
+import dataProcessor
 
 
 #/v1/: ALL
@@ -233,8 +233,8 @@ class DNNClassifierModel:
 
     def start():
         # TODO
-        # Fetch the data from the dataset  - done by load_data() in pmsignature/pmsignature.py
-        (train_x, train_y), (test_x, test_y) = pmsignature.load_data()
+        # Fetch the data from the dataset  - done by load_data() in ./dataProcessor.py
+        (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
 
         feature_columns = []
         # for each key in the train_x dictionary
@@ -263,13 +263,13 @@ class DNNClassifierModel:
         # Take batch size from DNNClassifierModel which checks for changes in value
         # May need to *wait* for DNNClassifierModel.batchSize() to return with value
         classifier.train(
-            input_fn=lambda:pmsignature.train_input_fn(train_x, train_y, self.network.state.batchSize),
+            input_fn=lambda:dataProcessor.train_input_fn(train_x, train_y, self.network.state.batchSize),
             steps=self.network.arguments.learningRate) #learningRate yet to be integrated with gradient descent
 
         # Evaluate the model
-        # Provide a lambda function to the evaluate function of the classifier, which is pmsignature's eval input print_function
-        # Basically above 2 methods are wrappers for the original, our train/eval_input_fn from pmsignature
-        eval_result = classifier.evaluate(input_fn=lambda:pmsignature.train_input_fn(train_k))
+        # Provide a lambda function to the evaluate function of the classifier, which is dataProcessor's eval input print_function
+        # Basically above 2 methods are wrappers for the original, our train/eval_input_fn from dataProcessor
+        eval_result = classifier.evaluate(input_fn=lambda:dataProcessor.train_input_fn(train_k))
 
         print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
 
@@ -285,7 +285,7 @@ class DNNClassifierModel:
             'threet' : [1, 4, 2]
         }
 
-        # The same function as evaluate calls through it's lambda, eval_input_fn from pmsignature.py is called here
+        # The same function as evaluate calls through it's lambda, eval_input_fn from dataProcessor.py is called here
         # But in predict mode - that function handles two modes, predict and evaluate
         # This takes predict_x as it's labels if no labels are provided, and
         predictions = classifier.predict(
@@ -301,5 +301,5 @@ class DNNClassifierModel:
             # Prediction probability of the class id selected above - the prediction
             probability = pred_dict['probabilities'][class_id]
             # print the correct answer's label, it's probability scaled into a percentage, and the expected class from the list
-            print(template.format(pmsignature.TUMOR[class_id],
+            print(template.format(dataProcessor.TUMOR[class_id],
                                   100 * probability, expec))

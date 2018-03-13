@@ -6,10 +6,10 @@ Authors:
 Kumud Ravisankaran | Valeria Brewer
 Ninad Mehta | Suraj Jena
 
-Defines methods to use to help loading pmsignature data,
+Defines methods to use to help loading mutation signature data,
 and returning the read end of the pipeline to be read from by the network.
 
-This code runs in correlation with ./DNNClassifierModel.py, wrappers/pmwrapper.py,
+This code runs in correlation with ./DNNClassifierModel.py,
 overseen by ./__main_.py
 """
 # REVIEW Do Not Run
