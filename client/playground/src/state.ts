@@ -1,4 +1,4 @@
-/* Copyright 2016 Google Inc. All Rights Reserved.
+l/* Copyright 2016 Google Inc. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -133,36 +133,52 @@ export class State {
     {name: "hideText", type: Type.BOOLEAN}
   ];
 
+
+function httpGetAsync(theURL){
+  var xmlHttp = new XMLHttpRequest();
+  xmlHttp.onreadystatechange = function(){
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    	jsonObj = JSON.parse(xmlHttp.responseText);
+    	return jsonObj;
+  }
+  xmlHttp.open("GET", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+  xmlHttp.send(null);
+}
+
+v1JSON = httpGetAsync("http://dlforcancertherapy.cf/v1/");
+
+
   [key: string]: any;
-  learningRate = 0.03;
-  regularizationRate = 0;
-  showTestData = false;
-  noise = 0;
-  batchSize = 10;
-  discretize = false;
-  tutorial: string = null;
-  percTrainData = 50;
-  activation = nn.Activations.RELU;
-  regularization: nn.RegularizationFunction = null;
-  problem = Problem.CLASSIFICATION;
-  initZero = false;
-  hideText = false;
-  collectStats = false;
-  numHiddenLayers = 2;
-  hiddenLayerControls: any[] = [];
-  networkShape: number[] = [10, 10];
-  x = true;
-  y = true;
-  xTimesY = false;
-  xSquared = false;
-  ySquared = false;
-  cosX = false;
-  sinX = false;
-  cosY = false;
-  sinY = false;
-  dataset: dataset.DataGenerator = dataset.classifyCircleData;
-  regDataset: dataset.DataGenerator = dataset.regressPlane;
-  seed: string;
+  learningRate = v1JSON.learningRate;
+  regularizationRate = v1JSON.regularizationRate;
+  showTestData = v1JSON.showTestData;
+  noise = v1JSON.noise;
+  batchSize = v1JSON.batchSize;
+  discretize = v1JSON.discretize;
+  //tutorial: string = null;
+  percTrainData = v1JSON.percTrainData;
+  activation = v1JSON.activation;
+  regularization: v1JSON.regularization;
+  problem = v1JSON.problemType;
+  //initZero = false;
+  //hideText = false;
+  //collectStats = false;
+  numHiddenLayers = v1JSON.numHiddenLayers;
+  //hiddenLayerControls: any[] = [];
+  networkShape: number[] = v1JSON.networkShape;
+  //x = true;
+  //y = true;
+  //xTimesY = false;
+  //xSquared = false;
+  //ySquared = false;
+  //cosX = false;
+  //sinX = false;
+  //cosY = false;
+  //sinY = false;
+  dataset = v1JSON.dataset;
+  //regDataset: dataset.DataGenerator = dataset.regressPlane;
+  //seed: string;
+
 
   /**
    * Deserializes the state from the url hash.
