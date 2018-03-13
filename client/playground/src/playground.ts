@@ -249,6 +249,10 @@ function makeGUI() {
     }
     state.networkShape[state.numHiddenLayers] = 2;
     state.numHiddenLayers++;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     parametersChanged = true;
     reset();
   });
@@ -259,12 +263,20 @@ function makeGUI() {
     }
     state.numHiddenLayers--;
     state.networkShape.splice(state.numHiddenLayers);
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     parametersChanged = true;
     reset();
   });
 
   let showTestData = d3.select("#show-test-data").on("change", function() {
     state.showTestData = this.checked;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/run/state{state.discretize, state.showTestData}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     state.serialize();
     userHasInteracted();
     heatMap.updateTestPoints(state.showTestData ? testData : []);
@@ -274,6 +286,10 @@ function makeGUI() {
 
   let discretize = d3.select("#discretize").on("change", function() {
     state.discretize = this.checked;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/run/state{state.discretize, state.showTestData}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     state.serialize();
     userHasInteracted();
     updateUI();
@@ -283,6 +299,10 @@ function makeGUI() {
 
   let percTrain = d3.select("#percTrainData").on("input", function() {
     state.percTrainData = this.value;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     d3.select("label[for='percTrainData'] .value").text(this.value);
     generateData();
     parametersChanged = true;
@@ -293,6 +313,10 @@ function makeGUI() {
 
   let noise = d3.select("#noise").on("input", function() {
     state.noise = this.value;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     d3.select("label[for='noise'] .value").text(this.value);
     generateData();
     parametersChanged = true;
@@ -313,6 +337,10 @@ function makeGUI() {
 
   let batchSize = d3.select("#batchSize").on("input", function() {
     state.batchSize = this.value;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     d3.select("label[for='batchSize'] .value").text(this.value);
     parametersChanged = true;
     reset();
@@ -322,6 +350,10 @@ function makeGUI() {
 
   let activationDropdown = d3.select("#activations").on("change", function() {
     state.activation = activations[this.value];
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     parametersChanged = true;
     reset();
   });
@@ -330,6 +362,10 @@ function makeGUI() {
 
   let learningRate = d3.select("#learningRate").on("change", function() {
     state.learningRate = +this.value;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     state.serialize();
     userHasInteracted();
     parametersChanged = true;
@@ -339,6 +375,10 @@ function makeGUI() {
   let regularDropdown = d3.select("#regularizations").on("change",
       function() {
     state.regularization = regularizations[this.value];
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     parametersChanged = true;
     reset();
   });
@@ -347,6 +387,10 @@ function makeGUI() {
 
   let regularRate = d3.select("#regularRate").on("change", function() {
     state.regularizationRate = +this.value;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problemType}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     parametersChanged = true;
     reset();
   });
@@ -354,6 +398,10 @@ function makeGUI() {
 
   let problem = d3.select("#problem").on("change", function() {
     state.problem = problems[this.value];
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     generateData();
     drawDatasetThumbnails();
     parametersChanged = true;
@@ -962,17 +1010,17 @@ function reset(onStartup=false) {
 
 // Adding code (Ninad)
 // Trying to make a server request
-/* 
- * VB: XMLHTTPRequest object can be used to (1) request data from a web server, (2) update a web page 
- * without reloading the page, (3) request data from a server - after the page has loaded, (4) receive 
- * data from a server - after the page has loaded The responseXML property will be a DOM Object 
+/*
+ * VB: XMLHTTPRequest object can be used to (1) request data from a web server, (2) update a web page
+ * without reloading the page, (3) request data from a server - after the page has loaded, (4) receive
+ * data from a server - after the page has loaded The responseXML property will be a DOM Object
  * containing a parsed XML document.
- * 
+ *
  * XML document can be analyzed using either:
- * XPath (address or point to parts of it) or 
- * XMLSerializer (serialize DOM trees to strings or to files) or 
- * by manually parsing the XML to strings. 
- * 
+ * XPath (address or point to parts of it) or
+ * XMLSerializer (serialize DOM trees to strings or to files) or
+ * by manually parsing the XML to strings.
+ *
  * HTML vs XML:
  * XML is designed to carry data while HTML is designed to display data.
 */
@@ -986,7 +1034,7 @@ xmlhttp.open("POST", "./"); // request of type POST, unsure about this argument 
  * Header: specifies the header name
  * Value: specifies the header value
 */
-xmlhttp.setRequestHeader("Content-Type", "application/json"); 
+xmlhttp.setRequestHeader("Content-Type", "application/json");
 
 //Now sending json data to our python server
 console.log(toJson());
@@ -998,7 +1046,7 @@ xmlhttp.send(JSON.stringify(toJson()));
  * var url = "insert url"
  * var xmlhttp = new XMLHttpRequest();
  * xmlhttp.open("POST", url, true)
- * xmlhttp.setRequestHeader("Content-Type", "application/json"); 
+ * xmlhttp.setRequestHeader("Content-Type", "application/json");
  * xmlhttp.send(JSON.stringify(toJson()));
 */
 
