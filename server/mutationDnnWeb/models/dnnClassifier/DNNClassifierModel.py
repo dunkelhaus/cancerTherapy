@@ -87,7 +87,7 @@ class DNNClassifierModel:
     def noiseCallback(self, args):
         self.network.state.noise = args
 
-        return self.network.state.noise
+        return self.network.state.noisels
 
     def trainToTestRatioCallback(self, args):
         self.network.state.trainToTestRatio = args
@@ -176,14 +176,11 @@ class DNNClassifierModel:
 
         stateObjStatus = False
 
-        for units in self.network.state.numHiddenLayers(): #params['hidden_units']:
+        for units in range(0, self.network.state.numHiddenLayers): #params['hidden_units']:
             # units is the number of output neurons in a layer
-            net = tf.layers.dense(net, units=units, activation=self.network.arguments.activation) # Using the ReLu activation function
+            net = tf.layers.dense(net, units=self.network.state.numHiddenLayers[units], activation=self.network.arguments.activation) # Using the ReLu activation function
             # net signifies input layer during first iteration - when new layer is created, previous layers -
             # output is in net
-
-        while stateObjStatus == False:
-            # wait
 
         # Compute logits (one per class)
         # No activation function defines this as the output layer
