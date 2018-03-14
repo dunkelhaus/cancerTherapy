@@ -25,8 +25,8 @@ class V1(models.Model):
 	dataset = models.CharField(max_length=20)
 	weights = models.CharField(max_length=20)
 
-	def __Str__(self):
-		return self.activation
+	def __str__(self):
+		return self.problemType
 
 class Arguments(models.Model):
 	learningRate = models.FloatField()
@@ -36,7 +36,7 @@ class Arguments(models.Model):
 	problemType = models.CharField(max_length=20)
 
 	def __str__(self):
-		return self.activation
+		return self.learningRate
 
 class State(models.Model):
 	batchSize = models.IntegerField()
