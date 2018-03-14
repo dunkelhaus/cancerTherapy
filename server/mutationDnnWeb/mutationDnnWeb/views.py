@@ -16,7 +16,6 @@ class V1List(APIView):
         serializer = V1Serializer(v1, many=True)
         return Response(serializer.data)
 
-
 #/v1/arguments/
 class ArgumentList(APIView):
     def get(self, request):
