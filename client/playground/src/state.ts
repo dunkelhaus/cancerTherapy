@@ -104,19 +104,19 @@ export interface Property {
 export class State {
 
   private static PROPS: Property[] = [
-    -{name: "activation", type: Type.OBJECT, keyMap: activations},
-    -{name: "regularization", type: Type.OBJECT, keyMap: regularizations},
-    -{name: "batchSize", type: Type.NUMBER},
+    {name: "activation", type: Type.OBJECT, keyMap: activations},
+    {name: "regularization", type: Type.OBJECT, keyMap: regularizations},
+    {name: "batchSize", type: Type.NUMBER},
     {name: "dataset", type: Type.OBJECT, keyMap: datasets},
     {name: "regDataset", type: Type.OBJECT, keyMap: regDatasets},
-    -{name: "learningRate", type: Type.NUMBER},
-    -{name: "regularizationRate", type: Type.NUMBER},
-    -{name: "noise", type: Type.NUMBER},
-    -{name: "networkShape", type: Type.ARRAY_NUMBER},
+    {name: "learningRate", type: Type.NUMBER},
+    {name: "regularizationRate", type: Type.NUMBER},
+    {name: "noise", type: Type.NUMBER},
+    {name: "networkShape", type: Type.ARRAY_NUMBER},
     {name: "seed", type: Type.STRING},
-    -{name: "showTestData", type: Type.BOOLEAN},
-    -{name: "discretize", type: Type.BOOLEAN},
-    -{name: "percTrainData", type: Type.NUMBER},
+    {name: "showTestData", type: Type.BOOLEAN},
+    {name: "discretize", type: Type.BOOLEAN},
+    {name: "percTrainData", type: Type.NUMBER},
     {name: "x", type: Type.BOOLEAN},
     {name: "y", type: Type.BOOLEAN},
     {name: "xTimesY", type: Type.BOOLEAN},
@@ -128,7 +128,7 @@ export class State {
     {name: "sinY", type: Type.BOOLEAN},
     {name: "collectStats", type: Type.BOOLEAN},
     {name: "tutorial", type: Type.STRING},
-    -{name: "problem", type: Type.OBJECT, keyMap: problems},
+    {name: "problem", type: Type.OBJECT, keyMap: problems},
     {name: "initZero", type: Type.BOOLEAN},
     {name: "hideText", type: Type.BOOLEAN}
   ];
@@ -145,7 +145,7 @@ function httpGetAsync(theURL){
   xmlHttp.send(null);
 }
 
-v1JSON = httpGetAsync("http://dlforcancertherapy.cf/v1/");
+v1JSON = httpGetAsync("http://35.184.171.249:8000/v1/");
 
 
   [key: string]: any;

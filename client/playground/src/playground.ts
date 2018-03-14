@@ -119,7 +119,7 @@ class Player {
     this.isPlaying = true;
     globalIsPlaying = this.isPlaying;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
+    var theURL = "http://35.184.171.249:8000/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     if (this.callback) {
@@ -133,7 +133,7 @@ class Player {
     this.isPlaying = false;
     globalIsPlaying = this.isPlaying;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
+    var theURL = "http://35.184.171.249:8000/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     if (this.callback) {
@@ -262,7 +262,7 @@ function makeGUI() {
     state.networkShape[state.numHiddenLayers] = 2;
     state.numHiddenLayers++;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    var theURL = "http://35.184.171.249:8000/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
@@ -276,7 +276,7 @@ function makeGUI() {
     state.numHiddenLayers--;
     state.networkShape.splice(state.numHiddenLayers);
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    var theURL = "http://35.184.171.249:8000/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
@@ -286,7 +286,7 @@ function makeGUI() {
   let showTestData = d3.select("#show-test-data").on("change", function() {
     state.showTestData = this.checked;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
+    var theURL = "http://35.184.171.249:8000/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
@@ -299,7 +299,7 @@ function makeGUI() {
   let discretize = d3.select("#discretize").on("change", function() {
     state.discretize = this.checked;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
+    var theURL = "http://35.184.171.249:8000/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
@@ -312,7 +312,7 @@ function makeGUI() {
   let percTrain = d3.select("#percTrainData").on("input", function() {
     state.percTrainData = this.value;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    var theURL = "http://35.184.171.249:8000/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     d3.select("label[for='percTrainData'] .value").text(this.value);
@@ -326,7 +326,7 @@ function makeGUI() {
   let noise = d3.select("#noise").on("input", function() {
     state.noise = this.value;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    var theURL = "http://35.184.171.249:8000/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     d3.select("label[for='noise'] .value").text(this.value);
@@ -350,7 +350,7 @@ function makeGUI() {
   let batchSize = d3.select("#batchSize").on("input", function() {
     state.batchSize = this.value;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
+    var theURL = "http://35.184.171.249:8000/v1/state{state.batchSize, state.noise, state.percTrainData, state.numHiddenLayers, state.networkShape[state.numHiddenLayers]}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     d3.select("label[for='batchSize'] .value").text(this.value);
@@ -363,7 +363,7 @@ function makeGUI() {
   let activationDropdown = d3.select("#activations").on("change", function() {
     state.activation = activations[this.value];
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
+    var theURL = "http://35.184.171.249:8000/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
@@ -375,7 +375,7 @@ function makeGUI() {
   let learningRate = d3.select("#learningRate").on("change", function() {
     state.learningRate = +this.value;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
+    var theURL = "http://35.184.171.249:8000/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
@@ -388,7 +388,7 @@ function makeGUI() {
       function() {
     state.regularization = regularizations[this.value];
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
+    var theURL = "http://35.184.171.249:8000/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
@@ -400,7 +400,7 @@ function makeGUI() {
   let regularRate = d3.select("#regularRate").on("change", function() {
     state.regularizationRate = +this.value;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
+    var theURL = "http://35.184.171.249:8000/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     parametersChanged = true;
@@ -411,7 +411,7 @@ function makeGUI() {
   let problem = d3.select("#problem").on("change", function() {
     state.problem = problems[this.value];
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
+    var theURL = "http://35.184.171.249:8000/v1/arguments{state.learningRate, state.activation, state.regularization, state.regularizationRate, state.problem}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     generateData();
@@ -734,7 +734,7 @@ function addPlusMinusControl(x: number, layerIdx: number) {
         }
         state.networkShape[i]++;
         var xmlHttp = new XMLHttpRequest();
-        var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[i]}"
+        var theURL = "http://35.184.171.249:8000/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[i]}"
         xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
         xmlHttp.send();
         parametersChanged = true;
@@ -753,7 +753,7 @@ function addPlusMinusControl(x: number, layerIdx: number) {
         }
         state.networkShape[i]--;
         var xmlHttp = new XMLHttpRequest();
-        var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[i]}"
+        var theURL = "http://35.184.171.249:8000/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[i]}"
         xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
         xmlHttp.send();
         parametersChanged = true;
