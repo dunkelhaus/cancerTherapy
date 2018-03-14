@@ -19,8 +19,7 @@ class V1List(APIView):
 #/v1/arguments/
 class ArgumentList(APIView):
     def get(self, request):
-        #args = Arguments.objects.all()  TODO Add when DB access implemented
-        arguments = model.network.getArguments()
+        arguments = Arguments.objects.all()
         serializer = ArgSerializer(arguments, many=True)
         return Response(serializer.data)
 
@@ -36,8 +35,7 @@ class ArgumentList(APIView):
 #/v1/state/
 class StateList(APIView):
     def get(self, request):
-        #state = State.objects.all() TODO Add when DB access implemented
-        states = model.network.getState()
+        state = State.objects.all()
         serializer = StateSerializer(state, many=True)
         return Response(serializer.data)
 
@@ -53,8 +51,7 @@ class StateList(APIView):
 #/v1/run/
 class RunList(APIView):
     def get(self, request):
-        #run = Run.objects.all() TODO Add when DB access implemented
-        runs = model.network.getRun()
+        run = Run.objects.all()
         serializer = RunSerializer(run, many=True)
         return Response(serializer.data)
 
@@ -70,8 +67,7 @@ class RunList(APIView):
 #/v1/features/
 class FeatureList(APIView):
     def get(self, request):
-        #features = Features.objects.all() TODO Add when DB access implemented
-        feature = model.network.getFeatures()
+        features = Features.objects.all()
         serializer = FeatureSerializer(features, many=True)
         return Response(serializer.data)
 
@@ -87,8 +83,7 @@ class FeatureList(APIView):
 #/v1/settings/
 class SettingsList(APIView):
     def get(self, request):
-        #settings = Settings.objects.all() TODO Add when DB access implemented
-        setting = model.network.getSettings()
+        settings = Settings.objects.all()
         serializer = SettingsSerializer(settings, many=True)
 
         return Response(serializer.data)
