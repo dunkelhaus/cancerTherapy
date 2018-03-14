@@ -274,7 +274,7 @@ function makeGUI() {
   let showTestData = d3.select("#show-test-data").on("change", function() {
     state.showTestData = this.checked;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/run/state{state.discretize, state.showTestData}"
+    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
@@ -287,7 +287,7 @@ function makeGUI() {
   let discretize = d3.select("#discretize").on("change", function() {
     state.discretize = this.checked;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/run/state{state.discretize, state.showTestData}"
+    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
@@ -721,6 +721,10 @@ function addPlusMinusControl(x: number, layerIdx: number) {
           return;
         }
         state.networkShape[i]++;
+        var xmlHttp = new XMLHttpRequest();
+        var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[i]}"
+        xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+        xmlHttp.send();
         parametersChanged = true;
         reset();
       })
@@ -736,6 +740,10 @@ function addPlusMinusControl(x: number, layerIdx: number) {
           return;
         }
         state.networkShape[i]--;
+        var xmlHttp = new XMLHttpRequest();
+        var theURL = "http://dlforcancertherapy.cf/v1/state{state.batchSize, state.noise, state.trainToTestRatio, state.numHiddenLayers, state.networkShape[i]}"
+        xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+        xmlHttp.send();
         parametersChanged = true;
         reset();
       })
