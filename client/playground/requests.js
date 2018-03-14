@@ -1,7 +1,4 @@
 
-  xmlHttp.open("GET", theURL, true); // true for asynchronous
-  xmlHttp.send(null);
-}
 function httpGet(theURL) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", theURL, false); // false for synchronous request
