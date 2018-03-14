@@ -168,7 +168,7 @@ v1JSON = httpGetAsync("http://dlforcancertherapy.cf/v1/");
   networkShape: number[] = v1JSON.networkShape;
 
   // to be replaced by our features
-  //x = true;   
+  //x = true;
   //y = true;
   //xTimesY = false;
   //xSquared = false;

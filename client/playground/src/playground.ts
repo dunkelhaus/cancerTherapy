@@ -31,6 +31,8 @@ import {AppendingLineChart} from "./linechart";
 let mainWidth;
 
 // More scrolling
+let state = State.deserializeState();
+let globalIsPlaying = false;
 d3.select(".more button").on("click", function() {
   let position = 800;
   d3.transition()
@@ -115,6 +117,11 @@ class Player {
   play() {
     this.pause();
     this.isPlaying = true;
+    globalIsPlaying = this.isPlaying;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     if (this.callback) {
       this.callback(this.isPlaying);
     }
@@ -124,6 +131,11 @@ class Player {
   pause() {
     this.timerIndex++;
     this.isPlaying = false;
+    globalIsPlaying = this.isPlaying;
+    var xmlHttp = new XMLHttpRequest();
+    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
+    xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
+    xmlHttp.send();
     if (this.callback) {
       this.callback(this.isPlaying);
     }
@@ -140,7 +152,7 @@ class Player {
   }
 }
 
-let state = State.deserializeState();
+//let state = State.deserializeState();
 
 // Filter out inputs that are hidden.
 state.getHiddenProps().forEach(prop => {
@@ -274,7 +286,7 @@ function makeGUI() {
   let showTestData = d3.select("#show-test-data").on("change", function() {
     state.showTestData = this.checked;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData}"
+    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
@@ -287,7 +299,7 @@ function makeGUI() {
   let discretize = d3.select("#discretize").on("change", function() {
     state.discretize = this.checked;
     var xmlHttp = new XMLHttpRequest();
-    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData}"
+    var theURL = "http://dlforcancertherapy.cf/v1/run/{state.discretize, state.showTestData, globalIsPlaying}"
     xmlHttp.open("POST", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
     xmlHttp.send();
     state.serialize();
