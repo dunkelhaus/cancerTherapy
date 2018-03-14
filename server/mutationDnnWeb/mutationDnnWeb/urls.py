@@ -21,6 +21,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    # --- All GET request URL formats ---
     url(r'^v1/arguments/', ArgumentList.as_view()),
     url(r'^v1/state/', StateList.as_view()),
     url(r'^v1/run/', RunList.as_view()),

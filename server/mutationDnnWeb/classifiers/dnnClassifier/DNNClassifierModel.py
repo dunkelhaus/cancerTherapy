@@ -1,4 +1,4 @@
-.#!/usr/bin/python
+#!/usr/bin/python
 """
 Deep Learning for Cancer Therapy
 
@@ -16,15 +16,15 @@ This code runs in correlation with ./dataProcessor.py, overseen by ./__main__.py
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-from models.typings.arguments import Arguments
-from models.typings.state import State
-from models.typings.run import Run
-from models.typings.features import Features
-from models.typings.settings import Settings
-from models.typings.network import Network
+from typings.arguments import Arguments
+from typings.state import State
+from typings.run import Run
+from typings.features import Features
+from typings.settings import Settings
+from typings.network import Network
 import argparse
 import tensorflow as tf
-import dataProcessor
+# from dataProcessor import DataProcessor
 
 
 #/v1/: ALL
@@ -209,7 +209,7 @@ class DNNClassifierModel:
         accuracy = tf.metrics.accuracy(labels=labels,
                                                         predictions=predicted_classes,
                                                         name='acc_op')
-        metrics = {'accuracy' : accuracy
+        metrics = {'accuracy' : accuracy}
         # scalar will make accuracy available to TensorBoard in both TRAIN and EVAL modes
         tf.summary.scalar('accuracy', accuracy[1])
 
@@ -234,7 +234,7 @@ class DNNClassifierModel:
     def start():
         # TODO
         # Fetch the data from the dataset  - done by load_data() in ./dataProcessor.py
-        (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
+        #   (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
 
         feature_columns = []
         # for each key in the train_x dictionary
@@ -278,10 +278,10 @@ class DNNClassifierModel:
         expected = ['Melanoma', 'Lung Adeno']
         # Predict x holds the test data to be used to display results after the model has been trained and evaluated
         predict_x = {
-            'mutation' : [5, 3, 1]
-            'fivea' : [3, 2, 4]
-            'fivet' : [2, 1, 3]
-            'threea' : [2, 4, 1]
+            'mutation' : [5, 3, 1],
+            'fivea' : [3, 2, 4],
+            'fivet' : [2, 1, 3],
+            'threea' : [2, 4, 1],
             'threet' : [1, 4, 2]
         }
 
@@ -293,7 +293,7 @@ class DNNClassifierModel:
 
         # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
         # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")
-        for pred_dict, expec in zip(predictions, expected)
+        for pred_dict, expec in zip(predictions, expected):
             # prints the predictions
             template = ('\nPrediction is "{}" ({:.1f}%), expected "{}"')
             # class_id of the prediction
