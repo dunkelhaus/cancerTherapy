@@ -7,7 +7,7 @@ from .models import V1, State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 from classifiers.dnnClassifier.DNNClassifierModel import DNNClassifierModel
 #/v1/
-# model = DNNClassifierModel()
+model = DNNClassifierModel()
 
 class V1List(APIView):
 
@@ -36,7 +36,46 @@ class ArgumentList(APIView):
         if request.method == 'POST':
             args = Arguments.objects.all().first()
             serializer = ArgSerializer(args, data=request.data)
-            ArgumentListDecoder()
+            #ArgumentListDecoder()
+            # learningRate
+            try:
+                newLearningRate = Arguments.objects.get(name="learningRate")
+            except ObjectDoesNotExist:
+                newLearningRate = None
+
+            newLearningRatePlaceholder = model.learningRateCallback(newLearningRate)
+
+            # activation
+            try:
+                newActivation = Arguments.objects.get(name="activation")
+            except ObjectDoesNotExist:
+                newActivation = None
+
+            newActivationPlaceholder = model.activationCallback(newActivation)
+
+            # regularization
+            try:
+                newRegularization = Arguments.objects.get(name="regularization")
+            except ObjectDoesNotExist:
+                newRegularization = None
+
+            newRegularizationplaceholder = model.regularizationCallback(newRegularization)
+
+            # regularizationRate
+            try:
+                newRegularizationRate = Arguments.objects.get(name="regularizationRate")
+            except ObjectDoesNotExist:
+                newRegularizationRate = None
+
+            newRegularizationRatePlaceholder = model.regularizationRateCallback(newRegularizationRate)
+
+            # problemType
+            try:
+                newProblemType = Arguments.objects.get(name="problemType")
+            except ObjectDoesNotExist:
+                newProblemType = None
+
+            newProblemTypePlaceholder = model.problemTypeCallback(newProblemType)
 
             if serializer.is_valid():
                 serializer.save()
@@ -44,48 +83,6 @@ class ArgumentList(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             print("ERROR from views.py! POST ")
-
-    def ArgumentListDecoder():
-        #Extract the following
-        # learningRate
-        try:
-            newLearningRate = Arguments.objects.get(name="learningRate")
-        except ObjectDoesNotExist:
-            newLearningRate = None
-
-        newLearningRatePlaceholder = model.learningRateCallback(newLearningRate)
-
-        # activation
-        try:
-            newActivation = Arguments.objects.get(name="activation")
-        except ObjectDoesNotExist:
-            newActivation = None
-
-        newActivationPlaceholder = model.activationCallback(newActivation)
-
-        # regularization
-        try:
-            newRegularization = Arguments.objects.get(name="regularization")
-        except ObjectDoesNotExist:
-            newRegularization = None
-
-        newRegularizationplaceholder = model.regularizationCallback(newRegularization)
-
-        # regularizationRate
-        try:
-            newRegularizationRate = Arguments.objects.get(name="regularizationRate")
-        except ObjectDoesNotExist:
-            newRegularizationRate = None
-
-        newRegularizationRatePlaceholder = model.regularizationRateCallback(newRegularizationRate)
-
-        # problemType
-        try:
-            newProblemType = Arguments.objects.get(name="problemType")
-        except ObjectDoesNotExist:
-            newProblemType = None
-
-        newProblemTypePlaceholder = model.problemTypeCallback(newProblemType)
 
 
 #/v1/state/
@@ -104,7 +101,47 @@ class StateList(APIView):
         if request.method == 'POST':
             state = State.objects.all().first()
             serializer = StateSerializer(state, data=request.data)
-            StateListDecoder()
+            #StateListDecoder()
+            # batchSize
+            try:
+                newBatchSize = State.objects.get(name="batchSize")
+            except ObjectDoesNotExist:
+                newBatchSize = None
+
+            newBatchSizePlaceholder = model.batchSizeCallback(newBatchSize)
+
+            # noise
+            try:
+                newNoise = State.objects.get(name="noise")
+            except ObjectDoesNotExist:
+                newNoise = None
+
+            newNoisePlaceholder = model.noiseCallback(newNoise)
+
+            # trainToTestRatio
+            try:
+                newTrainToTestRatio = State.objects.get(name="trainToTestRatio")
+            except ObjectDoesNotExist:
+                newTrainToTestRatio = None
+
+            newTrainToTestRatioPlaceholder = model.trainToTestRatioCallback(newTrainToTestRatio)
+
+            # numHiddenLayers
+            try:
+                newNumHiddenLayers = State.objects.get(name="numHiddenLayers")
+            except ObjectDoesNotExist:
+                newNumHiddenLayers = None
+
+            newNumHiddenLayersPlaceholder = model.numHiddenLayersCallback(newNumHiddenLayers)
+
+            # networkShape
+            try:
+                newNetworkShape = State.objects.get(name="networkShape")
+            except ObjectDoesNotExist:
+                newNetworkShape = None
+
+            newNetworkShapePlaceholder = model.networkShapeCallback(newNetworkShape)
+
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -112,49 +149,6 @@ class StateList(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             print("ERROR from views.py! POST ")
-
-    def StateListDecoder():
-
-        # Extract the following
-        # batchSize
-        try:
-            newBatchSize = State.objects.get(name="batchSize")
-        except ObjectDoesNotExist:
-            newBatchSize = None
-
-        newBatchSizePlaceholder = model.batchSizeCallback(newBatchSize)
-
-        # noise
-        try:
-            newNoise = State.objects.get(name="noise")
-        except ObjectDoesNotExist:
-            newNoise = None
-
-        newNoisePlaceholder = model.noiseCallback(newNoise)
-
-        # trainToTestRatio
-        try:
-            newTrainToTestRatio = State.objects.get(name="trainToTestRatio")
-        except ObjectDoesNotExist:
-            newTrainToTestRatio = None
-
-        newTrainToTestRatioPlaceholder = model.trainToTestRatioCallback(newTrainToTestRatio)
-
-        # numHiddenLayers
-        try:
-            newNumHiddenLayers = State.objects.get(name="numHiddenLayers")
-        except ObjectDoesNotExist:
-            newNumHiddenLayers = None
-
-        newNumHiddenLayersPlaceholder = model.numHiddenLayersCallback(newNumHiddenLayers)
-
-        # networkShape
-        try:
-            newNetworkShape = State.objects.get(name="networkShape")
-        except ObjectDoesNotExist:
-            newNetworkShape = None
-
-        newNetworkShapePlaceholder = model.networkShapeCallback(newNetworkShape)
 
 #/v1/run/
 class RunList(APIView):
@@ -173,7 +167,46 @@ class RunList(APIView):
         if request.method == 'POST':
             run = Run.objects.all().first()
             serializer = RunSerializer(run, data=request.data)
-            RunListDecoder()
+            #RunListDecoder()
+            # reset
+            try:
+                newReset = Run.objects.get(name="reset")
+            except ObjectDoesNotExist:
+                newReset = None
+
+            newResetPlaceholder = model.resetCallback(newReset)
+
+            # play
+            try:
+                newPlay = Run.objects.get(name="play")
+            except ObjectDoesNotExist:
+                newPlay = None
+
+            newPlayPlaceholder = model.playCallback(newPlay)
+
+            # nextButton
+            try:
+                newNextButton = Run.objects.get(name="nextButton")
+            except ObjectDoesNotExist:
+                newNextButton = None
+
+            newNextButtonPlaceholder = model.nextButtonCallback(newNextButton)
+
+            # showTestData
+            try:
+                newShowTestData = Run.objects.get(name="showTestData")
+            except ObjectDoesNotExist:
+                newShowTestData = None
+
+            newShowTestDataPlaceholder = model.showTestDataCallback(newShowTestData)
+
+            # discretize
+            try:
+                newDiscretize = Run.objects.get(name="discretize")
+            except ObjectDoesNotExist:
+                newDiscretize = None
+
+            newDiscretizePlaceholder = model.discretizeCallback(newDiscretize)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -181,48 +214,6 @@ class RunList(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             print("ERROR from views.py! POST ")
-
-    def RunListDecoder():
-        #Extract the following
-        # reset
-        try:
-            newReset = Run.objects.get(name="reset")
-        except ObjectDoesNotExist:
-            newReset = None
-
-        newResetPlaceholder = model.resetCallback(newReset)
-
-        # play
-        try:
-            newPlay = Run.objects.get(name="play")
-        except ObjectDoesNotExist:
-            newPlay = None
-
-        newPlayPlaceholder = model.playCallback(newPlay)
-
-        # nextButton
-        try:
-            newNextButton = Run.objects.get(name="nextButton")
-        except ObjectDoesNotExist:
-            newNextButton = None
-
-        newNextButtonPlaceholder = model.nextButtonCallback(newNextButton)
-
-        # showTestData
-        try:
-            newShowTestData = Run.objects.get(name="showTestData")
-        except ObjectDoesNotExist:
-            newShowTestData = None
-
-        newShowTestDataPlaceholder = model.showTestDataCallback(newShowTestData)
-
-        # discretize
-        try:
-            newDiscretize = Run.objects.get(name="discretize")
-        except ObjectDoesNotExist:
-            newDiscretize = None
-
-        newDiscretizePlaceholder = model.discretizeCallback(newDiscretize)
 
 #/v1/features/
 class FeatureList(APIView):
@@ -241,7 +232,16 @@ class FeatureList(APIView):
         if request.method == 'POST':
             features = Features.objects.all().first()
             serializer = FeatureSerializer(features, data=request.data)
-            FeatureListDecoder()
+            #FeatureListDecoder()
+            # NOTE: Not sure how to represent features
+            #Extract the following
+            # features
+            try:
+                newFeatures = Features.objects.get(name="features")
+            except ObjectDoesNotExist:
+                newFeatures = None
+
+            newFeaturesPlaceholder = model.featuresCallback(newFeatures)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -249,17 +249,6 @@ class FeatureList(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             print("ERROR from views.py! POST ")
-
-    def FeatureListDecoder():
-        # NOTE: Not sure how to represent features
-        #Extract the following
-        # features
-        try:
-            newFeatures = Features.objects.get(name="features")
-        except ObjectDoesNotExist:
-            newFeatures = None
-
-        newFeaturesPlaceholder = model.featuresCallback(newFeatures)
 
 #/v1/settings/
 class SettingsList(APIView):
@@ -277,7 +266,23 @@ class SettingsList(APIView):
         if request.method == 'POST':
             settings = Settings.objects.all().first()
             serializer = SettingsSerializer(settings, data=request.data)
-            SettingsListDecoder()
+            #SettingsListDecoder()
+            #Extract the following
+            # dataset
+            try:
+                newDataset = Settings.objects.get(name="dataset")
+            except ObjectDoesNotExist:
+                newDataset = None
+
+            newDatasetPlaceholder = model.datasetCallback(newDataset)
+
+            # weights
+            try:
+                newWeights = Settings.objects.get(name="weights")
+            except ObjectDoesNotExist:
+                newWeights = None
+
+            newWeightsPlaceholder = model.weightsCallback(newWeights)
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -285,21 +290,3 @@ class SettingsList(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             print("ERROR from views.py! POST ")
-
-    def SettingsListDecoder():
-        #Extract the following
-        # dataset
-        try:
-            newDataset = Settings.objects.get(name="dataset")
-        except ObjectDoesNotExist:
-            newDataset = None
-
-        newDatasetPlaceholder = model.datasetCallback(newDataset)
-
-        # weights
-        try:
-            newWeights = Settings.objects.get(name="weights")
-        except ObjectDoesNotExist:
-            newWeights = None
-
-        newWeightsPlaceholder = model.weightsCallback(newWeights)
