@@ -36,14 +36,6 @@ export let regularizations: {[key: string]: nn.RegularizationFunction} = {
 
 /** A map between dataset names and functions that generate classification data. */
 export let datasets: {[key: string]: dataset.DataGenerator} = {
-  "lungad_1A": dataset.classifyLungad_1A, 
-  "lungad_10A": dataset.classifyLungad_10A, 
-  "melanoma_1A": dataset.classifyMelanoma_1A, 
-  "melanoma_10A": dataset.classifyMelanoma_10A, 
-  "lungad_1B": dataset.classifyLungad_1B, 
-  "lungad_10B": dataset.classifyLungad_10B, 
-  "melanoma_1B": dataset.classifyMelanoma_1B,
-  "melanoma_10B": dataset.classifyMelanoma_10B,
   "circle": dataset.classifyCircleData,
   "xor": dataset.classifyXORData,
   "gauss": dataset.classifyTwoGaussData,
@@ -112,19 +104,19 @@ export interface Property {
 export class State {
 
   private static PROPS: Property[] = [
-    {name: "activation", type: Type.OBJECT, keyMap: activations},
-    {name: "regularization", type: Type.OBJECT, keyMap: regularizations},
-    {name: "batchSize", type: Type.NUMBER},
+    -{name: "activation", type: Type.OBJECT, keyMap: activations},
+    -{name: "regularization", type: Type.OBJECT, keyMap: regularizations},
+    -{name: "batchSize", type: Type.NUMBER},
     {name: "dataset", type: Type.OBJECT, keyMap: datasets},
     {name: "regDataset", type: Type.OBJECT, keyMap: regDatasets},
-    {name: "learningRate", type: Type.NUMBER},
-    {name: "regularizationRate", type: Type.NUMBER},
-    {name: "noise", type: Type.NUMBER},
-    {name: "networkShape", type: Type.ARRAY_NUMBER},
+    -{name: "learningRate", type: Type.NUMBER},
+    -{name: "regularizationRate", type: Type.NUMBER},
+    -{name: "noise", type: Type.NUMBER},
+    -{name: "networkShape", type: Type.ARRAY_NUMBER},
     {name: "seed", type: Type.STRING},
-    {name: "showTestData", type: Type.BOOLEAN},
-    {name: "discretize", type: Type.BOOLEAN},
-    {name: "percTrainData", type: Type.NUMBER},
+    -{name: "showTestData", type: Type.BOOLEAN},
+    -{name: "discretize", type: Type.BOOLEAN},
+    -{name: "percTrainData", type: Type.NUMBER},
     {name: "x", type: Type.BOOLEAN},
     {name: "y", type: Type.BOOLEAN},
     {name: "xTimesY", type: Type.BOOLEAN},
@@ -136,7 +128,7 @@ export class State {
     {name: "sinY", type: Type.BOOLEAN},
     {name: "collectStats", type: Type.BOOLEAN},
     {name: "tutorial", type: Type.STRING},
-    {name: "problem", type: Type.OBJECT, keyMap: problems},
+    -{name: "problem", type: Type.OBJECT, keyMap: problems},
     {name: "initZero", type: Type.BOOLEAN},
     {name: "hideText", type: Type.BOOLEAN}
   ];

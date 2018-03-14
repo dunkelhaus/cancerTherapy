@@ -27,46 +27,6 @@ type Point = {
   y: number
 };
 
-export function classifyLungad_1A(numSamples: number, noise: number):
-    Example2D[] {
-
-}  
-
-export function classifyLungad_10A(numSamples: number, noise: number):
-    Example2D[] {
-      
-}  
-
-export function classifyMelanoma_1A(numSamples: number, noise: number):
-    Example2D[] {
-      
-}  
-
-export function classifyMelanoma_10A(numSamples: number, noise: number):
-    Example2D[] {
-      
-}  
-
-export function classifyLungad_1B(numSamples: number, noise: number):
-    Example2D[] {
-      
-}  
-
-export function classifyLungad_10B(numSamples: number, noise: number):
-    Example2D[] {
-      
-}  
-
-export function classifyMelanoma_1B(numSamples: number, noise: number):
-    Example2D[] {
-      
-}  
-
-export function classifyMelanoma_10B(numSamples: number, noise: number):
-    Example2D[] {
-      
-}
-
 
 /**
  * Shuffles the array using Fisher-Yates algorithm. Uses the seedrandom
