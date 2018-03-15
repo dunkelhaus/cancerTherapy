@@ -23,9 +23,9 @@ from wrappers import pmwrapper
 TRAIN_URL = "" # only if downloading data
 TEST_URL = "" # only if downloading data
 
-CSV_COLUMN_NAMES = ['Mutation', '5A',
-                    '5T', '3A', '3T', 'Tumor']
-TUMOR = ['BRCA', 'Lung Adeno', 'Other']
+CSV_COLUMN_NAMES = ['Sequence', 'Melanoma[1]',
+                    'LungAdeno[1]', 'Melanoma[10]', 'LungAdeno[10]']
+TUMOR = ['Melanoma', 'LungAdeno']
 
 #TODO Implementation - incomplete method
 #TODO Documentation
