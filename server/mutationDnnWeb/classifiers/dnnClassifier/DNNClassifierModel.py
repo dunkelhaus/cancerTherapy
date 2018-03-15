@@ -21,6 +21,7 @@ from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSeriali
 import argparse
 import tensorflow as tf
 from django.core.exceptions import ObjectDoesNotExist
+from typings.network import Network
 # from dataProcessor import DataProcessor
 
 
