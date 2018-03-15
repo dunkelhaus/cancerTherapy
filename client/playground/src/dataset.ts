@@ -27,6 +27,7 @@ type Point = {
   y: number
 };
 
+
 /**
  * Shuffles the array using Fisher-Yates algorithm. Uses the seedrandom
  * library as the random generator.
