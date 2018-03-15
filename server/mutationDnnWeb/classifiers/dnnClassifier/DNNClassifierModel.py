@@ -20,6 +20,7 @@ from mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
 from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 import argparse
 import tensorflow as tf
+from django.core.exceptions import ObjectDoesNotExist
 # from dataProcessor import DataProcessor
 
 
@@ -47,6 +48,118 @@ class DNNClassifierModel:
 
     def __init__(self):
         self.network = Network()
+
+    def separateArguments():
+        self.network.arguments = Arguments.objects.all()
+
+        try:
+            self.network.arguments.learningRate = Arguments.objects.get(name="learningRate")
+        except ObjectDoesNotExist:
+            self.network.arguments.learningRate = None # Or 0 for learningRate?
+
+        try:
+            self.network.arguments.activation = Arguments.objects.get(name="activation")
+        except ObjectDoesNotExist:
+            self.network.arguments.activation = None
+
+        try:
+            self.network.arguments.regularization = Arguments.objects.get(name="regularization")
+        except ObjectDoesNotExist:
+            self.network.arguments.regularization = None
+
+        try:
+            self.network.arguments.regularizationRate = Arguments.objects.get(name="regularizationRate")
+        except ObjectDoesNotExist:
+            self.network.arguments.regularizationRate = None
+
+        try:
+            self.network.arguments.problemType = Arguments.objects.get(name="problemType")
+        except ObjectDoesNotExist:
+            self.network.arguments.problemType = None
+
+
+
+    def separateState():
+        self.network.state = State.objects.all()
+
+        try:
+            self.network.state.batchSize = State.objects.get(name="batchSize")
+        except ObjectDoesNotExist:
+            self.network.state.batchSize = None #or 0?
+
+        try:
+            self.network.state.noise = State.objects.get(name="noise")
+        except ObjectDoesNotExist:
+            self.network.state.noise = None #or 0?
+
+        try:
+            self.network.state.trainToTestRatio = State.objects.get(name="trainToTestRatio")
+        except ObjectDoesNotExist:
+            self.network.state.trainToTestRatio = None #or 0?
+
+        try:
+            self.network.state.numHiddenLayers = State.objects.get(name="numHiddenLayers")
+        except ObjectDoesNotExist:
+            self.network.state.numHiddenLayers = None #or 0?
+
+        try:
+            self.network.state.networkShape = State.objects.get(name="networkShape")
+        except ObjectDoesNotExist:
+            self.network.state.networkShape = None
+
+    def separateRun():
+        self.network.run = Run.objects.all()
+
+        try:
+            self.network.run.discretize = Run.objects.get(name="discretize")
+        except ObjectDoesNotExist:
+            self.network.state.discretize = None #or 0?
+
+        try:
+            self.network.run.showTestData = Run.objects.get(name="showTestData")
+        except ObjectDoesNotExist:
+            self.network.state.showTestData = None
+
+        try:
+            self.network.run.discretize = Run.objects.get(name="discretize")
+        except ObjectDoesNotExist:
+            self.network.state.discretize = None #or 0?
+
+        try:
+            self.network.run.play = Run.objects.get(name="play")
+        except ObjectDoesNotExist:
+            self.network.state.play = None #or false?
+
+        try: #NOTE May not need pause
+            self.network.run.pause = Run.objects.get(name="pause")
+        except ObjectDoesNotExist:
+            self.network.state.pause = None #or false?
+
+        #Might need self.network.run.next here in the future
+
+
+
+    def separateFeatures():
+        self.network.features = Features.objects.all()
+
+        """try:
+            self.network.features.features = Features.objects.get(name="features")
+        except ObjectDoesNotExist:
+            self.network.features.features = None"""
+
+    def separateSettings():
+        self.network.settings = Settings.objects.all()
+
+        """try:
+            self.network.settings.dataset = Settings.objects.get(name="dataset")
+        except ObjectDoesNotExist:
+            self.network.settings.dataset = None
+
+        try:
+            self.network.settings.weights = Settings.objects.get(name="weights")
+        except ObjectDoesNotExist:
+            self.network.settings.weights = None"""
+
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements
     #TODO Adjust model for our particular inputs after redefining and designing neural net
