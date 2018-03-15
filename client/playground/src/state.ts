@@ -134,18 +134,27 @@ export class State {
   ];
 
 
-function httpGetAsync(theURL){
-  var xmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = function(){
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-    	jsonObj = JSON.parse(xmlHttp.responseText);
-    	return jsonObj;
-  }
-  xmlHttp.open("GET", theURL, true, "vbrewer", "mlkillscancer"); // true for asynchronous
-  xmlHttp.send(null);
+function httpGetV1Async(){
+  var data = null;
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === 4) {
+      console.log(this.responseText);
+    }
+  });
+
+  xhr.open("GET", "http://35.184.171.249/v1/");
+  xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
+  xhr.setRequestHeader("Cache-Control", "no-cache");
+  xhr.setRequestHeader("Postman-Token", "3262fb3f-1880-4c8a-82f5-49a29f4f182e");
+
+  xhr.send(data);
+  return JSON.parse(data);
 }
 
-v1JSON = httpGetAsync("http://35.184.171.249:8000/v1/");
+// Look up xhr forms/xml forms
+v1JSON = httpGetV1Async();
 
 
   [key: string]: any;
@@ -156,7 +165,7 @@ v1JSON = httpGetAsync("http://35.184.171.249:8000/v1/");
   batchSize = v1JSON.batchSize;
   discretize = v1JSON.discretize;
   //tutorial: string = null;
-  percTrainData = v1JSON.percTrainData;
+  percTrainData = v1JSON.trainToTestRatio;
   activation = v1JSON.activation;
   regularization: v1JSON.regularization;
   problem = v1JSON.problemType;
@@ -177,7 +186,9 @@ v1JSON = httpGetAsync("http://35.184.171.249:8000/v1/");
   //sinX = false;
   //cosY = false;
   //sinY = false;
-  dataset = v1JSON.dataset;
+
+  //dataset = v1JSON.dataset;
+
   //regDataset: dataset.DataGenerator = dataset.regressPlane;
   //seed: string;
 
