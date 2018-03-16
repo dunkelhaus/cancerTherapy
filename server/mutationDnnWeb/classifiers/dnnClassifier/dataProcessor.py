@@ -58,7 +58,7 @@ def load_data(y_name='Tumor'):
     # train_path, test_path = download()
 
     train = [] # the training data
-    train = read_csv('/home/skjena/cancerTherapy/backend/out', names= CSV_COLUMN_NAMES, header)
+    train = read_csv('/home/skjena/cancerTherapy/backend/out', names= CSV_COLUMN_NAMES, header=0)
     # Split into x: training data and y: groundtruths
     train_x, train_y = train, train.pop(y_name)
 
