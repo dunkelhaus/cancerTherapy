@@ -44,10 +44,90 @@ from typings.network import Network
 
 class DNNClassifierModel:
 
-    network = None
+    def getTensorflowLearningRate():
+        learningRate = Arguments.objects.get(name="learningRate")
+        number = float(learningRate)
+        return tf.Variable(number, tf.float64)
 
-    def __init__(self):
-        self.network = Network()
+    def getTensorflowActivation():
+        activation = Arguments.objects.get(name="activation")
+
+        if activation == "RELU":
+            return tf.nn.relu
+
+        if activation == "TANH":
+            return tf.nn.tanh
+
+        if activation == "SIGMOID":
+            return tf.nn.sigmoid
+
+        """if activation == "LINEAR": #tf.nn doesn't have linear. Moving on.
+            return           """
+
+    def getTensorflowRegularization():
+        regularization = Arguments.objects.get(name="regularization")
+
+        if regularization == "None":
+            return tf.Variable("None", tf.string)
+
+        if regularization = "L1":
+            return tf.contrib.layers.l1_regularizer
+
+        if regularization = "L2":
+            return tf.contrib.layers.l2_regularizer
+
+    def getTensorflowRegularizationRate():
+        regularizationRate = Arguments.objects.get(name="regularizationRate")
+        number = float(regularizationRate)
+        return tf.Variable(number, tf.float64)
+
+    def getTensorflowProblemType():
+        problemType = Arguments.objects.get(name="problemType")
+
+        if problemType == "CLASSIFICATION":
+            return tf.contrib.learn.ProblemType.CLASSIFICATION
+
+    def getTensorflowBatchSize():
+        batchSize = State.objects.get(name="batchSize")
+        number = int(batchSize)
+        return tf.Variable(number, tf.int32)
+
+    def getTensorflowNoise():
+        noise = State.objects.get(name="noise")
+        number = int(noise)
+        return tf.Variable(number, tf.int32)
+
+    def getTensorflowTrainToTestRatio():
+        trainToTestRatio = State.objects.get(name="trainToTestRatio")
+        number = int(trainToTestRatio)
+        return tf.Variable(number, tf.int32)
+
+    def getTensorflowNetworkShape(): #Unsure what to return here
+        networkShape = State.objects.get(name="networkShape")
+
+    def getTensorflowDiscretize():
+        discretize = Run.objects.get(name="discretize")
+
+        if discretize.lower() == "true":
+            return tf.Variable(True, tf.bool)
+
+        if discretize.lower() == "false":
+            return tf.Variable(False, tf.bool)
+
+        return tf.Variable("None", tf.string)
+
+    def getTensorflowPlay():# Check if play stored in DB
+
+    def getTensorflowReset(): #Check if reset stored in DB
+
+    def getTensorflowNext(): #Check if next stored in DB
+
+
+
+
+
+
+
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements
     #TODO Adjust model for our particular inputs after redefining and designing neural net
@@ -80,7 +160,7 @@ class DNNClassifierModel:
         stateObjStatus = False
 
         for units in range(0, self.network.state.numHiddenLayers): #params['hidden_units']:
-            net = tf.layers.dense(net, units=self.network.state.numHiddenLayers[units], activation=self.network.arguments.activation) # Using the ReLu activation function
+            net = tf.layers.dense(net, units=self.network.state.numHiddenLayers[units], activation=getTensorflowActivation()) # Using the ReLu activation function
             # net signifies input layer during first iteration
 
         # Compute logits (one per class)
@@ -117,6 +197,10 @@ class DNNClassifierModel:
         return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
 
     def start():
+        # maintains a verbose tensorflow log
+        tf.logging.set_verbosity(tf.logging.INFO)
+        # runs the tensorflow app defined in the main method
+        tf.app.run(main)
         # TODO Fetch the data from the dataset  - done by load_data() in ./dataProcessor.py
         # (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
 
@@ -147,8 +231,8 @@ class DNNClassifierModel:
         # Take batch size from DNNClassifierModel which checks for changes in value
         # May need to *wait* for DNNClassifierModel.batchSize() to return with value
         classifier.train(
-            input_fn=lambda:dataProcessor.train_input_fn(train_x, train_y, self.network.state.batchSize),
-            steps=self.network.arguments.learningRate) #learningRate yet to be integrated with gradient descent
+            input_fn=lambda:dataProcessor.train_input_fn(train_x, train_y, getTensorflowBatchSize()),
+            steps=getTensorflowLearningRate()) #learningRate yet to be integrated with gradient descent
 
         # Evaluate the model
         # Provide a lambda function to the evaluate function of the classifier, which is dataProcessor's eval input print_function
@@ -173,7 +257,7 @@ class DNNClassifierModel:
         # But in predict mode - that function handles two modes, predict and evaluate
         # This takes predict_x as it's labels if no labels are provided, and
         predictions = classifier.predict(
-            input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=self.network.state.batchSize))
+            input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=getTensorflowBatchSize()))
 
         # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
         # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")
