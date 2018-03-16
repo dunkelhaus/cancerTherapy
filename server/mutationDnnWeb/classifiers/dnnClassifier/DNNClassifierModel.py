@@ -70,10 +70,10 @@ class DNNClassifierModel:
         if regularization == "None":
             return tf.Variable("None", tf.string)
 
-        if regularization = "L1":
+        if regularization == "L1":
             return tf.contrib.layers.l1_regularizer
 
-        if regularization = "L2":
+        if regularization == "L2":
             return tf.contrib.layers.l2_regularizer
 
     def getTensorflowRegularizationRate():
@@ -117,10 +117,13 @@ class DNNClassifierModel:
         return tf.Variable("None", tf.string)
 
     def getTensorflowPlay():# Check if play stored in DB
+        return None
 
     def getTensorflowReset(): #Check if reset stored in DB
+        return None
 
     def getTensorflowNext(): #Check if next stored in DB
+        return None
 
 
 
