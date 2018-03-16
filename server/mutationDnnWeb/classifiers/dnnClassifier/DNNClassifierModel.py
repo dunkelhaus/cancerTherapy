@@ -116,14 +116,22 @@ class DNNClassifierModel:
 
         return tf.Variable("None", tf.string)
 
-    def getPlay():# Check if play stored in DB
-        return None
+    def getPlay():
+        play = Run.objects.get(name="play")
+
+        if play.lower() == "true":
+            return tf.Variable(True, tf.bool)
+
+        if play.lower() == "false":
+            return tf.Variable(False, tf.bool)
+
+        return tf.Variable("None", tf.string)
 
     def getReset(): #Check if reset stored in DB
-        return None
+        return tf.Variable("None", tf.string)
 
     def getNext(): #Check if next stored in DB
-        return None
+        return tf.Variable("None", tf.string)
 
 
 

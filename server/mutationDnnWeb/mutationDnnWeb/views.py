@@ -57,6 +57,11 @@ class RunList(APIView):
 
     def post(self, request):
         run = Run.objects.all().first()
+        variable = Run.objects.get(name="play")
+
+        if variable.lower() == "true":
+            model.start()
+
         serializer = RunSerializer(run, data=request.data)
 
         if serializer.is_valid():
