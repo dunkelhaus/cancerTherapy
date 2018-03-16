@@ -211,7 +211,7 @@ class DNNClassifierModel:
         # maintains a verbose tensorflow log
         tf.logging.set_verbosity(tf.logging.INFO)
         # runs the tensorflow app defined in the main method
-        tf.app.run(main)
+        tf.app.run(start)
         # TODO Fetch the data from the dataset  - done by load_data() in ./dataProcessor.py
         # (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
 
