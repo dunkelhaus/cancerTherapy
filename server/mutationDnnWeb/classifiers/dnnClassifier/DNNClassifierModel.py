@@ -44,12 +44,12 @@ from typings.network import Network
 
 class DNNClassifierModel:
 
-    def getTensorflowLearningRate():
+    def getLearningRate():
         learningRate = Arguments.objects.get(name="learningRate")
         number = float(learningRate)
         return tf.Variable(number, tf.float64)
 
-    def getTensorflowActivation():
+    def getActivation():
         activation = Arguments.objects.get(name="activation")
 
         if activation == "RELU":
@@ -64,7 +64,7 @@ class DNNClassifierModel:
         """if activation == "LINEAR": #tf.nn doesn't have linear. Moving on.
             return           """
 
-    def getTensorflowRegularization():
+    def getRegularization():
         regularization = Arguments.objects.get(name="regularization")
 
         if regularization == "None":
@@ -76,36 +76,36 @@ class DNNClassifierModel:
         if regularization == "L2":
             return tf.contrib.layers.l2_regularizer
 
-    def getTensorflowRegularizationRate():
+    def getRegularizationRate():
         regularizationRate = Arguments.objects.get(name="regularizationRate")
         number = float(regularizationRate)
         return tf.Variable(number, tf.float64)
 
-    def getTensorflowProblemType():
+    def getProblemType():
         problemType = Arguments.objects.get(name="problemType")
 
         if problemType == "CLASSIFICATION":
             return tf.contrib.learn.ProblemType.CLASSIFICATION
 
-    def getTensorflowBatchSize():
+    def getBatchSize():
         batchSize = State.objects.get(name="batchSize")
         number = int(batchSize)
         return tf.Variable(number, tf.int32)
 
-    def getTensorflowNoise():
+    def getNoise():
         noise = State.objects.get(name="noise")
         number = int(noise)
         return tf.Variable(number, tf.int32)
 
-    def getTensorflowTrainToTestRatio():
+    def getTrainToTestRatio():
         trainToTestRatio = State.objects.get(name="trainToTestRatio")
         number = int(trainToTestRatio)
         return tf.Variable(number, tf.int32)
 
-    def getTensorflowNetworkShape(): #Unsure what to return here
+    def getNetworkShape(): #Unsure what to return here
         networkShape = State.objects.get(name="networkShape")
 
-    def getTensorflowDiscretize():
+    def getDiscretize():
         discretize = Run.objects.get(name="discretize")
 
         if discretize.lower() == "true":
@@ -116,13 +116,13 @@ class DNNClassifierModel:
 
         return tf.Variable("None", tf.string)
 
-    def getTensorflowPlay():# Check if play stored in DB
+    def getPlay():# Check if play stored in DB
         return None
 
-    def getTensorflowReset(): #Check if reset stored in DB
+    def getReset(): #Check if reset stored in DB
         return None
 
-    def getTensorflowNext(): #Check if next stored in DB
+    def getNext(): #Check if next stored in DB
         return None
 
 
