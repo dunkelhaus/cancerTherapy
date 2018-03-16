@@ -15,8 +15,8 @@
     "watch-js": "watchify src/playground.ts -p [tsify] -v --debug -o dist/bundle.js",
     "build": "npm run prep && npm run build-js && npm run build-css && npm run build-html",
     "watch": "npm run prep && concurrently \"npm run watch-js\" \"npm run watch-css\" \"npm run watch-html\"",
-    "serve": "http-server dist/",
-    "serve-watch": "concurrently \"live-server dist/\" \"npm run watch\""
+    "serve": "http-server -p 80 dist/",
+    "serve-watch": "concurrently \"live-server --port=80 dist/\" \"npm run watch\""
   },
   "devDependencies": {
     "concurrently": "3.1.0",
@@ -34,6 +34,7 @@
     "catw": "^1.0.1",
     "d3": "^3.5.16",
     "material-design-lite": "^1.1.3",
+    "npm": "^5.7.1",
     "seedrandom": "^2.4.2"
   }
 }

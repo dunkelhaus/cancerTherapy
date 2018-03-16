@@ -1,4 +1,4 @@
-l/* Copyright 2016 Google Inc. All Rights Reserved.
+/* Copyright 2016 Google Inc. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -130,7 +130,7 @@ export class State {
     {name: "tutorial", type: Type.STRING},
     {name: "problem", type: Type.OBJECT, keyMap: problems},
     {name: "initZero", type: Type.BOOLEAN},
-    {name: "hideText", type: Type.BOOLEAN}
+    {name: "hideText", type: Type.BOOLEAN},
   ];
 
 
@@ -157,7 +157,7 @@ function httpGetV1Async(){
 v1JSON = httpGetV1Async();
 
 
-  [key: string]: any;
+[key: string]: any;
   learningRate = v1JSON.learningRate;
   regularizationRate = v1JSON.regularizationRate;
   showTestData = v1JSON.showTestData;
@@ -171,7 +171,6 @@ v1JSON = httpGetV1Async();
   problem = v1JSON.problemType;
   //initZero = false;
   //hideText = false;
-  //collectStats = false;
   numHiddenLayers = v1JSON.numHiddenLayers;
   //hiddenLayerControls: any[] = [];
   networkShape: number[] = v1JSON.networkShape;
@@ -298,7 +297,7 @@ v1JSON = httpGetV1Async();
   getHiddenProps(): string[] {
     let result: string[] = [];
     for (let prop in this) {
-      if (endsWith(prop, HIDE_STATE_SUFFIX) && String(this[prop]) === "true") {
+      if (endsWith(prop, HIDE_STATE_SUFFIX) &&  String(this[prop]) === "true") {
         result.push(prop.replace(HIDE_STATE_SUFFIX, ""));
       }
     }
