@@ -7,6 +7,8 @@ import tensorflow as tf
 from .models import V1, State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 from classifiers.dnnClassifier.DNNClassifierModel import DNNClassifierModel
+from django.views.decorators.csrf import csrf_exempt
+
 #/v1/
 model = DNNClassifierModel()
 
@@ -23,10 +25,10 @@ class ArgumentList(APIView):
         serializer = ArgSerializer(arguments, many=True)
         return Response(serializer.data)
 
+    @csrf_exempt
     def post(self, request):
         args = Arguments.objects.all().first()
         serializer = ArgSerializer(args, data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -39,10 +41,10 @@ class StateList(APIView):
         serializer = StateSerializer(state, many=True)
         return Response(serializer.data)
 
+    @csrf_exempt
     def post(self, request):
         state = State.objects.all().first()
         serializer = StateSerializer(state, data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -55,15 +57,13 @@ class RunList(APIView):
         serializer = RunSerializer(run, many=True)
         return Response(serializer.data)
 
+    @csrf_exempt
     def post(self, request):
         run = Run.objects.all().first()
         variable = Run.objects.get(name="play")
-
         if variable.lower() == "true":
             model.start()
-
         serializer = RunSerializer(run, data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -76,10 +76,10 @@ class FeatureList(APIView):
         serializer = FeatureSerializer(features, many=True)
         return Response(serializer.data)
 
+    @csrf_exempt
     def post(self, request):
         features = Features.objects.all().first()
         serializer = FeatureSerializer(features, data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -93,10 +93,10 @@ class SettingsList(APIView):
 
         return Response(serializer.data)
 
+    @csrf_exempt
     def post(self, request):
         settings = Settings.objects.all().first()
         serializer = SettingsSerializer(settings, data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
