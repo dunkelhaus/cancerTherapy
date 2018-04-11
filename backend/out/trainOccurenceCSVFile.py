@@ -30,13 +30,13 @@ with tf.Session() as sess:
     example, label = sess.run([x, y])
     
   hidden_1_layer = {'weights' : tf.Variable(tf.random_normal([n_nodes_hl1, n_nodes_hl1])),                   
-                    'biases' :tf.Variable(tf.random_normal(n_nodes_hl1))} 
+                    'biases' :tf.Variable(tf.random_normal([n_nodes_hl1]))} 
     
   hidden_2_layer = {'weights' : tf.Variable(tf.random_normal([n_nodes_hl1, n_nodes_hl2])),
-                    'biases' :tf.Variable(tf.random_normal(n_nodes_hl2))} 
+                    'biases' :tf.Variable(tf.random_normal([n_nodes_hl2]))} 
     
   hidden_3_layer = {'weights' : tf.Variable(tf.random_normal([n_nodes_hl2, n_nodes_hl3])),
-                    'biases' : tf.Variable(tf.random_normal(n_nodes_hl3))}
+                    'biases' : tf.Variable(tf.random_normal([n_nodes_hl3]))}
     
   output_layer = {'weights' : tf.Variable(tf.random_normal([n_nodes_hl1, n_classes])),
                     'biases' : tf.Variable(tf.random_normal([n_classes]))}
