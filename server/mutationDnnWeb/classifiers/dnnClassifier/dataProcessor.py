@@ -18,14 +18,14 @@ overseen by ./__main_.py
 import pandas as pd
 import tensorflow as tf
 
-from wrappers import pmwrapper
+#from wrappers import pmwrapper
+
 
 TRAIN_URL = "" # only if downloading data
 TEST_URL = "" # only if downloading data
 
-CSV_COLUMN_NAMES = ['Mutation', '5A',
-                    '5T', '3A', '3T', 'Tumor']
-TUMOR = ['BRCA', 'Lung Adeno', 'Other']
+CSV_COLUMN_NAMES = ['Sequence', 'Melanoma[1]','Melanoma[1]recurrence','Melanoma[10]', 'Melanoma[10]recurrence','LungAdeno[1]', 'LungAdeno[1]recurrence','LungAdeno[10]', 'LungAdeno[10]recurrence']
+TUMOR = ['Melanoma', 'LungAdeno'] # Label
 
 #TODO Implementation - incomplete method
 #TODO Documentation
@@ -58,8 +58,11 @@ def load_data(y_name='Tumor'):
     # train_path, test_path = download()
 
     train = [] # the training data
+    train = read_csv('/home/skjena/cancerTherapy/backend/out', names= CSV_COLUMN_NAMES, header=0)
     # Split into x: training data and y: groundtruths
+    print(train.head(n=5))
     train_x, train_y = train, train.pop(y_name)
+
 
     # if file is a csv and readable, use the pandas read_csv
     test = pd.read_csv(test_path, names=CSV_COLUMN_NAMES, header=0)

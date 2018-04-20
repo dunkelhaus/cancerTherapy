@@ -24,7 +24,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from typings.network import Network
 # from dataProcessor import DataProcessor
 
-
 #/v1/: ALL
 #/v1/arguments: learningRate, activation, regularization, regularizationRate, problemType
 #/v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
@@ -45,121 +44,100 @@ from typings.network import Network
 
 class DNNClassifierModel:
 
-    network = None
+    def getLearningRate():
+        learningRate = Arguments.objects.get(name="learningRate")
+        number = float(learningRate)
+        return tf.Variable(number, tf.float64)
 
-    def __init__(self):
-        self.network = Network()
+    def getActivation():
+        activation = Arguments.objects.get(name="activation")
 
-    def separateArguments():
-        self.network.arguments = Arguments.objects.all()
+        if activation == "RELU":
+            return tf.nn.relu
 
-        try:
-            self.network.arguments.learningRate = Arguments.objects.get(name="learningRate")
-        except ObjectDoesNotExist:
-            self.network.arguments.learningRate = None # Or 0 for learningRate?
+        if activation == "TANH":
+            return tf.nn.tanh
 
-        try:
-            self.network.arguments.activation = Arguments.objects.get(name="activation")
-        except ObjectDoesNotExist:
-            self.network.arguments.activation = None
+        if activation == "SIGMOID":
+            return tf.nn.sigmoid
 
-        try:
-            self.network.arguments.regularization = Arguments.objects.get(name="regularization")
-        except ObjectDoesNotExist:
-            self.network.arguments.regularization = None
+        """if activation == "LINEAR": #tf.nn doesn't have linear. Moving on.
+            return           """
 
-        try:
-            self.network.arguments.regularizationRate = Arguments.objects.get(name="regularizationRate")
-        except ObjectDoesNotExist:
-            self.network.arguments.regularizationRate = None
+    def getRegularization():
+        regularization = Arguments.objects.get(name="regularization")
 
-        try:
-            self.network.arguments.problemType = Arguments.objects.get(name="problemType")
-        except ObjectDoesNotExist:
-            self.network.arguments.problemType = None
+        if regularization == "None":
+            return tf.Variable("None", tf.string)
 
+        if regularization == "L1":
+            return tf.contrib.layers.l1_regularizer
 
+        if regularization == "L2":
+            return tf.contrib.layers.l2_regularizer
 
-    def separateState():
-        self.network.state = State.objects.all()
+    def getRegularizationRate():
+        regularizationRate = Arguments.objects.get(name="regularizationRate")
+        number = float(regularizationRate)
+        return tf.Variable(number, tf.float64)
 
-        try:
-            self.network.state.batchSize = State.objects.get(name="batchSize")
-        except ObjectDoesNotExist:
-            self.network.state.batchSize = None #or 0?
+    def getProblemType():
+        problemType = Arguments.objects.get(name="problemType")
 
-        try:
-            self.network.state.noise = State.objects.get(name="noise")
-        except ObjectDoesNotExist:
-            self.network.state.noise = None #or 0?
+        if problemType == "CLASSIFICATION":
+            return tf.contrib.learn.ProblemType.CLASSIFICATION
 
-        try:
-            self.network.state.trainToTestRatio = State.objects.get(name="trainToTestRatio")
-        except ObjectDoesNotExist:
-            self.network.state.trainToTestRatio = None #or 0?
+    def getBatchSize():
+        batchSize = State.objects.get(name="batchSize")
+        number = int(batchSize)
+        return tf.Variable(number, tf.int32)
 
-        try:
-            self.network.state.numHiddenLayers = State.objects.get(name="numHiddenLayers")
-        except ObjectDoesNotExist:
-            self.network.state.numHiddenLayers = None #or 0?
+    def getNoise():
+        noise = State.objects.get(name="noise")
+        number = int(noise)
+        return tf.Variable(number, tf.int32)
 
-        try:
-            self.network.state.networkShape = State.objects.get(name="networkShape")
-        except ObjectDoesNotExist:
-            self.network.state.networkShape = None
+    def getTrainToTestRatio():
+        trainToTestRatio = State.objects.get(name="trainToTestRatio")
+        number = int(trainToTestRatio)
+        return tf.Variable(number, tf.int32)
 
-    def separateRun():
-        self.network.run = Run.objects.all()
+    def getNetworkShape(): #Unsure what to return here
+        networkShape = State.objects.get(name="networkShape")
 
-        try:
-            self.network.run.discretize = Run.objects.get(name="discretize")
-        except ObjectDoesNotExist:
-            self.network.state.discretize = None #or 0?
+    def getDiscretize():
+        discretize = Run.objects.get(name="discretize")
 
-        try:
-            self.network.run.showTestData = Run.objects.get(name="showTestData")
-        except ObjectDoesNotExist:
-            self.network.state.showTestData = None
+        if discretize.lower() == "true":
+            return tf.Variable(True, tf.bool)
 
-        try:
-            self.network.run.discretize = Run.objects.get(name="discretize")
-        except ObjectDoesNotExist:
-            self.network.state.discretize = None #or 0?
+        if discretize.lower() == "false":
+            return tf.Variable(False, tf.bool)
 
-        try:
-            self.network.run.play = Run.objects.get(name="play")
-        except ObjectDoesNotExist:
-            self.network.state.play = None #or false?
+        return tf.Variable("None", tf.string)
 
-        try: #NOTE May not need pause
-            self.network.run.pause = Run.objects.get(name="pause")
-        except ObjectDoesNotExist:
-            self.network.state.pause = None #or false?
+    def getPlay():
+        play = Run.objects.get(name="play")
 
-        #Might need self.network.run.next here in the future
+        if play.lower() == "true":
+            return tf.Variable(True, tf.bool)
+
+        if play.lower() == "false":
+            return tf.Variable(False, tf.bool)
+
+        return tf.Variable("None", tf.string)
+
+    def getReset(): #Check if reset stored in DB
+        return tf.Variable("None", tf.string)
+
+    def getNext(): #Check if next stored in DB
+        return tf.Variable("None", tf.string)
 
 
 
-    def separateFeatures():
-        self.network.features = Features.objects.all()
 
-        """try:
-            self.network.features.features = Features.objects.get(name="features")
-        except ObjectDoesNotExist:
-            self.network.features.features = None"""
 
-    def separateSettings():
-        self.network.settings = Settings.objects.all()
 
-        """try:
-            self.network.settings.dataset = Settings.objects.get(name="dataset")
-        except ObjectDoesNotExist:
-            self.network.settings.dataset = None
-
-        try:
-            self.network.settings.weights = Settings.objects.get(name="weights")
-        except ObjectDoesNotExist:
-            self.network.settings.weights = None"""
 
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements
@@ -193,7 +171,7 @@ class DNNClassifierModel:
         stateObjStatus = False
 
         for units in range(0, self.network.state.numHiddenLayers): #params['hidden_units']:
-            net = tf.layers.dense(net, units=self.network.state.numHiddenLayers[units], activation=self.network.arguments.activation) # Using the ReLu activation function
+            net = tf.layers.dense(net, units=self.network.state.numHiddenLayers[units], activation=getTensorflowActivation()) # Using the ReLu activation function
             # net signifies input layer during first iteration
 
         # Compute logits (one per class)
@@ -230,6 +208,10 @@ class DNNClassifierModel:
         return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
 
     def start():
+        # maintains a verbose tensorflow log
+        tf.logging.set_verbosity(tf.logging.INFO)
+        # runs the tensorflow app defined in the main method
+        tf.app.run(start)
         # TODO Fetch the data from the dataset  - done by load_data() in ./dataProcessor.py
         # (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
 
@@ -260,8 +242,8 @@ class DNNClassifierModel:
         # Take batch size from DNNClassifierModel which checks for changes in value
         # May need to *wait* for DNNClassifierModel.batchSize() to return with value
         classifier.train(
-            input_fn=lambda:dataProcessor.train_input_fn(train_x, train_y, self.network.state.batchSize),
-            steps=self.network.arguments.learningRate) #learningRate yet to be integrated with gradient descent
+            input_fn=lambda:dataProcessor.train_input_fn(train_x, train_y, getTensorflowBatchSize()),
+            steps=getTensorflowLearningRate()) #learningRate yet to be integrated with gradient descent
 
         # Evaluate the model
         # Provide a lambda function to the evaluate function of the classifier, which is dataProcessor's eval input print_function
@@ -286,7 +268,7 @@ class DNNClassifierModel:
         # But in predict mode - that function handles two modes, predict and evaluate
         # This takes predict_x as it's labels if no labels are provided, and
         predictions = classifier.predict(
-            input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=self.network.state.batchSize))
+            input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=getTensorflowBatchSize()))
 
         # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
         # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")

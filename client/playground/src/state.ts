@@ -1,4 +1,4 @@
-l/* Copyright 2016 Google Inc. All Rights Reserved.
+/* Copyright 2016 Google Inc. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -104,6 +104,7 @@ export interface Property {
 export class State {
 
   private static PROPS: Property[] = [
+    {name: "isPlaying", type: Type.BOOLEAN},
     {name: "activation", type: Type.OBJECT, keyMap: activations},
     {name: "regularization", type: Type.OBJECT, keyMap: regularizations},
     {name: "batchSize", type: Type.NUMBER},
@@ -130,67 +131,40 @@ export class State {
     {name: "tutorial", type: Type.STRING},
     {name: "problem", type: Type.OBJECT, keyMap: problems},
     {name: "initZero", type: Type.BOOLEAN},
-    {name: "hideText", type: Type.BOOLEAN}
+    {name: "hideText", type: Type.BOOLEAN},
   ];
 
-
-function httpGetV1Async(){
-  var data = null;
-  var xhr = new XMLHttpRequest();
-  xhr.withCredentials = true;
-  xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === 4) {
-      console.log(this.responseText);
-    }
-  });
-
-  xhr.open("GET", "http://35.184.171.249/v1/");
-  xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-  xhr.setRequestHeader("Cache-Control", "no-cache");
-  xhr.setRequestHeader("Postman-Token", "3262fb3f-1880-4c8a-82f5-49a29f4f182e");
-
-  xhr.send(data);
-  return JSON.parse(data);
-}
-
-// Look up xhr forms/xml forms
-v1JSON = httpGetV1Async();
-
-
   [key: string]: any;
-  learningRate = v1JSON.learningRate;
-  regularizationRate = v1JSON.regularizationRate;
-  showTestData = v1JSON.showTestData;
-  noise = v1JSON.noise;
-  batchSize = v1JSON.batchSize;
-  discretize = v1JSON.discretize;
-  //tutorial: string = null;
-  percTrainData = v1JSON.trainToTestRatio;
-  activation = v1JSON.activation;
-  regularization: v1JSON.regularization;
-  problem = v1JSON.problemType;
-  //initZero = false;
-  //hideText = false;
-  //collectStats = false;
-  numHiddenLayers = v1JSON.numHiddenLayers;
-  //hiddenLayerControls: any[] = [];
-  networkShape: number[] = v1JSON.networkShape;
-
-  // to be replaced by our features
-  //x = true;
-  //y = true;
-  //xTimesY = false;
-  //xSquared = false;
-  //ySquared = false;
-  //cosX = false;
-  //sinX = false;
-  //cosY = false;
-  //sinY = false;
-
-  //dataset = v1JSON.dataset;
-
-  //regDataset: dataset.DataGenerator = dataset.regressPlane;
-  //seed: string;
+    learningRate = 0.1;
+    regularizationRate = 0;
+    showTestData = false;
+    noise = 0;
+    batchSize = 10;
+    discretize = false;
+    tutorial: string = null;
+    percTrainData = 50;
+    activation = nn.Activations.RELU;
+    regularization: nn.RegularizationFunction = null;
+    problem = Problem.CLASSIFICATION;
+    isPlaying = false;
+    initZero = false;
+    hideText = false;
+    collectStates = false;
+    numHiddenLayers = 2;
+    hiddenLayerControls: any[] = [];
+    networkShape: number[] = [10, 10];
+    x = true;
+    y = true;
+    xTimesY = false;
+    xSquared = false;
+    ySquared = false;
+    cosX = false;
+    sinX = false;
+    cosY = false;
+    sinY = false;
+    dataset: dataset.DataGenerator = dataset.classifyCircleData;
+    regDataset: dataset.DataGenerator = dataset.regressPlane;
+    seed: string;
 
 
   /**
@@ -298,7 +272,7 @@ v1JSON = httpGetV1Async();
   getHiddenProps(): string[] {
     let result: string[] = [];
     for (let prop in this) {
-      if (endsWith(prop, HIDE_STATE_SUFFIX) && String(this[prop]) === "true") {
+      if (endsWith(prop, HIDE_STATE_SUFFIX) &&  String(this[prop]) === "true") {
         result.push(prop.replace(HIDE_STATE_SUFFIX, ""));
       }
     }

@@ -117,20 +117,19 @@ class Player {
   play() {
     this.pause();
     this.isPlaying = true;
-    // sent post request
-    var data = new FormData();
-    data.append("play", "true");
+    state.isPlaying = this.isPlaying
+
+    var data = "discretize="+state.discretize+"&play=True&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "9c508829-88c5-46be-babb-b474593c29f9");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     if (this.callback) {
@@ -143,20 +142,20 @@ class Player {
   pause() {
     this.timerIndex++;
     this.isPlaying = false;
+    state.isPlaying = this.isPlaying
+
     // sent post request
-    var data = new FormData();
-    data.append("play", "false");
+    var data = "discretize="+state.discretize+"&play=False&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "9c508829-88c5-46be-babb-b474593c29f9");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     if (this.callback) {
@@ -285,20 +284,18 @@ function makeGUI() {
     state.networkShape[state.numHiddenLayers] = 2;
     state.numHiddenLayers++;
 
-    var data = new FormData();
-    data.append("numHiddenLayers", state.numHiddenLayers);
-    data.append("networkShape", state.networkShape);  // not sure about this part. Review
+    var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+                +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "d34ddbaf-edf5-467c-94f1-d191d9edb018");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     parametersChanged = true;
@@ -312,41 +309,38 @@ function makeGUI() {
     state.numHiddenLayers--;
     state.networkShape.splice(state.numHiddenLayers);
 
-    var data = new FormData();
-    data.append("numHiddenLayers", state.numHiddenLayers);
-    data.append("networkShape", state.networkShape);  // not sure about this part. Review
+    var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+                +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "d34ddbaf-edf5-467c-94f1-d191d9edb018");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
-    
+
     parametersChanged = true;
     reset();
   });
 
   let showTestData = d3.select("#show-test-data").on("change", function() {
     state.showTestData = this.checked;
-    var data = new FormData();
-    data.append("showTestData", state.showTestData);
+
+    var data = "discretize="+state.discretize+"&play="+state.isPlaying+"&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "4154769f-aa79-4149-9367-b4e2a55d262d");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     state.serialize();
@@ -358,19 +352,18 @@ function makeGUI() {
 
   let discretize = d3.select("#discretize").on("change", function() {
     state.discretize = this.checked;
-    var data = new FormData();
-    data.append("discretize", state.discretize);
+
+    var data = "discretize="+state.discretize+"&play="+state.isPlaying+"&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "4154769f-aa79-4149-9367-b4e2a55d262d");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     state.serialize();
@@ -382,19 +375,19 @@ function makeGUI() {
 
   let percTrain = d3.select("#percTrainData").on("input", function() {
     state.percTrainData = this.value;
-    var data = new FormData();
-    data.append("trainToTestRatio", state.percTrainData);
+
+    var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+                +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "9c0d7922-c3c9-4589-97ac-164c226dfd78");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     d3.select("label[for='percTrainData'] .value").text(this.value);
@@ -407,19 +400,19 @@ function makeGUI() {
 
   let noise = d3.select("#noise").on("input", function() {
     state.noise = this.value;
-    var data = new FormData();
-    data.append("noise", state.noise);
+
+    var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+                +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "9c0d7922-c3c9-4589-97ac-164c226dfd78");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     d3.select("label[for='noise'] .value").text(this.value);
@@ -442,20 +435,21 @@ function makeGUI() {
 
   let batchSize = d3.select("#batchSize").on("input", function() {
     state.batchSize = this.value;
-    var data = new FormData();
-    data.append("batchSize", state.batchSize);
+
+    var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+                +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "9c0d7922-c3c9-4589-97ac-164c226dfd78");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
+
 
     d3.select("label[for='batchSize'] .value").text(this.value);
     parametersChanged = true;
@@ -466,19 +460,19 @@ function makeGUI() {
 
   let activationDropdown = d3.select("#activations").on("change", function() {
     state.activation = activations[this.value];
-    var data = new FormData();
-    data.append("activation", state.activation);
+
+    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
+                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "043a4a44-9919-4af2-8e5c-fcbd7035d77f");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     parametersChanged = true;
@@ -489,19 +483,19 @@ function makeGUI() {
 
   let learningRate = d3.select("#learningRate").on("change", function() {
     state.learningRate = +this.value;
-    var data = new FormData();
-    data.append("learningRate", state.learningRate);
+
+    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
+                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "043a4a44-9919-4af2-8e5c-fcbd7035d77f");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     state.serialize();
@@ -514,19 +508,18 @@ function makeGUI() {
       function() {
     state.regularization = regularizations[this.value];
 
-    var data = new FormData();
-    data.append("regularization", state.regularization);
+    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
+                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "043a4a44-9919-4af2-8e5c-fcbd7035d77f");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     parametersChanged = true;
@@ -537,19 +530,19 @@ function makeGUI() {
 
   let regularRate = d3.select("#regularRate").on("change", function() {
     state.regularizationRate = +this.value;
-    var data = new FormData();
-    data.append("regularizationRate", state.regularizationRate);
+
+    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
+                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "043a4a44-9919-4af2-8e5c-fcbd7035d77f");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     parametersChanged = true;
@@ -559,19 +552,19 @@ function makeGUI() {
 
   let problem = d3.select("#problem").on("change", function() {
     state.problem = problems[this.value];
-    var data = new FormData();
-    data.append("problemType", state.problem);
+
+    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
+                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
     var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
+    //xhr.withCredentials = true;
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
     });
     xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-    xhr.setRequestHeader("Cache-Control", "no-cache");
-    xhr.setRequestHeader("Postman-Token", "043a4a44-9919-4af2-8e5c-fcbd7035d77f");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
     xhr.send(data);
 
     generateData();
@@ -893,19 +886,19 @@ function addPlusMinusControl(x: number, layerIdx: number) {
           return;
         }
         state.networkShape[i]++;
-        var data = new FormData();
-        data.append("networkShape", state.networkShape); // Test
+
+        var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+                    +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
         var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+        //xhr.withCredentials = true;
         xhr.addEventListener("readystatechange", function () {
           if (this.readyState === 4) {
             console.log(this.responseText);
           }
         });
         xhr.open("POST", "http://35.184.171.249/v1/state/");
-        xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.setRequestHeader("Postman-Token", "bca360b9-4ecd-4c64-b716-25d7f4836117");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
         xhr.send(data);
 
         parametersChanged = true;
@@ -923,19 +916,19 @@ function addPlusMinusControl(x: number, layerIdx: number) {
           return;
         }
         state.networkShape[i]--;
-        var data = new FormData();
-        data.append("networkShape", state.networkShape);
+
+        var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+                    +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
         var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
+        //xhr.withCredentials = true;
         xhr.addEventListener("readystatechange", function () {
           if (this.readyState === 4) {
             console.log(this.responseText);
           }
         });
         xhr.open("POST", "http://35.184.171.249/v1/state/");
-        xhr.setRequestHeader("Authorization", "Basic dmJyZXdlcjptbGtpbGxzY2FuY2Vy");
-        xhr.setRequestHeader("Cache-Control", "no-cache");
-        xhr.setRequestHeader("Postman-Token", "bca360b9-4ecd-4c64-b716-25d7f4836117");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
         xhr.send(data);
 
         parametersChanged = true;
@@ -1209,35 +1202,6 @@ function reset(onStartup=false) {
   let suffix = state.numHiddenLayers !== 1 ? "s" : "";
   d3.select("#layers-label").text("Hidden layer" + suffix);
   d3.select("#num-layers").text(state.numHiddenLayers);
-
-// Adding code (Ninad)
-// Trying to make a server request
-
-
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.open("POST", "./"); // request of type POST, unsure about this argument --> "./"
-                                              // Look up XMLHttpRequest.open()
-
-/* VB
- * setRequestHeader(Header, Value) adds HTTP headers to the request
- * Header: specifies the header name
- * Value: specifies the header value
-*/
-xmlhttp.setRequestHeader("Content-Type", "application/json");
-
-//Now sending json data to our python server
-console.log(toJson());
-xmlhttp.send(JSON.stringify(toJson()));
-
-
-/* VB
- * If the code above doesn't work, try this:
- * var url = "insert url"
- * var xmlhttp = new XMLHttpRequest();
- * xmlhttp.open("POST", url, true)
- * xmlhttp.setRequestHeader("Content-Type", "application/json");
- * xmlhttp.send(JSON.stringify(toJson()));
-*/
 
 
   // Make a simple network.
