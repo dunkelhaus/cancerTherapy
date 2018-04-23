@@ -25,7 +25,7 @@ TRAIN_URL = "" # only if downloading data
 TEST_URL = "" # only if downloading data
 
 CSV_COLUMN_NAMES = ['Sequence', 'Melanoma[1]','Melanoma[1]recurrence','Melanoma[10]', 'Melanoma[10]recurrence','LungAdeno[1]', 'LungAdeno[1]recurrence','LungAdeno[10]', 'LungAdeno[10]recurrence']
-TUMOR = ['Melanoma', 'LungAdeno'] # Label
+TUMORS = ['Melanoma', 'LungAdeno'] # Label
 
 #TODO Implementation - incomplete method
 #TODO Documentation
