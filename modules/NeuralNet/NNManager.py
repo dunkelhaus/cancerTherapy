@@ -1,1 +1,1 @@
- #This is where the neural net is controlled
+ #This is where the neural net is controlled from
