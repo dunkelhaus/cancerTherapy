@@ -9,6 +9,9 @@
     ** Set previous node: new_node.set_pre(prevNode)
     ** Set next node: new_node.set_next(nextNode)
 """
+import sys
+sys.dont_write_bytecode = True
+
 class _Node(object):
 	def __init__(self, data=None, pre_node=None, next_node=None):
 		self.data = data
@@ -37,13 +40,13 @@ class _Node(object):
         This functions will move the head (which holds the current Testing data)
         to the end of the list making a new fold of data the new Testing data
 """
-class _ DLL(object):
+class _DLL(object):
 	def __init__(self, head=None, tail=None):
 		self.head = head
 		self.tail = tail
 
 	def append(self, data):
-		new_node = Node(data)
+		new_node = _Node(data)
 		if self.head is None:
 			self.head = self.tail = new_node
 		else:
@@ -51,6 +54,12 @@ class _ DLL(object):
 			new_node.set_next(None)
 			self.tail.set_next(new_node)
 			self.tail = new_node
+
+    def printList(self):
+        current = self.head
+        while current is not None:
+            print current.get_data()
+            current = current.getnext()
 
     def updateList():
         current_testing = self.head
