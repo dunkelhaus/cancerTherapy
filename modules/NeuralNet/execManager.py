@@ -5,10 +5,10 @@ import evalManager as ev
 
 
 
-def execTrain():
+def execTrain(trainPath):
     #Call Train
     print("Calling the train function in trainingManager")
-    tr.train()
+    tr.train(trainPath)
 
 def execTest():
     #Call Test
