@@ -6,6 +6,7 @@
         - split the csv dataset into a specified number of folds (num_folds)
         - store each fold in a csv file within specified directory (output_path)
         - store each fold in a linked list, DLL, where each node contains a fold
+        - stores file_X.csv wher X = {1,2,3,..} within data directory outside of cancerTherapy
 
     returns: DLL object with 10 nodes each containing a fold of data
 """
@@ -16,9 +17,9 @@ from DLL import _DLL
 import csv
 import os
 
-def generateFolds(path):
+def generateFolds(path, folds):
     List = _DLL()
-    num_folds = 10
+    num_folds = folds
     output_name_template='fold_%s.csv'
     output_path='../../../data/'
     keep_headers=False
@@ -51,4 +52,3 @@ def generateFolds(path):
                     current_out_writer = csv.writer(open(current_out_path, 'w'), delimiter=',')
                 current_out_writer.writerow(row)
     return List
-

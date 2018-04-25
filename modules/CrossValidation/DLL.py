@@ -41,28 +41,28 @@ class _Node(object):
         to the end of the list making a new fold of data the new Testing data
 """
 class _DLL(object):
-	def __init__(self, head=None, tail=None):
-		self.head = head
-		self.tail = tail
+    def __init__(self, head=None, tail=None):
+        self.head = head
+        self.tail = tail
 
-	def append(self, data):
-		new_node = _Node(data)
-		if self.head is None:
-			self.head = self.tail = new_node
-		else:
-			new_node.set_pre(self.tail)
-			new_node.set_next(None)
-			self.tail.set_next(new_node)
-			self.tail = new_node
+    def append(self, data):
+        new_node = _Node(data)
+        if self.head is None:
+            self.head = self.tail = new_node
+        else:
+            new_node.set_pre(self.tail)
+            new_node.set_next(None)
+            self.tail.set_next(new_node)
+            self.tail = new_node
 
     def printList(self):
         current = self.head
         while current is not None:
             print current.get_data()
-            current = current.getnext()
+            current = current.get_next()
 
-    def updateList():
+    def updateList(self):
         current_testing = self.head
         self.head = self.head.get_next()
         self.tail.set_next(current_testing)
-		self.tail = current_testing
+        self.tail = current_testing
