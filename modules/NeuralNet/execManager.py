@@ -8,7 +8,7 @@ import evalManager as ev
 def execTrain(trainPath):
     #Call Train
     print("Calling the train function in trainingManager")
-    tr.train(trainPath)
+    tr.loadData(trainPath)
 
 def execTest():
     #Call Test
