@@ -13,19 +13,24 @@ features = tf.stack([col2, col3, col4, col5, col6, col7, col8])
 
 with tf.Session() as sess:
   # Start populating the filename queue.
-  coord = tf.train.Coordinator()
-  threads = tf.train.start_queue_runners(coord=coord)
+    coord = tf.train.Coordinator()
+    threads = tf.train.start_queue_runners(coord=coord)
 
-  for i in range(0,8):
+    for i in range(0,8):
     # Retrieve a single instance:
-    try:
-        example, label = sess.run([features, col1])
-        print(example)
-        print(label)
-    except tf.errors.OutOfRangeError:
-        break
+        try:
+            example, label = sess.run([features, col1])
+            print(example)
+            print(label)
+        except tf.errors.OutOfRangeError:
+            break
 
-  coord.request_stop()
-  coord.join(threads)
+   # for i in range(4, 8):
+    #    try:
+     #       example2, label2 = sess.run([features, col1])
+      #      print(example2)
+       #     print
 
+    coord.request_stop()
+    coord.join(threads)
 
