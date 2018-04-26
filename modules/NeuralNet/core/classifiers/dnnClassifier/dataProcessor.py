@@ -14,10 +14,11 @@ overseen by ./__main_.py
 """
 # REVIEW Do Not Run
 #=======================================================
-
+from __future__ import print_function
 import pandas as pd
 import tensorflow as tf
-from __future__ import print_function
+from sklearn.model_selection import train_test_split
+
 
 #from wrappers import pmwrapper
 
@@ -47,7 +48,7 @@ def download():
 #TODO Implementation - incomplete method
 #TODO Documentation
 #XXX Priority 2
-def load_data(y_name='Tumor'):
+def load_data(trainPath, y_name='Tumor'):
     """
     NAME: load_data (dnnClassifier)
     INPUTS: (name : type)
@@ -57,50 +58,13 @@ def load_data(y_name='Tumor'):
     """
     # use below line if downloading data
     # train_path, test_path = download()
-
-    #train = [] # the training data
-    #train = read_csv('/home/skjena/cancerTherapy/backend/out', names= CSV_COLUMN_NAMES, header=0)
-    # Split into x: training data and y: groundtruths
-    #print(train.head(n=5))
-    #train_x, train_y = train, train.pop(y_name)
-
-
-    # if file is a csv and readable, use the pandas read_csv
-    #test = pd.read_csv(test_path, names=CSV_COLUMN_NAMES, header=0)
-    #test_x, test_y = test, test.pop(y_name)
-
-    #return (train_x, train_y), (test_x, test_y)
-
-    filename_queue = tf.train.string_input_producer(["data.csv"])
-
-    reader = tf.TextLineReader()
-    key, value = reader.read(filename_queue)
-
-    record_defaults = [tf.as_string([1]), [1], [1], [1], [1], [1], [1], [1]]
-    col1, col2, col3, col4, col5, col6, col7, col8 = tf.decode_csv(value, record_defaults=record_defaults)
-    features = tf.stack([col2, col3, col4, col5, col6, col7, col8])
-
-    with tf.Session() as sess:
-        
-        coord = tf.train.Coordinator()
-        threads = tf.train.start_queue_runners(coord=coord)
-
-        for i in range(0,8):
-
-            try:
-                example, label = sess.run([features, col1])
-                print(example)
-                print(label)
-
-            except tf.errors.OutOfRangeError:
-                break
-
-        coord.request_stop()
-        coord.join(threads)
-
-
-
-
+    # the training data
+    print("Here in LoadData")
+    data = pd.read_csv(trainPath, header= None)
+    y, X = data[data.columns[0]], data[data.columns[1:7]]
+    X_train,X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
+    print(X_train)
+    return (X_train, y_train), (X_test, y_test)
 
 #TODO Documentation
 #REVIEW Implementation by (cc: TensorFlow)
