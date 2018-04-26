@@ -31,10 +31,9 @@ def modelZero(trainPath):
     ex.execEval()
 
 def main():
-     print("Here in NN Manager before calling modelZero")
-
-     trainPath = str(sys.argv[1])
-     modelZero(trainPath)
+    print("Here in NN Manager before calling modelZero")
+    trainPath = str(sys.argv[1])
+    modelZero(trainPath)
 
 if __name__ == '__main__' :
     main()

@@ -16,13 +16,15 @@ This code runs in correlation with ./dataProcessor.py, overseen by ./__main__.py
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-from mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
-from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
+#from mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
+#from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 import argparse
 import tensorflow as tf
-from django.core.exceptions import ObjectDoesNotExist
-from typings.network import Network
-# from dataProcessor import DataProcessor
+#from django.core.exceptions import ObjectDoesNotExist
+#from typings.network import Network
+import dataProcessor
+# maintains a verbose tensorflow log
+tf.logging.set_verbosity(tf.logging.INFO)
 
 #/v1/: ALL
 #/v1/arguments: learningRate, activation, regularization, regularizationRate, problemType
@@ -208,12 +210,10 @@ class DNNClassifierModel:
         return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
 
     def start():
-        # maintains a verbose tensorflow log
-        tf.logging.set_verbosity(tf.logging.INFO)
-        # runs the tensorflow app defined in the main method
-        tf.app.run(start)
+        #tf.app.run()
         # TODO Fetch the data from the dataset  - done by load_data() in ./dataProcessor.py
-        # (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
+        (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
+        print("Here after loading")
 
         feature_columns = []
         # for each key in the train_x dictionary
@@ -282,3 +282,8 @@ class DNNClassifierModel:
             # print the correct answer's label, it's probability scaled into a percentage, and the expected class from the list
             print(template.format(dataProcessor.TUMOR[class_id],
                                   100 * probability, expec))
+        def main():
+            start()
+
+        if __name__ == '__main__':
+            main()
