@@ -41,13 +41,14 @@ def CrossValidate():
     # List will hold 10 nodes where the head is Testing and the other 9 nodes are Training data
     List = generateFolds(path, folds)
 
-    #initialize the queue which is populated by crossValidate() and used by DispatchData()
-    DDq = Queue()
+    #initialize the queues which are populated by crossValidate() and used by DispatchData()
+    DDqTesting = Queue()
+    DDqTraining = Queue()
 
     #Two processes: one to cross validate and another to begin dispatching data as soon
     #as there is something in the Queue to dispatch
-    crossValidate = Process(target=validation , args=(List,folds,DDq))
-    dispatch = Process(target=DispatchData, args=(DDq,))
+    crossValidate = Process(target=validation , args=(List,folds,DDqTesting,DDqTraining,))
+    dispatch = Process(target=DispatchData, args=(DDqTesting,DDqTraining,))
     crossValidate.start()
     dispatch.start()
 
