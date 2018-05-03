@@ -9,7 +9,7 @@
 from DLL import _DLL
 from multiprocessing import Queue
 
-def validation(List, folds, queue):
+def validation(List, folds, TestingQueue, TrainingQueue):
     for i in range(1,folds+1):
         #Create training file (i of them)
         trainingFoldCSV = "../../../data/trainingFolds_%s.csv" % i
@@ -36,7 +36,7 @@ def validation(List, folds, queue):
             single.close()
         combine.close()
         # training and testing folds are now ready to be sent to network so queue them
-        queue.put(trainingFoldCSV)
-        queue.put(testingFoldCSV)
+        TrainingQueue.put(trainingFoldCSV)
+        TestingQueue.put(testingFoldCSV)
         # update which fold is testing fold and which are training folds
         List.updateList()
