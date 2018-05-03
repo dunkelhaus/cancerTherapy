@@ -1,14 +1,15 @@
 #Cross Validation Algorithm
 """"
     Given a List and number of folds, validation() will:
-        - take the List holding all folds and combines all of
-        the training folds into one csv called trainingFolds.csv
+        - take the List holding all folds and combines all of the training folds into one csv called trainingFolds.csv
         - stores trainingFolds_X.csv where X = {1,2,3,..} within data directory outside of cancerTherapy
         - stores testingFold_X.csv where X = {1,2,3...} within data directory outside of cancerTherapy
+        - adds folds to DataDispatcher's queue to be sent to network as the folds are created
 """
 from DLL import _DLL
+from multiprocessing import Queue
 
-def validation(List, folds):
+def validation(List, folds, queue):
     for i in range(1,folds+1):
         #Create training file (i of them)
         trainingFoldCSV = "../../../data/trainingFolds_%s.csv" % i
@@ -34,4 +35,8 @@ def validation(List, folds):
                 combine.write(line)
             single.close()
         combine.close()
+        # training and testing folds are now ready to be sent to network so queue them
+        queue.put(trainingFoldCSV)
+        queue.put(testingFoldCSV)
+        # update which fold is testing fold and which are training folds
         List.updateList()
