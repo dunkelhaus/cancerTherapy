@@ -13,10 +13,13 @@ negOne=-1
 #cat /home/skjena/data/fm_sample_independent.tab | tail -n +2 > f1.tab
 #sed -n 1,$3p f1.tab > f2.tab
 sed -n 1,$3p /home/skjena/data/fm_sample_independent.tab > f2.tab
-sed -e "s/NA/$negOne/" f2.tab > f.tab
+sed -e "s/NA/$negOne/" f2.tab > f.tab # Convert NA to -1
 awk -v f=1 -v t=$4 '{for(i=f;i<=t;i++) printf("%s%s",$i,(i==t)?"\n":OFS)}' f.tab > file.tab
-cat file.tab | tr "\ " "," > "$DIR/data.csv"
+cat file.tab | tr "\ " "," > d.csv
+echo -e "         $(cat d.csv)" > "$DIR/data.csv"
+
 rm file.tab
+rm d.csv
 #rm f1.tab
 rm f2.tab
 rm f.tab
