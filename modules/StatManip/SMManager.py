@@ -11,7 +11,7 @@ def isNumber(s):
         return False
 
 def calctf_idf():
-    df = pd.read_csv("/Users/kravisankaran/code/cs193a/cnnCancerTherapy/modules/RawDB/scripts/tokenCancer.csv")
+    df = pd.read_csv("/home/skjena/cancerTherapy/modules/RawDB/scripts/tokenCancer.csv")
     termFrequency = df[df.columns.difference(['CANCERS'])]
     lengthOfDocument = len(df.columns)
     termFrequency = (1/float(lengthOfDocument)) * termFrequency
