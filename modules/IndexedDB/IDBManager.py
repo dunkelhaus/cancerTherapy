@@ -1,3 +1,12 @@
+"""
+ Deep Learning for Cancer Therapy
+
+ Authors:
+ Kumud Ravisankaran | Valeria Brewer
+ Ninad Mehta | Suraj Jena
+
+"""
+
 import sys
 sys.path.append('../')
 sys.dont_write_bytecode = True

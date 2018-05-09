@@ -1,5 +1,11 @@
 #Cross Validation Algorithm
 """"
+ Deep Learning for Cancer Therapy
+
+ Authors:
+ Kumud Ravisankaran | Valeria Brewer
+ Ninad Mehta | Suraj Jena
+
     Given a List and number of folds, validation() will:
         - take the List holding all folds and combines all of the training folds into one csv called trainingFolds.csv
         - stores trainingFolds_X.csv where X = {1,2,3,..} within data directory outside of cancerTherapy

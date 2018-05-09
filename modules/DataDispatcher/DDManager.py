@@ -1,5 +1,11 @@
 #DDManager.py
 """
+ Deep Learning for Cancer Therapy
+
+ Authors:
+ Kumud Ravisankaran | Valeria Brewer
+ Ninad Mehta | Suraj Jena
+
     ** DispatchData() will:
         - be called from CVManager asynchronously
         - take 2 queues as arguments: one for testing and one for training
