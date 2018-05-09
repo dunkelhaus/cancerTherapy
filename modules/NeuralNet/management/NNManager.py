@@ -12,7 +12,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-import execManager as ex
+from NeuralNet.management import execManager
 import sys
 
 #import  sys
@@ -26,9 +26,9 @@ import tensorflow as tf
 
 def modelZero(trainPath):
     #Call the execTrain, Test and Eval function
-    ex.execTrain(trainPath)
-    ex.execTest()
-    ex.execEval()
+    execManager.execTrain(trainPath)
+    execManager.execTest()
+    execManager.execEval()
 
 def main():
     print("Here in NN Manager before calling modelZero")

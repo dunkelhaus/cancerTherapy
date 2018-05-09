@@ -6,7 +6,7 @@ import argparse
 import tensorflow as tf
 import sys
 sys.path.append('/Users/kravisankaran/code/cs193a/cnnCancerTherapy/modules/NeuralNet/core/classifiers/dnnClassifier')
-import dataProcessor
+from NeuralNet.core.classifiers.dnnClassifier import dataProcessor
 
 
 

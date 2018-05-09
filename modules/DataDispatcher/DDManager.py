@@ -8,6 +8,7 @@
 """
 from Queue import *
 import time
+from NeuralNet.management.NNManager import modelZero
 
 def DispatchData(TestingQueue, TrainingQueue):
     while TestingQueue.empty() == True and TrainingQueue.empty() == True:

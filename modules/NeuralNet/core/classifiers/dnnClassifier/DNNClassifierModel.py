@@ -22,7 +22,8 @@ import argparse
 import tensorflow as tf
 #from django.core.exceptions import ObjectDoesNotExist
 #from typings.network import Network
-import dataProcessor
+#import dataProcessor
+from NeuralNet.core.classifiers.dnnClassifier import dataProcessor
 # maintains a verbose tensorflow log
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -268,7 +269,7 @@ class DNNClassifierModel:
         # But in predict mode - that function handles two modes, predict and evaluate
         # This takes predict_x as it's labels if no labels are provided, and
         predictions = classifier.predict(
-            input_fn=lambda:iris_data.eval_input_fn(predict_x, labels = None, batch_size=getTensorflowBatchSize()))
+            input_fn=lambda:dataProcessor.eval_input_fn(predict_x, labels = None, batch_size=getTensorflowBatchSize()))
 
         # Loop through the tuple list of (predictions, expected) which holds the predictions for each ith value in all 3 columns
         # of the predict_x dict, giving predictions for those sample values after the model has been trained and evaluated (i.e. "learned")
