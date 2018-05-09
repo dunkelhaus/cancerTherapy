@@ -12,11 +12,11 @@ from multiprocessing import Queue
 def validation(List, folds, TestingQueue, TrainingQueue):
     for i in range(1,folds+1):
         #Create training file (i of them)
-        trainingFoldCSV = "../../../data/trainingFolds_%s.csv" % i
+        trainingFoldCSV = "/home/skjena/data/testData/trainingFolds_%s.csv" % i
         combine=open(trainingFoldCSV,"w")
 
         #Create testing file (i of them)
-        testingFoldCSV = "../../../data/testingFold_%s.csv" % i
+        testingFoldCSV = "/home/skjena/data/testData/testingFold_%s.csv" % i
         testing=open(testingFoldCSV,"w")
 
         testingFold = List.head.get_data()

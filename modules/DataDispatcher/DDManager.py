@@ -15,12 +15,12 @@ def DispatchData(TestingQueue, TrainingQueue):
         time.sleep(1)
     while TestingQueue.empty() == False or TrainingQueue.empty() == False:
         #once data is in queue, send it off to network
-        print 'Empty Testing Queue?: ', TestingQueue.empty() #just for visualization
-        print 'Empty Training Queue?: ', TrainingQueue.empty() #just for visualization
+        print "Empty Testing Queue?: ", TestingQueue.empty() #just for visualization
+        print "Empty Training Queue?: ", TrainingQueue.empty() #just for visualization
         if TestingQueue.empty() == False:
             TestFold = TestingQueue.get() #pop from Testing queue until it is empty
         if TrainingQueue.empty() == False:
             TrainFold = TrainingQueue.get() #pop from Training queue until it is empty
         #TODO: send fold to network
-    print 'Empty Testing Queue?: ', TestingQueue.empty() #just for visualization
-    print 'Empty Training Queue?: ', TrainingQueue.empty() #just for visualization
+    print "Empty Testing Queue?: ", TestingQueue.empty() #just for visualization
+    print "Empty Training Queue?: ", TrainingQueue.empty() #just for visualization

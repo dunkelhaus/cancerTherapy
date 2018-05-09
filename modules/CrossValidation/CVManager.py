@@ -26,9 +26,9 @@ from DataDispatcher.DDManager import DispatchData
 
 from multiprocessing import Process, Queue
 
-def CrossValidate():
+def CrossValidate(path):
     # Eventually will change path to fm_mutations file given by Quon
-    path = '../../../data/test.csv'
+    #path = '../../../data/test.csv'
     folds = 10
     row_label = "CANCERS"
     column_labels = "FEATURES"
@@ -53,4 +53,4 @@ def CrossValidate():
     dispatch.start()
 
 
-CrossValidate()
+#CrossValidate()
