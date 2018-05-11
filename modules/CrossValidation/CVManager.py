@@ -41,6 +41,8 @@ def CrossValidate(path):
     #Two processes: one to cross validate and another to begin dispatching data as soon
     #as there is something in the Queue to dispatch
     crossValidate = Process(target=validation , args=(List,folds,DDqTesting,DDqTraining,))
-    dispatch = Process(target=DispatchData, args=(DDqTesting,DDqTraining,))
+    #dispatch = Process(target=DispatchData, args=(DDqTesting,DDqTraining,))
     crossValidate.start()
-    dispatch.start()
+    #dispatch.start()
+
+#CrossValidate("/home/skjena/cancerTherapy/modules/RawDB/scripts/fm_sample_independent.csv")
