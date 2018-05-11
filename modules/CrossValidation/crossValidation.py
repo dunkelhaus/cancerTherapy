@@ -37,6 +37,7 @@ def validation(List, folds, TestingQueue, TrainingQueue):
             currentFold = currentFold.get_next()
             currentFoldData = currentFold.get_data()
             single = open(currentFoldData)
+            header = single.next()
             for line in single:
                 combine.write(line)
             single.close()
