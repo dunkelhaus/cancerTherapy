@@ -10,7 +10,9 @@
         - be called from CVManager asynchronously
         - take 2 queues as arguments: one for testing and one for training
         - pass folds to network while new folds are being generated
-        s(no time wasted waiting for all folds to be generated before sending the first one)
+          (no time wasted waiting for all folds to be generated before sending the first one)
+        - Send training fold to modelZero, waits for completion, then sends testing fold
+          to modelZero and waits for completion before continuing until both queues are empty
 """
 from Queue import *
 import time
@@ -22,12 +24,20 @@ def DispatchData(TestingQueue, TrainingQueue):
         time.sleep(1)
     while TestingQueue.empty() == False or TrainingQueue.empty() == False:
         #once data is in queue, send it off to network
-        print "Empty Testing Queue?: ", TestingQueue.empty() #just for visualization
-        print "Empty Training Queue?: ", TrainingQueue.empty() #just for visualization
-        if TestingQueue.empty() == False:
-            TestFold = TestingQueue.get() #pop from Testing queue until it is empty
+        print "DDManager says: Empty Testing Queue?: ", TestingQueue.empty() #just for visualization
+        print "DDManager says: Empty Training Queue?: ", TrainingQueue.empty() #just for visualization
         if TrainingQueue.empty() == False:
             TrainFold = TrainingQueue.get() #pop from Training queue until it is empty
-        #TODO: send fold to network
-    print "Empty Testing Queue?: ", TestingQueue.empty() #just for visualization
-    print "Empty Training Queue?: ", TrainingQueue.empty() #just for visualization
+            #send training fold to NN and wait for completion before continuing
+            while modelZero(TrainFold, 0) != 1:
+                print "DDManager says: Sending Training Fold to modelZero"
+                time.sleep(1)
+        if TestingQueue.empty() == False:
+            TestFold = TestingQueue.get() #pop from Testing queue until it is empty
+            #sent testing fold to NN and wait for completion before continuing
+            while modelZero(TestFold, 1) != 1:
+                print "DDManager says: Sending Testing Fold to modelZero"
+                time.sleep(1)
+
+    print "DDManager says: Empty Testing Queue?: ", TestingQueue.empty() #just for visualization
+    print "DDManger says: Empty Training Queue?: ", TrainingQueue.empty() #just for visualization

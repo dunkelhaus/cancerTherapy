@@ -15,7 +15,7 @@ def execTrain(trainPath):
     #Call load_data in DataProcessor to load the appropriate dataset
     (train_x, train_y), (test_x, test_y) = dataProcessor.load_data(trainPath)
 
-def execTest():
+def execTest(testPath):
     #Call Test
     print("Calling the test function in testingManager")
     te.test()

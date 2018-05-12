@@ -24,16 +24,22 @@ import tensorflow as tf
 #from django.core.exceptions import ObjectDoesNotExist
 #from typings.network import Network
 
-def modelZero(trainPath):
+#mode 0: Path leads to training fold
+#mode 1: Path leads to testing fold
+def modelZero(Path, mode):
     #Call the execTrain, Test and Eval function
-    execManager.execTrain(trainPath)
-    execManager.execTest()
+    if mode == 0:
+        execManager.execTrain(Path)
+    else if mode == 1:
+        execManager.execTest(Path)
     execManager.execEval()
+    return 1
+
 
 def main():
     print("Here in NN Manager before calling modelZero")
-    trainPath = str(sys.argv[1])
-    modelZero(trainPath)
+    Path = str(sys.argv[1])
+    modelZero(Path, 0)
 
 if __name__ == '__main__' :
     main()
