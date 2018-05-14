@@ -1,0 +1,2 @@
+find ~ -type f -exec du {} + > /tmp/size_report.txt
+sort -rn /tmp/size_report.txt | head -n 20

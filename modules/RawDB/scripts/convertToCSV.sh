@@ -12,7 +12,7 @@ DIR=$5
 negOne=-1
 #cat /home/skjena/data/fm_sample_independent.tab | tail -n +2 > f1.tab
 #sed -n 1,$3p f1.tab > f2.tab
-sed -n 1,$3p /home/skjena/data/fm_sample_independent.tab > f2.tab
+sudo sed -n 1,$3p /home/skjena/data/fm_sample_independent.tab > f2.tab
 sed -e "s/NA/$negOne/" f2.tab > f.tab # Convert NA to -1
 echo -e "CANCERS $(cat f.tab)" > d.tab
 awk -v f=1 -v t=$4 '{for(i=f;i<=t;i++) printf("%s%s",$i,(i==t)?"\n":OFS)}' d.tab > file.tab

@@ -26,17 +26,12 @@ def DispatchData(TestingQueue, TrainingQueue):
         #once data is in queue, send it off to network
         print "DDManager says: Empty Testing Queue?: ", TestingQueue.empty() #just for visualization
         print "DDManager says: Empty Training Queue?: ", TrainingQueue.empty() #just for visualization
-        if TrainingQueue.empty() == False:
+        if TrainingQueue.empty() == False and TestingQueue.empty() == False:
             TrainFold = TrainingQueue.get() #pop from Training queue until it is empty
-            #send training fold to NN and wait for completion before continuing
-            while modelZero(TrainFold, 0) != 1:
-                print "DDManager says: Sending Training Fold to modelZero"
-                time.sleep(1)
-        if TestingQueue.empty() == False:
             TestFold = TestingQueue.get() #pop from Testing queue until it is empty
-            #sent testing fold to NN and wait for completion before continuing
-            while modelZero(TestFold, 1) != 1:
-                print "DDManager says: Sending Testing Fold to modelZero"
+            print "DDManager says: Sending Folds to modelZero"
+            #send training fold to NN and wait for completion before continuing
+            while modelZero(TrainFold, TestFold) != 1:
                 time.sleep(1)
 
     print "DDManager says: Empty Testing Queue?: ", TestingQueue.empty() #just for visualization

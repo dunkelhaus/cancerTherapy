@@ -5,7 +5,7 @@ import numpy as np
 
 a = [[]]
 
-df = pd.read_csv("/Users/kravisankaran/code/cs193a/cnnCancerTherapy/modules/RawDB/scripts/tokenCancer.csv")
+df = pd.read_csv("/home/skjena/data/testData/fold_1.csv")
 numOfCols = len(df.columns)
 numOfRows = len(df)
 b = np.zeros((numOfRows, numOfRows, numOfRows))
