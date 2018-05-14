@@ -47,12 +47,12 @@ tf.logging.set_verbosity(tf.logging.INFO)
 
 class DNNClassifierModel:
 
-    def getLearningRate():
+    def getLearningRate(self):
         learningRate = Arguments.objects.get(name="learningRate")
         number = float(learningRate)
         return tf.Variable(number, tf.float64)
 
-    def getActivation():
+    def getActivation(self):
         activation = Arguments.objects.get(name="activation")
 
         if activation == "RELU":
@@ -67,7 +67,7 @@ class DNNClassifierModel:
         """if activation == "LINEAR": #tf.nn doesn't have linear. Moving on.
             return           """
 
-    def getRegularization():
+    def getRegularization(self):
         regularization = Arguments.objects.get(name="regularization")
 
         if regularization == "None":
@@ -79,36 +79,38 @@ class DNNClassifierModel:
         if regularization == "L2":
             return tf.contrib.layers.l2_regularizer
 
-    def getRegularizationRate():
+    def getRegularizationRate(self):
         regularizationRate = Arguments.objects.get(name="regularizationRate")
         number = float(regularizationRate)
         return tf.Variable(number, tf.float64)
 
-    def getProblemType():
+    def getProblemType(self):
         problemType = Arguments.objects.get(name="problemType")
 
         if problemType == "CLASSIFICATION":
             return tf.contrib.learn.ProblemType.CLASSIFICATION
 
-    def getBatchSize():
+    def getBatchSize(self):
         batchSize = State.objects.get(name="batchSize")
         number = int(batchSize)
         return tf.Variable(number, tf.int32)
 
-    def getNoise():
+    def getNoise(self):
         noise = State.objects.get(name="noise")
         number = int(noise)
         return tf.Variable(number, tf.int32)
 
-    def getTrainToTestRatio():
+    def getTrainToTestRatio(self):
         trainToTestRatio = State.objects.get(name="trainToTestRatio")
         number = int(trainToTestRatio)
         return tf.Variable(number, tf.int32)
 
-    def getNetworkShape(): #Unsure what to return here
-        networkShape = State.objects.get(name="networkShape")
+    def getNetworkShape(self): #Unsure what to return here
+        shape = input("Enter shape in format [I:{H+}:O]: ")
 
-    def getDiscretize():
+        return shape
+
+    def getDiscretize(self):
         discretize = Run.objects.get(name="discretize")
 
         if discretize.lower() == "true":
@@ -119,7 +121,7 @@ class DNNClassifierModel:
 
         return tf.Variable("None", tf.string)
 
-    def getPlay():
+    def getPlay(self):
         play = Run.objects.get(name="play")
 
         if play.lower() == "true":
@@ -130,17 +132,11 @@ class DNNClassifierModel:
 
         return tf.Variable("None", tf.string)
 
-    def getReset(): #Check if reset stored in DB
+    def getReset(self): #Check if reset stored in DB
         return tf.Variable("None", tf.string)
 
-    def getNext(): #Check if next stored in DB
+    def getNext(self): #Check if next stored in DB
         return tf.Variable("None", tf.string)
-
-
-
-
-
-
 
 
     #REVIEW Verify if each and every line of routine lines up with our dataset requirements
@@ -173,8 +169,8 @@ class DNNClassifierModel:
         net = tf.feature_column.input_layer(features, params['feature_columns'])
         stateObjStatus = False
 
-        for units in range(0, self.network.state.numHiddenLayers): #params['hidden_units']:
-            net = tf.layers.dense(net, units=self.network.state.numHiddenLayers[units], activation=getTensorflowActivation()) # Using the ReLu activation function
+        for units in range(0, params['hidden_units']):
+            net = tf.layers.dense(net, units=self.getNetworkShape(), activation=getTensorflowActivation()) # Using the ReLu activation function
             # net signifies input layer during first iteration
 
         # Compute logits (one per class)
@@ -210,11 +206,8 @@ class DNNClassifierModel:
 
         return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
 
-    def start():
-        #tf.app.run()
-        # TODO Fetch the data from the dataset  - done by load_data() in ./dataProcessor.py
-        (train_x, train_y), (test_x, test_y) = dataProcessor.load_data()
-        print("Here after loading")
+
+    def build(self, shape):
 
         feature_columns = []
         # for each key in the train_x dictionary
@@ -223,20 +216,18 @@ class DNNClassifierModel:
             # append a numeric feature column to the list, with key same as the training set key
             feature_columns.append(tf.feature_column.numeric_column(key=key))
 
-        # Build DNN with 2 hidden layers, and 10, 10 units respectively (for each layer) [units are the number of output neurons]
-        # take hidden_units from DNNClassifierModel which checks for changes in networkShape
-        # May need to *wait* for DNNClassifierModel.networkShape() to return with value
         classifier = tf.estimator.Estimator(
             model_fn=classifierModel,
-            params={ #NOTE Unsure about hidden_units. Find a way to integrate networkShape here (hiddenLayers with the hiddenUnits)
-                # Send the feature columns in params
+            params={ 
                 'feature_columns' : feature_columns,
-                # Enter hidden layer units, 2 of X nodes each [used 10 as a placeholder]
-                'hidden_units' : self.network.state.networkShape,
-                # The model must choose between X classes
+                'hidden_units' : shape,
                 'n_classes' : 2,
             }
         )
+
+        return classifier
+
+    def start():
 
         # Train the model
         # Provide a lambda function to the train method for the actual input function with (features, labels, batch_size)
@@ -283,8 +274,3 @@ class DNNClassifierModel:
             # print the correct answer's label, it's probability scaled into a percentage, and the expected class from the list
             print(template.format(dataProcessor.TUMOR[class_id],
                                   100 * probability, expec))
-        def main():
-            start()
-
-        if __name__ == '__main__':
-            main()

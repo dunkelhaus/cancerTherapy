@@ -26,20 +26,16 @@ import tensorflow as tf
 
 #mode 0: Path leads to training fold
 #mode 1: Path leads to testing fold
-def modelZero(Path, mode):
-    #Call the execTrain, Test and Eval function
-    if mode == 0:
-        execManager.execTrain(Path)
-    else if mode == 1:
-        execManager.execTest(Path)
-    execManager.execEval()
-    return 1
-
+def modelZero(trainPath, testPath):
+    executor = execManager(trainPath, testPath)
+    executor.train()
+    executor.test()
+    executor.predict()
 
 def main():
     print("Here in NN Manager before calling modelZero")
     Path = str(sys.argv[1])
-    modelZero(Path, 0)
+    modelZero(Path)
 
 if __name__ == '__main__' :
     main()

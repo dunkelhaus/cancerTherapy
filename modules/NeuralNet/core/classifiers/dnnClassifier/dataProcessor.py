@@ -48,7 +48,28 @@ def download():
 #TODO Implementation - incomplete method
 #TODO Documentation
 #XXX Priority 2
-def load_data(trainPath, y_name='Tumor'):
+def load_train_data(trainPath, y_name='Tumor'):
+    """
+    NAME: load_data (dnnClassifier)
+    INPUTS: (name : type)
+    RETURN: (type)
+
+    PURPOSE: Should return the Quon dataset training data as (train_x, train_y)
+    """
+    # use below line if downloading data
+    # train_path, test_path = download()
+    # the training data
+    print("Loading training data")
+    data = pd.read_csv(trainPath, header= None)
+    y, X = data[data.columns[0]], data[data.columns[1:7]]
+    X_train,X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
+    print(X_train)
+    return (X_train, y_train), (X_test, y_test)
+
+#TODO Implementation - incomplete method
+#TODO Documentation
+#XXX Priority 2
+def load_test_data(testPath, y_name='Tumor'):
     """
     NAME: load_data (dnnClassifier)
     INPUTS: (name : type)
@@ -59,7 +80,7 @@ def load_data(trainPath, y_name='Tumor'):
     # use below line if downloading data
     # train_path, test_path = download()
     # the training data
-    print("Here in LoadData")
+    print("Loading testing data")
     data = pd.read_csv(trainPath, header= None)
     y, X = data[data.columns[0]], data[data.columns[1:7]]
     X_train,X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
