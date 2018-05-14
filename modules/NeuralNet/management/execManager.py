@@ -12,23 +12,31 @@ from NeuralNet.core.classifiers.dnnClassifier import DNNClassifierModel
 
 class execManager():
 
-	def __init__(self, path):
-		(self.train_x, self.train_y), (self.test_x, self.test_y) = dataProcessor.load_data(path)
+	def __init__(self, trainpath, testpath):
+		(self.train_x, self.train_y) = dataProcessor.load_train_data(trainpath)
+		(self.test_x, self.test_y) = dataProcessor.load_test_data(testpath)
 		self.classifier = None
+		self.predict_x = ""
+		self.expected = []
 		self.status = Status("execManager")
 
-	def train(self, path):
-		self.status(1, "train(self, path)")
+	def train(self):
+		self.status.message(1, "train(self)")
 		trainer = tr(self.train_x, self.train_y)
 	    self.classifier = trainer.run()
 
-	    self.status(0, "train(self, path)")
+	    self.status.message(0, "train(self)")
 
-	def test(path):
-    	print("Calling the test function in testingManager")
-    	te.test()
+	def test(self):
+    	self.status.message(1, "test(self)")
+    	tester = te(self.test_x, self.test_y)
+    	self.result = tester.run(self.classifier)
 
-	def predict(path):
-    	#Call Eval
-    	print("Calling the predict function in predictManager")
-    	pr.predict()
+    	self.status.message(0, "test(self)")
+
+	def predict(self):
+    	self.status.message(1, "predict(self)")
+    	predictor = pr(self.predict_x, self.expected)
+    	predictor.run(self.classifier)
+
+    	self.status.message(0, "predict(self)")

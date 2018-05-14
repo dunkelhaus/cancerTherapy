@@ -26,16 +26,15 @@ import tensorflow as tf
 
 #mode 0: Path leads to training fold
 #mode 1: Path leads to testing fold
-def modelZero(trainPath, testPath):
-    executor = execManager(trainPath, testPath)
-    executor.train()
-    executor.test()
-    executor.predict()
 
-def main():
-    print("Here in NN Manager before calling modelZero")
-    Path = str(sys.argv[1])
-    modelZero(Path)
+class NNManager():
+	def __init__(self, trainpath, testpath):
+		self.iteration = 0
+		self.trainpath = trainpath
+		self.testpath = testpath
+		self.executor = execManager(trainpath, testpath)
 
-if __name__ == '__main__' :
-    main()
+	def modelZero():
+    	executor.train()
+    	executor.test()
+    	executor.predict()

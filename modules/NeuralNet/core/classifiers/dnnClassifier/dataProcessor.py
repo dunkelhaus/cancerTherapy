@@ -110,13 +110,13 @@ def train_input_fn(features, labels, batch_size):
 #REVIEW Implementation by (cc: TensorFlow)
 #TODO Documentation
 #XXX Priority 2
-def eval_input_fn(features, labels, batch_size):
+def test_input_fn(features, labels, batch_size):
     """
-    NAME: train_input_fn (dnnClassifier)
+    NAME: test_input_fn (dnnClassifier)
     INPUTS: (name : type)
     RETURN: (type)
 
-    PURPOSE: An input function for evaluation & prediction.
+    PURPOSE: An input function for evaluation/testing.
     """
     features=dict(features)
     if labels is None:
@@ -134,6 +134,10 @@ def eval_input_fn(features, labels, batch_size):
 
     # Return the read end of the pipeline.
     return dataset.make_one_shot_iterator().get_next()
+
+def predict_input_fn(features, batch_size):
+
+    return
 
 """
 Below code is by TensorFlow (cc: TensorFlow.org)
