@@ -1,4 +1,4 @@
-# Deep Learning for Cancer Therapy [![Build Status](https://travis-ci.org/skjena/cnnCancerTherapy.svg?branch=master)](https://travis-ci.org/skjena/cnnCancerTherapy)
+# Deep Learning for Cancer Therapy [![Build Status](https://travis-ci.org/skjena/cnnCancerTherapy.svg?branch=testing)](https://travis-ci.org/skjena/cnnCancerTherapy)
 
 ## Motivation:  
 Machine learning can be used to perform unsupervised learning on the DNA sequences of patient tumors in order to  identify non-linear features of the tumor DNA that help predict treatment.  
