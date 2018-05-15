@@ -21,6 +21,7 @@ import sys
 #from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 import argparse
 import tensorflow as tf
+from Status.Status import Status
 #from django.core.exceptions import ObjectDoesNotExist
 #from typings.network import Network
 
@@ -33,8 +34,11 @@ class NNManager():
 		self.trainpath = trainpath
 		self.testpath = testpath
 		self.executor = execManager(trainpath, testpath)
+		self.status = Status("NNManager")
 
 	def modelZero():
-    	executor.train()
-    	executor.test()
-    	executor.predict()
+		self.status.message(1, "modelZero()")
+    	self.executor.train()
+    	self.executor.test()
+    	self.executor.predict()
+    	self.status.message(0, "modelZero()")
