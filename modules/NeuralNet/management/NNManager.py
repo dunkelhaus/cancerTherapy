@@ -7,7 +7,7 @@
 
  A custom TensorFlow Estimator for a DNNClassifier for mutation classification.
 
- This code runs in correlation with ./dataProcessor.py, overseen by ./__main__.py
+ This code runs in correlation with core/dataProcessor.py, overseen by DataDispatcher/DDManager.py
 """
 from __future__ import absolute_import
 from __future__ import division
