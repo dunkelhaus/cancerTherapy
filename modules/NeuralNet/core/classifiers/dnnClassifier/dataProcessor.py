@@ -61,10 +61,11 @@ def load_train_data(trainPath, y_name='Tumor'):
     # the training data
     print("Loading training data")
     data = pd.read_csv(trainPath, header= None)
-    y, X = data[data.columns[0]], data[data.columns[1:7]]
-    X_train,X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
-    print(X_train)
-    return (X_train, y_train), (X_test, y_test)
+    numOfCols = len(data.columns) - 1
+    train_y, train_x = data[data.columns[0]], data[data.columns[1:numOfCols]]
+    #X_train, X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
+    #print(X_train)
+    return (train_x, train_y)
 
 #TODO Implementation - incomplete method
 #TODO Documentation
@@ -75,17 +76,19 @@ def load_test_data(testPath, y_name='Tumor'):
     INPUTS: (name : type)
     RETURN: (type)
 
-    PURPOSE: Should return the Quon dataset as (train_x, train_y), (test_x, test_y).
+    PURPOSE: Should return the Quon dataset as (test_x, test_y).
     """
     # use below line if downloading data
     # train_path, test_path = download()
     # the training data
     print("Loading testing data")
     data = pd.read_csv(trainPath, header= None)
-    y, X = data[data.columns[0]], data[data.columns[1:7]]
-    X_train,X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
-    print(X_train)
-    return (X_train, y_train), (X_test, y_test)
+    numOfCols = len(data.columns) - 1
+
+    test_y, test_x = data[data.columns[0]], data[data.columns[1:numOfCols]]
+    #X_train, X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
+    #print(X_train)
+    return (test_x, test_y)
 
 #TODO Documentation
 #REVIEW Implementation by (cc: TensorFlow)
@@ -136,8 +139,19 @@ def test_input_fn(features, labels, batch_size):
     return dataset.make_one_shot_iterator().get_next()
 
 def predict_input_fn(features, batch_size):
-
-    return
+    if labels is None:
+        # No labels, use only features.
+        inputs = features
+ 
+     # Convert the inputs to a Dataset.
+     dataset = tf.data.Dataset.from_tensor_slices(inputs)
+ 
+     # Batch the examples
+     assert batch_size is not None, "batch_size must not be None"
+     dataset = dataset.batch(batch_size)
+ 
+     # Return the read end of the pipeline.
+     return dataset.make_one_shot_iterator().get_next()
 
 """
 Below code is by TensorFlow (cc: TensorFlow.org)
@@ -163,7 +177,7 @@ def _parse_line(line):
     return features, label
 
 
-def csv_input_fn(csv_path, batch_size):
+def csv_iinput_fn(csv_path, batch_size):
     # Create a dataset containing the text lines.
     dataset = tf.data.TextLineDataset(csv_path).skip(1)
 
