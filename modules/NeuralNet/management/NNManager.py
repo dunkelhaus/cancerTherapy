@@ -13,6 +13,7 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from NeuralNet.management import execManager
+from execManager import execManager
 import sys
 
 #import  sys
@@ -29,16 +30,16 @@ from Status.Status import Status
 #mode 1: Path leads to testing fold
 
 class NNManager():
-	def __init__(self, trainpath, testpath):
-		self.iteration = 0
-		self.trainpath = trainpath
-		self.testpath = testpath
-		self.executor = execManager(trainpath, testpath)
-		self.status = Status("NNManager")
-
-	def modelZero():
-		self.status.message(1, "modelZero()")
-    	self.executor.train()
-    	self.executor.test()
-    	self.executor.predict()
-    	self.status.message(0, "modelZero()")
+    def __init__(self, trainpath, testpath):
+        self.iteration = 0
+        self.trainpath = trainpath
+        self.testpath = testpath
+        self.executor = execManager(trainpath, testpath)
+        self.status = Status("NNManager")
+        
+    def modelZero(self):
+        self.status.message(1, "modelZero()")
+        self.executor.train()
+        self.executor.test()
+        self.executor.predict()
+        self.status.message(0, "modelZero()")

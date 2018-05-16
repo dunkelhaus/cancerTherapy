@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
+require 'csv'
+require 'pp'
 
-csv_data = CSV.read ''
-headers = csv_data.shift.map {|i| i.to_s }
-string_data = csv_data.map {|row| row.map {|cell| cell.to_s } }
-array_of_hashes = string_data.map {|row| Hash[*headers.zip(row).flatten] }
+file = '/home/skjena/data/testData/fold_2.csv'
+rows = CSV.parse(file, headers: true, converters: [CSV::Converters[:float]])
+pp rows[1]
