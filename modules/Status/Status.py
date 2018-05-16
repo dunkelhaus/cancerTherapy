@@ -1,6 +1,6 @@
 import tensorflow
 import os
-from __future__ import print_function
+#from __future__ import print_function
 
 class Status():
     def __init__(self, name):
@@ -8,13 +8,13 @@ class Status():
 
     def message(self, code, process):
         if code == 0:
-            print("Completed process %s (%s) successfully.", %(process, self.name))
+            print("Completed process %s (%s) successfully." %(process, self.name))
 
         elif code == 1:
-            print("Entering process %s (%s) ...", %(process, self.name))
+            print("Entering process %s (%s) ..." %(process, self.name))
 
         elif code == 2:
-            print("Error in %s.", %(process))
+            print("Error in %s." %(process))
 
         elif code == 3:
         	print("Training status: Complete. Model ready for testing. \n Successfully trained a DNN of shape %s" %(process))
