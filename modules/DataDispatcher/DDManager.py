@@ -16,7 +16,8 @@
 """
 from Queue import *
 import time
-from NeuralNet.management.NNManager import modelZero
+from NeuralNet.management.NNManager import NNManager
+
 
 def DispatchData(TestingQueue, TrainingQueue):
     while TestingQueue.empty() == True and TrainingQueue.empty() == True:
@@ -31,7 +32,7 @@ def DispatchData(TestingQueue, TrainingQueue):
             TestFold = TestingQueue.get() #pop from Testing queue until it is empty
             print "DDManager says: Sending Folds to modelZero"
             #send training fold to NN and wait for completion before continuing
-            while modelZero(TrainFold, TestFold) != 1:
+            while NNManager.modelZero(TrainFold, TestFold) != 1:
                 time.sleep(1)
 
     print "DDManager says: Empty Testing Queue?: ", TestingQueue.empty() #just for visualization

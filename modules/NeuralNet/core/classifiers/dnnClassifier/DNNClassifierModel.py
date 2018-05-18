@@ -106,7 +106,19 @@ class DNNClassifierModel:
         return tf.Variable(number, tf.int32)
 
     def getNetworkShape(self): #Unsure what to return here
-        shape = input("Enter shape in format [I:{H+}:O]: ")
+        shape = []
+        i = 0
+        done = False
+        flag = "n"
+        while(done != True):
+            i = i + 1
+            units = input("Enter number of neurons in %d hidden layer: " %(i))
+            shape.append(units)
+            flag = raw_input("Done? (press n to add another hidden layer) y/n: ")
+            if flag == "y":
+                done = True
+            else:
+                done = False
 
         return shape
 
@@ -207,7 +219,7 @@ class DNNClassifierModel:
         return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
 
 
-    def build(self, shape):
+    def build(self, shape, train_x):
 
         feature_columns = []
         # for each key in the train_x dictionary
@@ -217,7 +229,7 @@ class DNNClassifierModel:
             feature_columns.append(tf.feature_column.numeric_column(key=key))
 
         classifier = tf.estimator.Estimator(
-            model_fn=classifierModel,
+            model_fn=self.classifierModel,
             params={ 
                 'feature_columns' : feature_columns,
                 'hidden_units' : shape,

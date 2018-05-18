@@ -1,7 +1,7 @@
 # Essentially the main for NeuralNet
-import trainingManager as tr
-import testingManager as te
-import predictManager as pr
+from trainingManager import trainingManager as tr
+from testingManager import testingManager as te
+from predictManager import predictManager as pr
 import argparse
 import tensorflow as tf
 import sys

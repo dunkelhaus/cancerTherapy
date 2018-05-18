@@ -57,8 +57,10 @@ def load_train_data(trainPath, y_name='Tumor'):
     # use below line if downloading data
     # train_path, test_path = download()
     # the training data
+    global TRAIN_URL
     print("Loading training data")
-    data = pd.read_csv(trainPath, header= None)
+    TRAIN_URL = trainPath
+    data = pd.read_csv(TRAIN_URL, dtype={"5A": int, "5C": int, "5G": int, "5T": int, "C>A": int, "C>G": int, "C>T": int, "T>A": int, "T>C": int, "T>G": int, "3A": int, "3C": int, "3G": int, "3T": int, "sample_name": object}, header= None)
     numOfCols = len(data.columns) - 1
     train_y, train_x = data[data.columns[0]], data[data.columns[1:numOfCols]]
     #X_train, X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)
@@ -78,8 +80,10 @@ def load_test_data(testPath, y_name='Tumor'):
     # use below line if downloading data
     # train_path, test_path = download()
     # the training data
+    global TEST_URL
     print("Loading testing data")
-    data = pd.read_csv(trainPath, header= None)
+    TEST_URL = testPath
+    data = pd.read_csv(TEST_URL, dtype={"5A": int, "5C": int, "5G": int, "5T": int, "C>A": int, "C>G": int, "C>T": int, "T>A": int, "T>C": int, "T>G": int, "3A": int, "3C": int, "3G": int, "3T": int, "sample_name": object}, header= None)
     numOfCols = len(data.columns) - 1
     test_y, test_x = data[data.columns[0]], data[data.columns[1:numOfCols]]
     #X_train, X_test, y_train, y_test = train_test_split(X,y, test_size= 0.3,random_state=42)

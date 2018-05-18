@@ -12,8 +12,8 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-from NeuralNet.management import execManager
-from execManager import execManager
+from NeuralNet.management.execManager import execManager
+#from execManager import execManager
 import sys
 
 #import  sys
@@ -34,7 +34,7 @@ class NNManager():
         self.iteration = 0
         self.trainpath = trainpath
         self.testpath = testpath
-        self.executor = execManager(trainpath, testpath)
+        self.executor = execManager(self.trainpath, self.testpath)
         self.status = Status("NNManager")
         
     def modelZero(self):
