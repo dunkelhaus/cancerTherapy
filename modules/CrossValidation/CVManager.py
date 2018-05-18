@@ -45,4 +45,4 @@ def CrossValidate(path):
     crossValidate.start()
     #dispatch.start()
 
-#CrossValidate("/home/skjena/cancerTherapy/modules/RawDB/scripts/fm_sample_independent.csv")
+CrossValidate("/home/skjena/cancerTherapy/modules/RawDB/scripts/fm_sample_independent.csv")
