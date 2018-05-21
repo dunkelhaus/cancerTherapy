@@ -55,7 +55,8 @@ Covers these NN state parameters:
 
 Covers these NN settings:
 1. Dataset (String[20])
-2. Weights (String[20])
+2. Weight(s) (String[20])
+3. Bias(es)
 
 # -> /v1/run  "Run"
 
