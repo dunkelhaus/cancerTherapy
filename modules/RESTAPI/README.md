@@ -22,7 +22,7 @@ The packaged request for all tunable Version 1 network parameters. Covers NN par
 15. Discretize (Boolean)
 17. Dataset (String[20])
 
-###Dependencies:
+### Dependencies:
  N/A
 
 ## -> /v1/arguments "Arguments"
@@ -34,7 +34,7 @@ Covers NN parameters:
 4. Regularization Rate (Integer)
 5. Problem Type (String[20])
 
-###Dependencies:
+### Dependencies:
 
 - Needs a valid /v1/ (packaged) request to be made before it so that all defaults are available before the Neural Net can begin training.
 
@@ -45,7 +45,7 @@ Need to keep track of the overall feature set currently being used.
 
 Simplest way to do it is by keeping a boolean representative variable for each feature
 
-####There would be an independent feature set for each dataset. For the "Boolean" dataset, features are:
+#### There would be an independent feature set for each dataset. For the "Boolean" dataset, features are:
 1. 5A (Boolean)
 2. 5C (Boolean)
 3. 5G (Boolean)
@@ -61,7 +61,7 @@ Simplest way to do it is by keeping a boolean representative variable for each f
 13. 3G (Boolean)
 14. 3T (Boolean)
 
-####For the "Sample" dataset, features are:
+#### For the "Sample" dataset, features are:
 1. C>A (Boolean) [Default]
 2. C>T (Boolean) [Default]
 3. C>G (Boolean) [Default]
@@ -69,7 +69,7 @@ Simplest way to do it is by keeping a boolean representative variable for each f
 5. T>C (Boolean) [Default]
 6. T>G(Boolean) [Default]
 
-###Dependencies:
+### Dependencies:
 
 - Needs a /v1/settings request to be made before it, so that the selected dataset is known - since the feature set is different for different datasets.
 - By extension, we would also need /v1/arguments to be made, since that governs the problem type (i.e. Classification/Regression), which in turn governs the choice of datasets available,
@@ -87,7 +87,7 @@ Covers these NN state parameters:
 4. Number of Hidden Layers (Integer)
 5. Network Shape (String[20])
 
-###Dependencies:
+### Dependencies:
 
 - Needs a valid /v1/ (packaged) request to be made before it so that all defaults are available before the Neural Net can begin training.
 
@@ -98,7 +98,7 @@ Covers these NN settings:
 2. Weight(s)
 3. Bias(es)
 
-###Dependencies:
+### Dependencies:
 - Needs a /v1/state request to be made before it, to get network shape - to determine how many weights to consider | Input Layer | * {| Hidden Layer^(Num of hidden layers) |} * | Output Layer |
     - And how many biases to consider | Hidden Layer [Num of hidden layers] |  
     - Each weight in the Rest API's DB (db.sqlite3) needs to be 0 - it would only be replaced by a user defined value if we choose to accept that weight.
@@ -118,7 +118,7 @@ Covers NN run (execution) functionality - namely,
 4. Show Test Data (Boolean)
 5. Discretize (Boolean)
 
-###Dependencies:
+### Dependencies:
 - Needs a valid /v1/ request to be made before it so that all defaults are available before the Neural Net can begin training.
 
 
