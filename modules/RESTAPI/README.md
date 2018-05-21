@@ -66,3 +66,6 @@ Covers NN run (execution) functionality - namely,
 3. Next Button (Boolean)
 4. Show Test Data (Boolean)
 5. Discretize (Boolean)
+
+
+A call to an instantiated manager of this module [RAPIManager] would provide access to the above values within it, stored as an object for each function. All of which can be combined into a Network object, which would be provided by default in an NNManager object i.e. in it's constructor. This would make those variables available to the core of NNManager and fix the issue of availability of dynamic element values to the network. 
