@@ -5,6 +5,7 @@ sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 import socket
 import django
 django.setup()
+from Status.Status import Status
 from mutationDnnWeb.mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
 from mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 from mutationDnnWeb.typings.network import Network
