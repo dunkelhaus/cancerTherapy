@@ -100,11 +100,11 @@ class RAPIManager():
         result = sock.connect_ex(('0.0.0.0',80))
         sock.close()
         if result == 0:
-            self.djangostatus = False
-            self.status.message(8)
-        else:
             self.djangostatus = True
             self.status.message(9)
+        else:
+            self.djangostatus = False
+            self.status.message(8)
 
         self.status.message(0, "isRunning(self)")
         return self.djangostatus
