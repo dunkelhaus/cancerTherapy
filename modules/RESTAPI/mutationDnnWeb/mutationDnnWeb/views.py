@@ -12,8 +12,6 @@ from NeuralNet.core.classifiers.dnnClassifier.DNNClassifierModel import DNNClass
 from django.views.decorators.csrf import csrf_exempt
 
 #/v1/
-model = DNNClassifierModel()
-
 class V1List(APIView):
     def get(self, request, format=None):
         v1 = V1.objects.all()
