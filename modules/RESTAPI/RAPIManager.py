@@ -5,9 +5,9 @@ sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 import socket
 import django
 django.setup()
-from RESTAPI.mutationDnnWeb.mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
-from RESTAPI.mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
-from RESTAPI.mutationDnnWeb.typings.network import Network
+from mutationDnnWeb.mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
+from mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
+from mutationDnnWeb.typings.network import Network
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
 
