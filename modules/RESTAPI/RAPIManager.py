@@ -14,10 +14,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutation
 
 class RAPIManager():
     def __init__(self):
+        self.status = Status("RAPIManager")
         self.djangostatus = self.isRunning()
         self.network = Network()
         self.networkstate = False
-        self.status = Status("RAPIManager")
 
     def getArguments(self):
         self.status.message(1, "getArguments(self)")
