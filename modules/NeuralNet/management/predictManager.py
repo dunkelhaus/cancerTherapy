@@ -13,10 +13,10 @@ class predictManager():
 		self.predict_x = predict_x
 		self.expected = expected
 
-	def run(self, model):
+	def run(self, classifier):
 	    self.status.message(1, "run(self, model)")
 	    predictions = classifier.predict(
-	    	input_fn=lambda:dataProcessor.predict_input_fn(self.predict_x, 
+	    	input_fn=lambda:dataProcessor.predict_input_fn(self.predict_x,
 	    		labels=None, batch_size=DNNClassifierModel.getTensorFlowBatchSize()))
 
 	    for pred_dict, expec in zip(predictions, expected):
