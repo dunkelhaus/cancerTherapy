@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
 import sys
 sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 import socket
@@ -9,8 +10,6 @@ from Status.Status import Status
 from mutationDnnWeb.mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
 from mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 from mutationDnnWeb.typings.network import Network
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
 
 class RAPIManager():
     def __init__(self):
@@ -98,7 +97,7 @@ class RAPIManager():
     def isRunning(self):
         self.status.message(1, "isRunning(self)")
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        result = sock.connect_ex(('127.0.0.1',80))
+        result = sock.connect_ex(('0.0.0.0',80))
         sock.close()
         if result == 0:
             self.djangostatus = False
