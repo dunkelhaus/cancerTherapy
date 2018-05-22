@@ -64,13 +64,20 @@ interface InputFeature {
 }
 
 let INPUTS: {[name: string]: InputFeature} = {
-  "x": {f: (x, y) => x, label: "X_1"},
-  "y": {f: (x, y) => y, label: "X_2"},
-  "xSquared": {f: (x, y) => x * x, label: "X_1^2"},
-  "ySquared": {f: (x, y) => y * y,  label: "X_2^2"},
-  "xTimesY": {f: (x, y) => x * y, label: "X_1X_2"},
-  "sinX": {f: (x, y) => Math.sin(x), label: "sin(X_1)"},
-  "sinY": {f: (x, y) => Math.sin(y), label: "sin(X_2)"},
+  “5A”: {f: (x, y) => x, label: “5A”},
+ “5C”: {f: (x, y) => x, label: “5C”},
+ “5G”: {f: (x, y) => x, label: “5G”},
+ “5T”: {f: (x, y) => x,  label: “5T”},
+ “C>A”: {f: (x, y) => x, label: “C>A”},
+ “C>G”: {f: (x, y) => x, label: “C>G”},
+ “C>T”: {f: (x, y) => x, label: “C>T”},
+ “T>A”: {f: (x, y) => x, label: “T>A”},
+ “T>C”: {f: (x, y) => x, label: “T>C”},
+ “T>G”: {f: (x, y) => x, label: “T>G”},
+ “3A”: {f: (x, y) => x, label: “3A”},
+ “3C”: {f: (x, y) => x, label: “3C”},
+ “3G”: {f: (x, y) => x, label: “3G”},
+ “3T”: {f: (x, y) => x, label: “3T”},  
 };
 
 let HIDABLE_CONTROLS = [
@@ -278,7 +285,7 @@ function makeGUI() {
     .classed("selected", true);
 
   d3.select("#add-layers").on("click", () => {
-    if (state.numHiddenLayers >= 6) {
+    if (state.numHiddenLayers >= 10) {
       return;
     }
     state.networkShape[state.numHiddenLayers] = 2;
@@ -882,7 +889,7 @@ function addPlusMinusControl(x: number, layerIdx: number) {
       .attr("class", "mdl-button mdl-js-button mdl-button--icon")
       .on("click", () => {
         let numNeurons = state.networkShape[i];
-        if (numNeurons >= 8) {
+        if (numNeurons >= 30) {
           return;
         }
         state.networkShape[i]++;
