@@ -7,6 +7,7 @@ from RESTAPI.mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgS
 from RESTAPI.mutationDnnWeb.typings.network import Network
 
 sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
 
 class RAPIManager():
     def __init__(self):
@@ -17,35 +18,59 @@ class RAPIManager():
 
     def getArguments(self):
         self.status.message(1, "getArguments(self)")
-        arguments = Arguments.objects.all()
+        model = Arguments.objects.get(id=1)
+        self.network.arguments.learningRate = model.learningRate
+        self.network.arguments.activation = model.activation
+        self.network.arguments.regularization = model.regularization
+        self.network.arguments.regularizationRate = model.regularizationRate
+        self.network.arguments.problemType = model.problemType
 
         self.status.message(0, "getArguments(self)")
         return
 
     def getState(self):
         self.status.message(1, "getState(self)")
-        state = State.objects.all()
+        model = State.objects.get(id=1)
+        self.network.state.batchSize = model.batchSize
+        self.network.state.noise = model.noise
+        self.network.state.trainToTestRatio = model.trainToTestRatio
+        self.network.state.numHiddenLayers = model.numHiddenLayers
+        self.network.state.networkShape = model.networkShape
 
         self.status.message(0, "getState(self)")
         return
 
     def getFeatures(self):
         self.status.message(1, "getFeatures(self)")
-        features = Features.objects.all()
+        model = Features.objects.get(id=1)
+        self.network.features.cXa = model.cXa
+        self.network.features.cXg = model.cXg
+        self.network.features.cXt = model.cXt
+        self.network.features.tXa = model.tXa
+        self.network.features.tXg = model.tXg
+        self.network.features.tXc = model.tXc
 
         self.status.message(0, "getFeatures(self)")
         return
 
     def getRun(self):
         self.status.message(1, "getRun(self)")
-        run = Run.objects.all()
+        model = Run.objects.get(id=1)
+        self.network.run.reset = model.reset
+        self.network.run.play = model.play
+        self.network.run.nextButton = model.nextButton
+        self.network.run.showTestData = model.showTestData
+        self.network.run.discretize = model.discretize
 
         self.status.message(0, "getRun(self)")
         return
 
     def getSettings(self):
         self.status.message(1, "getSettings(self)")
-        settings = Settings.objects.all()
+        model = Settings.objects.get(id=1)
+        self.network.settings.dataset = model.dataset
+        self.network.settings.weights = model.weights
+        self.network.settings.biases = model.biases
 
         self.status.message(0, "getSettings(self)")
         return

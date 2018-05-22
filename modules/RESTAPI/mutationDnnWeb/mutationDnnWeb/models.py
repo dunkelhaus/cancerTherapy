@@ -59,17 +59,21 @@ class Run(models.Model):
 		return u'%s' % (self.reset)
 
 class Features(models.Model):
-	#Not sure how to represent our features. 0 for now
-	features = models.CharField(max_length=20)
+	cXa = models.BooleanField()
+	cXg = models.BooleanField()
+	cXt = models.BooleanField()
+	tXa = models.BooleanField()
+	tXg = models.BooleanField()
+	tXc = models.BooleanField()
 
 	def __str__(self):
-		return self.features
+		return self.cXa
 
 
 class Settings(models.Model):
-	#Not sure how to represent dataset and weights. 0 for now
 	dataset = models.CharField(max_length=20)
-	weights = models.CharField(max_length=20)
+	weights = models.BooleanField()
+	biases = models.BooleanField()
 
 	def __str__(self):
 		return self.weights

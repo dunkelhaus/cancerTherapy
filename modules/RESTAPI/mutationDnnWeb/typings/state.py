@@ -4,4 +4,4 @@ class State:
         self.noise = 0
         self.trainToTestRatio = 0.00
         self.numHiddenLayers = 0
-        self.networkShape = []
+        self.networkShape = None
