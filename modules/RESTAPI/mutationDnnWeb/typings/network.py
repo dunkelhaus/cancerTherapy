@@ -11,18 +11,3 @@ class Network:
         self.run = Run()
         self.features = Features()
         self.settings = Settings()
-
-    def getArguments(self):
-        return self.arguments
-
-    def getState(self):
-        return self.state
-
-    def getRun(self):
-        return self.run
-
-    def getFeatures(self):
-        return self.features
-
-    def getSettings(self):
-        return self.settings
