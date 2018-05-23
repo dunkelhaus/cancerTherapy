@@ -2,8 +2,11 @@ import os
 import sys
 sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 from multiprocessing import Process, Queue
+from RESTAPI.RAPIManager import RAPIManager
 from CrossValidation.CVManager import CVManager
-from DataDispatcher.DDManager import DispatchData
+from DataDispatcher.DDManager import DDManager
+from IndexedDB.IDBManager import IDBManager
+from RawDB.RDBManager import RDBManager
 from NeuralNet.management.NNManager import NNManager
 import time
 
@@ -22,10 +25,18 @@ class Admin:
         self.indexedDb = IDBManager(self.origin, self.numFolds)
         self.foldset = self.indexedDb.createFolds()
         self.crossValidate = CVManager(self.foldset)
-        self.dataDispatcher = DDManager()
+        self.crossValidate.CrossValidate(self.foldset, self.numFolds, self.trainPaths, self.testPaths)
+        self.trainPaths = Queue()
+        self.testPaths = Queue()
+        self.dataDispatchers = Queue()
         self.neuralNets = Queue()
+
+        for j in range(0, self.numFolds):
+            self.dataDispatchers.put(Process(target=DDManager))
+
         for i in range(0, self.numFolds)
-            self.neuralNets.put(NNManager(self.dataDispatcher.trainPaths.get(), self.dataDispatcher.testPaths.get(), self.restApi.network)
+            self.neuralNets.put(NNManager(self.dataDispatcher.trainPaths.get(), self.dataDispatcher.testPaths.get(), self.restApi.network))
+
 
     def initialize(self):
         self.status.message(1,"initialize()")
