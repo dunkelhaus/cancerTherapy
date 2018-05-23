@@ -44,3 +44,4 @@ class NNManager():
         self.executor.test()
         self.executor.predict()
         self.status.message(0, "modelZero()")
+

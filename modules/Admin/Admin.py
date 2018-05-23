@@ -23,8 +23,9 @@ class Admin:
         self.foldset = self.indexedDb.createFolds()
         self.crossValidate = CVManager(self.foldset)
 
-    def initialize():
+    def initialize(self):
         self.status.message(1,"initialize()")
+        self.Q = Queue()
 
         #Initialize CVManager Obj
         self.CV = CVManager("/home/skjena/cancerTherapy/modules/RawDB/scripts/fm_mutations_independent.csv", self.numFolds)
@@ -37,14 +38,16 @@ class Admin:
         
         #Pop from testing and training queues until empty and pass paths to NN
         for i in range(1,self.numFolds+1):
-            self.dispatchData = Process(target=self.DD.DispatchData)
+            self.dispatchData = Process(target=self.DD.DispatchData, args=(self.Q))
             self.dispatchData.start()
-            self.NN = NNManager(self.trainFold,s
+            self.testingFold = self.Q.get()
+            self.traingFold = self.Q.get()
+            self.NN = NNManager(self.trainingFold, )
 
         self.status.message(0,"initialize()")
         return
-   
+
     def build(self):
         self.status.message(1, "build(self)")
         
-         
+        

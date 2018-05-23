@@ -1,5 +1,6 @@
-#DDManager.py
 """
+DDManager.py
+
  Deep Learning for Cancer Therapy
 
  Authors:
@@ -16,13 +17,16 @@ class DDManager():
         self.status = Status("DDManager")
         self.DDQTesting = Queue()
         self.DDQTraining = Queue()
+        self.trainPaths = Queue()
+        self.testPaths = Queue()
+        self.status.message(1,"DDManager(self,TestingQueue,TrainingQueue)")
 
-    def DispatchData(self):
-        self.status.message(1,"DispatchData(self,TestingQueue,TrainingQueue)")
         while (self.DDQTesting.empty() == True and self.DDQTraining.empty() == True) or self.DDQTesting.empty() == True or self.DDQTraining.empty() == True:
-            #wait for data to be added to either queue
+              #wait for data to be added to either queue
             time.sleep(1)
+
         self.testFold = self.DDQTesting.get()
         self.trainFold = self.DDQTraining.get()
-        self.status.message(0,"DispatchData(self,TestingQueue,TrainingQueue)")
-        return self.trainFold, self.TestFold
+        self.testPaths.put(self.testFold)
+        self.trainPaths.put(self.trainFold)
+        self.status.message(0,"DDManager(self,TestingQueue,TrainingQueue)")
