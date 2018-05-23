@@ -36,10 +36,8 @@ export let regularizations: {[key: string]: nn.RegularizationFunction} = {
 
 /** A map between dataset names and functions that generate classification data. */
 export let datasets: {[key: string]: dataset.DataGenerator} = {
-  "circle": dataset.classifyCircleData,
-  "xor": dataset.classifyXORData,
-  "gauss": dataset.classifyTwoGaussData,
-  "spiral": dataset.classifySpiralData,
+  "fm_mutations_independent": dataset.classifyCircleData,
+  "fm_sample_independent": dataset.classifyXORData
 };
 
 /** A map between dataset names and functions that generate regression data. */
@@ -102,7 +100,6 @@ export interface Property {
 
 // Add the GUI state.
 export class State {
-
   private static PROPS: Property[] = [
     {name: "isPlaying", type: Type.BOOLEAN},
     {name: "activation", type: Type.OBJECT, keyMap: activations},
@@ -118,15 +115,29 @@ export class State {
     {name: "showTestData", type: Type.BOOLEAN},
     {name: "discretize", type: Type.BOOLEAN},
     {name: "percTrainData", type: Type.NUMBER},
-    {name: "x", type: Type.BOOLEAN},
-    {name: "y", type: Type.BOOLEAN},
-    {name: "xTimesY", type: Type.BOOLEAN},
-    {name: "xSquared", type: Type.BOOLEAN},
-    {name: "ySquared", type: Type.BOOLEAN},
-    {name: "cosX", type: Type.BOOLEAN},
-    {name: "sinX", type: Type.BOOLEAN},
-    {name: "cosY", type: Type.BOOLEAN},
-    {name: "sinY", type: Type.BOOLEAN},
+    {name: "_5A", type: Type.BOOLEAN},
+    {name: "_5C", type: Type.BOOLEAN},
+    {name: "_5G", type: Type.BOOLEAN},
+    {name: "_5T", type: Type.BOOLEAN},
+    {name: "_CA", type: Type.BOOLEAN},
+    {name: "_CG", type: Type.BOOLEAN},
+    {name: "_CT", type: Type.BOOLEAN},
+    {name: "_TA", type: Type.BOOLEAN},
+    {name: "_TC", type: Type.BOOLEAN},
+    {name: "_TG", type: Type.BOOLEAN},
+    {name: "_3A", type: Type.BOOLEAN},
+    {name: "_3C", type: Type.BOOLEAN},
+    {name: "_3G", type: Type.BOOLEAN},
+    {name: "_3T", type: Type.BOOLEAN},
+    //{name: "x", type: Type.BOOLEAN},
+    //{name: "y", type: Type.BOOLEAN},
+    //{name: "xTimesY", type: Type.BOOLEAN},
+    //{name: "xSquared", type: Type.BOOLEAN},
+    //{name: "ySquared", type: Type.BOOLEAN},
+    //{name: "cosX", type: Type.BOOLEAN},
+    //{name: "sinX", type: Type.BOOLEAN},
+    //{name: "cosY", type: Type.BOOLEAN},
+    //{name: "sinY", type: Type.BOOLEAN},
     {name: "collectStats", type: Type.BOOLEAN},
     {name: "tutorial", type: Type.STRING},
     {name: "problem", type: Type.OBJECT, keyMap: problems},
@@ -150,18 +161,32 @@ export class State {
     initZero = false;
     hideText = false;
     collectStates = false;
-    numHiddenLayers = 2;
+    numHiddenLayers = 5;
     hiddenLayerControls: any[] = [];
-    networkShape: number[] = [10, 10];
-    x = true;
-    y = true;
-    xTimesY = false;
-    xSquared = false;
-    ySquared = false;
-    cosX = false;
-    sinX = false;
-    cosY = false;
-    sinY = false;
+    networkShape: number[] = [10, 10, 10, 10, 10];
+    _5A = true;
+    _5C = true;
+    _5G = false;
+    _5T = false;
+    _CA = false;
+    _CG = false;
+    _CT = false;
+    _TA = false;
+    _TC = false;
+    _TG = false;
+    _3A = false;
+    _3C = false;
+    _3G = false;
+    _3T = false;
+    //x = true;
+    //y = true;
+    //xTimesY = false;
+    //xSquared = false;
+    //ySquared = false;
+    //cosX = false;
+    //sinX = false;
+    //cosY = false;
+    //sinY = false;
     dataset: dataset.DataGenerator = dataset.classifyCircleData;
     regDataset: dataset.DataGenerator = dataset.regressPlane;
     seed: string;
