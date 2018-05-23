@@ -185,7 +185,7 @@ class DNNClassifierModel:
         stateObjStatus = False
 
         for units in range(0, params['hidden_units']):
-            net = tf.layers.dense(net, units=self.getNetworkShape(), activation=getTensorflowActivation()) # Using the ReLu activation function
+            net = tf.layers.dense(net, units=self.getNetworkShape(), activation=getActivation()) # Using the ReLu activation function
             # net signifies input layer during first iteration
 
         # Compute logits (one per class)

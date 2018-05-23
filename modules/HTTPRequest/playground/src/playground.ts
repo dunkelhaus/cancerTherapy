@@ -64,13 +64,20 @@ interface InputFeature {
 }
 
 let INPUTS: {[name: string]: InputFeature} = {
-  "x": {f: (x, y) => x, label: "X_1"},
-  "y": {f: (x, y) => y, label: "X_2"},
-  "xSquared": {f: (x, y) => x * x, label: "X_1^2"},
-  "ySquared": {f: (x, y) => y * y,  label: "X_2^2"},
-  "xTimesY": {f: (x, y) => x * y, label: "X_1X_2"},
-  "sinX": {f: (x, y) => Math.sin(x), label: "sin(X_1)"},
-  "sinY": {f: (x, y) => Math.sin(y), label: "sin(X_2)"},
+  "5A": {f: (x, y) => x, label: "5A"},
+  "5C": {f: (x, y) => x, label: "5C"},
+  "5G": {f: (x, y) => x, label: "5G"},
+  "5T": {f: (x, y) => x,  label: "5T"},
+  "C>A": {f: (x, y) => x, label: "C>A"},
+  "C>G": {f: (x, y) => x, label: "C>G"},
+  "C>T": {f: (x, y) => x, label: "C>T"},
+  "T>A": {f: (x, y) => x, label: "T>A"},
+  "T>C": {f: (x, y) => x, label: "T>C"},
+  "T>G": {f: (x, y) => x, label: "T>G"},
+  "3A": {f: (x, y) => x, label: "3A"},
+  "3C": {f: (x, y) => x, label: "3C"},
+  "3G": {f: (x, y) => x, label: "3G"},
+  "3T": {f: (x, y) => x, label: "3T"},
 };
 
 let HIDABLE_CONTROLS = [
@@ -121,16 +128,23 @@ class Player {
 
     var data = "discretize="+state.discretize+"&play=True&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
+    
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
+    xhr.onreadystatechange =  function () {
+
+
+
       if (this.readyState === 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+    
+ 
+            xhr.open("POST", "http://35.184.171.249/v1/run/");
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+            xhr.send(data);
+
 
     if (this.callback) {
       this.callback(this.isPlaying);
@@ -148,15 +162,18 @@ class Player {
     var data = "discretize="+state.discretize+"&play=False&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
-        console.log(this.responseText);
-      }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    xhr.onreadystatechange = function () {
+
+	  if (this.readyState == 4)
+	  {
+              console.log(this.responseText);
+          }
+    };
+
+        xhr.open("POST", "http://35.184.171.249/v1/run/");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+        xhr.send(data);
 
     if (this.callback) {
       this.callback(this.isPlaying);
@@ -278,7 +295,7 @@ function makeGUI() {
     .classed("selected", true);
 
   d3.select("#add-layers").on("click", () => {
-    if (state.numHiddenLayers >= 6) {
+    if (state.numHiddenLayers >= 10) {
       return;
     }
     state.networkShape[state.numHiddenLayers] = 2;
@@ -288,15 +305,17 @@ function makeGUI() {
                 +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+        xhr.open("POST", "http://35.184.171.249/v1/state/");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+        xhr.send(data);
 
     parametersChanged = true;
     reset();
@@ -313,15 +332,17 @@ function makeGUI() {
                 +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+    
+    if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+        xhr.open("POST", "http://35.184.171.249/v1/state/");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+        xhr.send(data);
 
     parametersChanged = true;
     reset();
@@ -333,15 +354,18 @@ function makeGUI() {
     var data = "discretize="+state.discretize+"&play="+state.isPlaying+"&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+        xhr.open("POST", "http://35.184.171.249/v1/run/");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     state.serialize();
     userHasInteracted();
@@ -356,15 +380,17 @@ function makeGUI() {
     var data = "discretize="+state.discretize+"&play="+state.isPlaying+"&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/run/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/run/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     state.serialize();
     userHasInteracted();
@@ -380,15 +406,18 @@ function makeGUI() {
                 +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/state/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     d3.select("label[for='percTrainData'] .value").text(this.value);
     generateData();
@@ -405,15 +434,18 @@ function makeGUI() {
                 +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/state/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     d3.select("label[for='noise'] .value").text(this.value);
     generateData();
@@ -440,15 +472,17 @@ function makeGUI() {
                 +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/state/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/state/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
 
     d3.select("label[for='batchSize'] .value").text(this.value);
@@ -461,19 +495,57 @@ function makeGUI() {
   let activationDropdown = d3.select("#activations").on("change", function() {
     state.activation = activations[this.value];
 
-    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
-                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+    var str;
+    if (state.regularization == null)
+    {
+        str = "none";    
+    }
+    if (state.regularization == nn.RegularizationFunction.L1)
+    {
+        str = "L1";
+    }
+    if (state.regularization == nn.RegularizationFunction.L2)
+    {
+        str = "L2";
+    }
+
+
+
+    var str2;
+    if (state.activation == nn.Activations.RELU)
+    {
+        str2 = "RELU";    
+    }
+    if (state.activation == nn.Activations.TANH)
+    {
+        str2 = "TANH";
+    }
+    if (state.activation == nn.Activations.SIGMOID)
+    {
+        str2 = "SIGMOID";
+    }
+    if (state.activation == nn.Activations.LINEAR)
+    {
+        str2 = "LINEAR";
+    }
+
+
+    var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+
+
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+       	xhr.open("POST", "http://35.184.171.249/v1/arguments/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     parametersChanged = true;
     reset();
@@ -482,21 +554,60 @@ function makeGUI() {
       getKeyFromValue(activations, state.activation));
 
   let learningRate = d3.select("#learningRate").on("change", function() {
-    state.learningRate = +this.value;
+    state.learningRate = this.value;
 
-    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
-                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+    var str;
+    if (state.regularization == null)
+    {
+        str = "none";    
+    }
+    if (state.regularization == nn.RegularizationFunction.L1)
+    {
+        str = "L1";
+    }
+    if (state.regularization == nn.RegularizationFunction.L2)
+    {
+        str = "L2";
+    }
+
+
+
+    var str2;
+    if (state.activation == nn.Activations.RELU)
+    {
+        str2 = "RELU";    
+    }
+    if (state.activation == nn.Activations.TANH)
+    {
+        str2 = "TANH";
+    }
+    if (state.activation == nn.Activations.SIGMOID)
+    {
+        str2 = "SIGMOID";
+    }
+    if (state.activation == nn.Activations.LINEAR)
+    {
+        str2 = "LINEAR";
+    }
+
+
+    var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+
+
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+    if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/arguments/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     state.serialize();
     userHasInteracted();
@@ -508,19 +619,55 @@ function makeGUI() {
       function() {
     state.regularization = regularizations[this.value];
 
-    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
-                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+    var str;
+    if (state.regularization == null)
+    {
+        str = "none";    
+    }
+    if (state.regularization == nn.RegularizationFunction.L1)
+    {
+        str = "L1";
+    }
+    if (state.regularization == nn.RegularizationFunction.L2)
+    {
+        str = "L2";
+    }
+
+
+
+    var str2;
+    if (state.activation == nn.Activations.RELU)
+    {
+        str2 = "RELU";    
+    }
+    if (state.activation == nn.Activations.TANH)
+    {
+        str2 = "TANH";
+    }
+    if (state.activation == nn.Activations.SIGMOID)
+    {
+        str2 = "SIGMOID";
+    }
+    if (state.activation == nn.Activations.LINEAR)
+    {
+        str2 = "LINEAR";
+    }
+
+
+    var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/arguments/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     parametersChanged = true;
     reset();
@@ -529,21 +676,60 @@ function makeGUI() {
       getKeyFromValue(regularizations, state.regularization));
 
   let regularRate = d3.select("#regularRate").on("change", function() {
-    state.regularizationRate = +this.value;
+    state.regularizationRate = this.value;
 
-    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
-                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+    var str;
+    if (state.regularization == null)
+    {
+        str = "none";    
+    }
+    if (state.regularization == nn.RegularizationFunction.L1)
+    {
+        str = "L1";
+    }
+    if (state.regularization == nn.RegularizationFunction.L2)
+    {
+        str = "L2";
+    }
+
+
+
+    var str2;
+    if (state.activation == nn.Activations.RELU)
+    {
+        str2 = "RELU";    
+    }
+    if (state.activation == nn.Activations.TANH)
+    {
+        str2 = "TANH";
+    }
+    if (state.activation == nn.Activations.SIGMOID)
+    {
+        str2 = "SIGMOID";
+    }
+    if (state.activation == nn.Activations.LINEAR)
+    {
+        str2 = "LINEAR";
+    }
+
+
+    var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+
+
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/arguments/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     parametersChanged = true;
     reset();
@@ -553,19 +739,58 @@ function makeGUI() {
   let problem = d3.select("#problem").on("change", function() {
     state.problem = problems[this.value];
 
-    var data = "learningRate="+state.learningRate+"&activation="+state.activation+"&regularization="+state.regularization
-                +"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+    var str;
+    if (state.regularization == null)
+    {
+        str = "none";    
+    }
+    if (state.regularization == nn.RegularizationFunction.L1)
+    {
+        str = "L1";
+    }
+    if (state.regularization == nn.RegularizationFunction.L2)
+    {
+        str = "L2";
+    }
+
+
+
+    var str2;
+    if (state.activation == nn.Activations.RELU)
+    {
+        str2 = "RELU";    
+    }
+    if (state.activation == nn.Activations.TANH)
+    {
+        str2 = "TANH";
+    }
+    if (state.activation == nn.Activations.SIGMOID)
+    {
+        str2 = "SIGMOID";
+    }
+    if (state.activation == nn.Activations.LINEAR)
+    {
+        str2 = "LINEAR";
+    }
+
+
+    var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+
+
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
-    xhr.addEventListener("readystatechange", function () {
-      if (this.readyState === 4) {
+    xhr.onreadystatechange = function () {
+
+
+      if (this.readyState == 4) {
         console.log(this.responseText);
       }
-    });
-    xhr.open("POST", "http://35.184.171.249/v1/arguments/");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-    xhr.send(data);
+    };
+
+    	xhr.open("POST", "http://35.184.171.249/v1/arguments/");
+    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    	xhr.send(data);
 
     generateData();
     drawDatasetThumbnails();
@@ -882,7 +1107,7 @@ function addPlusMinusControl(x: number, layerIdx: number) {
       .attr("class", "mdl-button mdl-js-button mdl-button--icon")
       .on("click", () => {
         let numNeurons = state.networkShape[i];
-        if (numNeurons >= 8) {
+        if (numNeurons >= 30) {
           return;
         }
         state.networkShape[i]++;
@@ -891,16 +1116,17 @@ function addPlusMinusControl(x: number, layerIdx: number) {
                     +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
         var xhr = new XMLHttpRequest();
         //xhr.withCredentials = true;
-        xhr.addEventListener("readystatechange", function () {
-          if (this.readyState === 4) {
-            console.log(this.responseText);
-          }
-        });
-        xhr.open("POST", "http://35.184.171.249/v1/state/");
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-        xhr.send(data);
+        xhr.onreadystatechange = function () {
 
+          if (this.readyState == 4) {
+            	console.log(this.responseText);
+          }
+        };
+
+        	xhr.open("POST", "http://35.184.171.249/v1/state/");
+       		 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       		 xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+      		  xhr.send(data);
         parametersChanged = true;
         reset();
       })
@@ -921,15 +1147,18 @@ function addPlusMinusControl(x: number, layerIdx: number) {
                     +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
         var xhr = new XMLHttpRequest();
         //xhr.withCredentials = true;
-        xhr.addEventListener("readystatechange", function () {
-          if (this.readyState === 4) {
+        xhr.onreadystatechange = function () {
+
+
+          if (this.readyState == 4) {
             console.log(this.responseText);
           }
-        });
-        xhr.open("POST", "http://35.184.171.249/v1/state/");
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
-        xhr.send(data);
+        };
+
+        	xhr.open("POST", "http://35.184.171.249/v1/state/");
+        	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        	xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+        	xhr.send(data);
 
         parametersChanged = true;
         reset();
