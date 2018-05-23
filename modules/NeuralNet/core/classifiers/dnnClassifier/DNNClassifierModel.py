@@ -46,6 +46,9 @@ tf.logging.set_verbosity(tf.logging.INFO)
 """
 
 class DNNClassifierModel:
+    def __init__(self, network):
+        self.network = network
+        self.model = None
 
     def getLearningRate(self):
         learningRate = Arguments.objects.get(name="learningRate")
@@ -220,7 +223,6 @@ class DNNClassifierModel:
 
 
     def build(self, shape, train_x):
-
         feature_columns = []
         # for each key in the train_x dictionary
         #REVIEW after data loads successfully
@@ -230,11 +232,12 @@ class DNNClassifierModel:
 
         classifier = tf.estimator.Estimator(
             model_fn=self.classifierModel,
-            params={ 
+            params={
                 'feature_columns' : feature_columns,
                 'hidden_units' : shape,
                 'n_classes' : 2,
             }
         )
+        self.model = classifier
 
-        return classifier
+        return True

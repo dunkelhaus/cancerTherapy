@@ -11,13 +11,20 @@ import sys
 sys.path.append('../')
 sys.dont_write_bytecode = True
 
-from RawDB.RDBManager import GETCSV
+from RawDB.RDBManager import GETDATASETFILE
 from CrossValidation.CVManager import CrossValidate
 #from NeuralNet.management.NNManager import modelZero
 
-def IDB(path):
-    GETCSV("CANCER", "TOKEN", 21, 21, path)
-    path = path + "data.csv"
-    CrossValidate(path)
 
-IDB("/home/skjena/cancerTherapy/modules/IndexedDB/")
+class IDBManager():
+   
+   def __init__(self):
+       self.RDB = RDBManager()
+       self.CV = CVManager()
+       self.DD = DDManager()
+
+   def IDB(self, filename):
+       self.filepath = self.RDB.GETDATASETFILE(self.filename)
+       self.CV.CrossValidate(self.filepath)
+
+IDB("fm_mutations_independent.tab")

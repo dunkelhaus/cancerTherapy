@@ -7,33 +7,39 @@ from django.db import models
 
 class V1(models.Model):
 	learningRate = models.FloatField()
-	activation = models.CharField(max_length=10)
-	regularization = models.CharField(max_length=10)
+	activation = models.CharField(max_length=30)
+	regularization = models.CharField(max_length=30)
 	regularizationRate = models.IntegerField()
-	problemType = models.CharField(max_length=20)
+	problemType = models.CharField(max_length=30)
 	batchSize = models.IntegerField()
 	noise = models.IntegerField()
 	trainToTestRatio = models.FloatField()
 	numHiddenLayers = models.IntegerField()
-	networkShape = models.CharField(max_length=20)
+	networkShape = models.CharField(max_length=30)
 	reset = models.BooleanField()
 	play =  models.BooleanField()
 	pause = models.BooleanField()
 	showTestData = models.BooleanField()
 	discretize = models.BooleanField()
-	features = models.CharField(max_length=20)
-	dataset = models.CharField(max_length=20)
-	weights = models.CharField(max_length=20)
+	cXa = models.BooleanField()
+	cXg = models.BooleanField()
+	cXt = models.BooleanField()
+	tXa = models.BooleanField()
+	tXg = models.BooleanField()
+	tXc = models.BooleanField()
+	dataset = models.CharField(max_length=30)
+	weights = models.BooleanField()
+	biases = models.BooleanField()
 
 	def __str__(self):
 		return self.problemType
 
 class Arguments(models.Model):
 	learningRate = models.FloatField()
-	activation = models.CharField(max_length=10)
-	regularization = models.CharField(max_length=10)
+	activation = models.CharField(max_length=30)
+	regularization = models.CharField(max_length=30)
 	regularizationRate = models.IntegerField()
-	problemType = models.CharField(max_length=20)
+	problemType = models.CharField(max_length=30)
 
 	def __str__(self):
 		return self.learningRate
@@ -43,7 +49,7 @@ class State(models.Model):
 	noise = models.IntegerField()
 	trainToTestRatio = models.FloatField()
 	numHiddenLayers = models.IntegerField()
-	networkShape = models.CharField(max_length=20)
+	networkShape = models.CharField(max_length=30)
 
 	def __str__(self):
 		return self.networkShape
@@ -59,17 +65,21 @@ class Run(models.Model):
 		return u'%s' % (self.reset)
 
 class Features(models.Model):
-	#Not sure how to represent our features. 0 for now
-	features = models.CharField(max_length=20)
+	cXa = models.BooleanField()
+	cXg = models.BooleanField()
+	cXt = models.BooleanField()
+	tXa = models.BooleanField()
+	tXg = models.BooleanField()
+	tXc = models.BooleanField()
 
 	def __str__(self):
-		return self.features
+		return self.cXa
 
 
 class Settings(models.Model):
-	#Not sure how to represent dataset and weights. 0 for now
-	dataset = models.CharField(max_length=20)
-	weights = models.CharField(max_length=20)
+	dataset = models.CharField(max_length=30)
+	weights = models.BooleanField()
+	biases = models.BooleanField()
 
 	def __str__(self):
 		return self.weights

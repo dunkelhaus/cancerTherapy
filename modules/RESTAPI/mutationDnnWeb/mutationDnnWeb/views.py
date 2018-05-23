@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
@@ -6,12 +8,10 @@ from rest_framework import status
 import tensorflow as tf
 from .models import V1, State, Run, Arguments, Features, Settings
 from .serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
-from classifiers.dnnClassifier.DNNClassifierModel import DNNClassifierModel
+from NeuralNet.core.classifiers.dnnClassifier.DNNClassifierModel import DNNClassifierModel
 from django.views.decorators.csrf import csrf_exempt
 
 #/v1/
-model = DNNClassifierModel()
-
 class V1List(APIView):
     def get(self, request, format=None):
         v1 = V1.objects.all()

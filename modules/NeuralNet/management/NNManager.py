@@ -30,13 +30,14 @@ from Status.Status import Status
 #mode 1: Path leads to testing fold
 
 class NNManager():
-    def __init__(self, trainpath, testpath):
+    def __init__(self, trainpath, testpath, network):
         self.iteration = 0
         self.trainpath = trainpath
         self.testpath = testpath
-        self.executor = execManager(self.trainpath, self.testpath)
+        self.network = network
+        self.executor = execManager(self.trainpath, self.testpath, self.network)
         self.status = Status("NNManager")
-        
+
     def modelZero(self):
         self.status.message(1, "modelZero()")
         self.executor.train()
