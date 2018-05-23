@@ -15,29 +15,30 @@
 from DLL import _DLL
 from multiprocessing import Queue
 
-def validation(List, folds, TestingQueue, TrainingQueue):
+def validation(self, List, folds, TestingQueue, TrainingQueue)
+    self.status.message(1,"validation(self,List,fodls,TestingQueue,TrainingQueue)"):
     for i in range(1,folds+1):
         #Create training file (i of them)
-        trainingFoldCSV = "/home/skjena/data/oldtestData/trainingFolds_%s.csv" % i
-        combine=open(trainingFoldCSV,"w")
+        self.trainingFoldCSV = "/home/skjena/data/testData/trainingFolds_%s.csv" % i
+        self.combine=open(trainingFoldCSV,"w")
 
         #Create testing file (i of them)
-        testingFoldCSV = "/home/skjena/data/oldtestData/testingFold_%s.csv" % i
-        testing=open(testingFoldCSV,"w")
+        self.testingFoldCSV = "/home/skjena/data/testData/testingFold_%s.csv" % i
+        self.testing=open(testingFoldCSV,"w")
 
-        testingFold = List.head.get_data()
-        trainingFold_1 = List.head.get_next().get_data()
-        currentFold = List.head.get_next()
+        self.testingFold = List.head.get_data()
+        self.trainingFold_1 = List.head.get_next().get_data()
+        self.currentFold = List.head.get_next()
 
         for line in open(trainingFold_1):
             combine.write(line)
         for line in open(testingFold):
             testing.write(line)
         for num in range(2,folds):
-            currentFold = currentFold.get_next()
-            currentFoldData = currentFold.get_data()
+            self.currentFold = currentFold.get_next()
+            self.currentFoldData = currentFold.get_data()
             single = open(currentFoldData)
-            header = single.next()
+            self.header = single.next()
             for line in single:
                 combine.write(line)
             single.close()
@@ -47,3 +48,4 @@ def validation(List, folds, TestingQueue, TrainingQueue):
         TestingQueue.put(testingFoldCSV)
         # update which fold is testing fold and which are training folds
         List.updateList()
+    self.status.message(0,"validation(self,List,folds,TestingQueue,TrainingQueue)")

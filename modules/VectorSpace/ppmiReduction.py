@@ -36,6 +36,6 @@ def ppmiReduction(inputPath, folds):
         for x in range(numCols-1,0,-1): 
             if Columns[x-1] == 0:
                 dataframe = dataframe.drop(dataframe.columns[x], axis=1)
-        dataframe.to_csv('/home/skjena/data/reducedData/fold_'+str(current)+'.csv', sep=',', header=False,float_format='%.2f', index=False)
+        dataframe.to_csv('/home/skjena/data/reducedData/reducedFold_'+str(current)+'.csv', sep=',', header=False,float_format='%.2f', index=False)
 
-ppmiReduction('/home/skjena/data/PPMI', 10)
+ppmiReduction('/home/skjena/data/PPMI', 1)

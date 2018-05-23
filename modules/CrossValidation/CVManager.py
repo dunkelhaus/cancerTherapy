@@ -20,33 +20,19 @@ sys.dont_write_bytecode = True
 
 from DLL import _DLL
 from FoldManager import generateFolds
-from RawDB.RDBManager import GETCSV
 from crossValidation import validation
-from DataDispatcher.DDManager import DispatchData
-
-from multiprocessing import Process, Queue
 
 
-class CVManager():
+class CVManager:
+    def __init__(self,path,folds):
+        self.status = Status("CVManager")
+        self.path = path
+        self.folds = folds
 
-    def CrossValidate(path):
-        # Eventually will change path to fm_mutations file given by Quon
-        #path = '../../../data/test.csv'
-        folds = 10
-
+    def CrossValidate(self,path,folds):
+        self.status.message(1,"CrossValidate(self,path,folds)")
         # List will hold 10 nodes where the head is Testing and the other 9 nodes are Training data
-        List = generateFolds(path, folds)
-
-        #initialize the queues which are populated by crossValidate() and used by DispatchData()
-        DDqTesting = Queue()
-        DDqTraining = Queue()
-
-        #Two processes: one to cross validate and another to begin dispatching data as soon
-        #as there is something in the Queue to dispatch
-        crossValidate = Process(target=validation , args=(List,folds,DDqTesting,DDqTraining,))
-        #dispatch = Process(target=DispatchData, args=(DDqTesting,DDqTraining,))
-        crossValidate.start()
-        #dispatch.start()
-
-CrossValidate("/home/skjena/cancerTherapy/modules/RawDB/scripts/fm_mutations_independent.csv")
+        self.List = generateFolds(self.path, self.folds)
+        self.status.message(0,"CrossValidate(self,path,folds)")
+        return self.List
 
