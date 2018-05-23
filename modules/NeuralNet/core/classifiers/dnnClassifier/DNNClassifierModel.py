@@ -26,7 +26,6 @@ import tensorflow as tf
 from NeuralNet.core.classifiers.dnnClassifier import dataProcessor
 # maintains a verbose tensorflow log
 tf.logging.set_verbosity(tf.logging.INFO)
-
 #/v1/: ALL
 #/v1/arguments: learningRate, activation, regularization, regularizationRate, problemType
 #/v1/state: numHiddenLayers, networkShape, noise, batchSize, percTrainData
@@ -187,11 +186,10 @@ class DNNClassifierModel:
         for units in range(0, params['hidden_units']):
             net = tf.layers.dense(net, units=self.getNetworkShape(), activation=getActivation()) # Using the ReLu activation function
             # net signifies input layer during first iteration
-
         # Compute logits (one per class)
         logits = tf.layers.dense(net, params['n_classes'], activation=None)
         predicted_classes = tf.argmax(logits, 1)
-
+          
         # Compute the predictions below
         if mode == tf.estimator.ModeKeys.PREDICT:
             predictions = {
@@ -218,7 +216,8 @@ class DNNClassifierModel:
         optimizer = tf.train.AdagradOptimizer
         # global_step keeps a record of the overall training steps taken (to know when to end)
         train_op = optimizer.minimize(loss, global_step=tf.train.get_global_step())
-
+        # Merge all the summaries and write them out to
+        #merged = tf.summary.merge_all()
         return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
 
 

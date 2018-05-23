@@ -5,7 +5,7 @@ from IE import CreateCSV
 # @column: a tag, specifies whether a column is a cancer or a token
 
 
-class RDBMamager():
+class RDBManager():
         
     def GETCSV(row, column, numRows, numCols, path):
         CreateCSV.createCSV(row, column, numRows, numCols, path)
