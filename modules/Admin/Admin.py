@@ -11,12 +11,77 @@ from NeuralNet.management.NNManager import NNManager
 import time
 
 class Admin:
+# Changes made by Valeria on 05/24/2018
     def __init__(self):
         self.status = Status("Admin")
         self.numFolds = 10
         self.rawDb = RDBManager()
         self.restApi = RAPIManager()
+        while self.restApi.djangostatus == False:
+            self.restApi.isRunning()
+        if self.restApi.networkState == False:
+            self.restApi.populate()
+        self.origin = self.rawDb.GETDATASETFILE(self.restApi.network.settings.dataset)
+        self.indexedDb = IDBManager(self.origin, self.numFolds)
+        #self.foldList is a list of 10 nodes where each node holds a path to a fold.csv file.
+        self.foldList = self.indexedDb.createFolds()
+
+        """VB: Begin CVManager portion"""
+        #These queues will be used by multiple processes to produce/use different train and test paths
+        self.trainPaths = Queue()
+        self.testPaths = Queue()
+        self.crossValidate = CVManager()
+        #Create process to run CrossValidation on all folds in self.foldList
+        self.crossValidate = Process(target=self.crossValidate.CrossValidate, args=(self.foldList,self.numFolds,self.testPaths,self.trainPaths))
+        self.crossValidate.start()
+
+        """VB: Begin DDManager portion"""
         self.DD = DDManager()
+        #self.dataDispatcherQ will hold data which DDManager deemed ready to be passed to NN (train path first then test path)
+        self.dataDispatcherQ = Queue()
+        for j in range(0, self.numFolds):
+            self.dispatchData = Process(target=self.DD.DispatchData, args=(self.trainPaths,self.testPaths,self.dataDispatcherQ))
+            self.dispatchData.start()
+        #This loop looks scary but all it does is wait for all DD processes to complete and kill all zombie processes
+        while len(active_children() != 0):
+            time.sleep(1)
+
+        """VB: Begin NNManager portion"""
+        #self.neuralNets Queue will hold all NNManager instances
+        self.neuralNets = Queue()
+        for i in range(0, self.numFolds)
+            self.NNProcess NNManager(self.dataDispatcherQ.get(),self.dataDispatcherQ.get(),self.restApi.network)
+            self.neuralNets.put(self.NNProcess)
+
+        """
+            VB: At this point we have cross validated all folds, DataDispatcher has done its job, and we have created 10
+            instances of NNManager each with appropriate train/test paths. These instances are stored in self.nerualNets
+            which is a Queue. We are now ready for each NNManager instance to call modelZero(). To retrieve an instance
+            of NNManager from the queue do:
+
+                " self.NameOfInstance = self.nerualNets.get() ".
+
+            modelZero() can then be called for that specific instance of NNManager by doing:
+
+                " self.NameOfInstance.modelZero() "
+        """
+
+    def initialize(self):
+        self.status.message(1,"initialize()")
+
+        self.status.message(0,"initialize()")
+        return
+
+    def build(self):
+        self.status.message(1, "build(self)")
+
+
+"""
+    def __init__(self):
+        self.status = Status("Admin")
+        self.numFolds = 10
+        self.rawDb = RDBManager()
+        self.restApi = RAPIManager()
         while self.restApi.djangostatus == False:
             self.restApi.isRunning()
         if self.restApi.networkState == False:
@@ -36,7 +101,6 @@ class Admin:
 
         for i in range(0, self.numFolds)
             self.neuralNets.put(NNManager(self.dataDispatcher.trainPaths.get(), self.dataDispatcher.testPaths.get(), self.restApi.network))
-
 
     def initialize(self):
         self.status.message(1,"initialize()")
@@ -64,4 +128,4 @@ class Admin:
 
     def build(self):
         self.status.message(1, "build(self)")
-
+"""

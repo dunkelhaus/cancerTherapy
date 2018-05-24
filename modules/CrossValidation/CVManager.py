@@ -5,7 +5,7 @@
  Authors:
  Kumud Ravisankaran | Valeria Brewer
  Ninad Mehta | Suraj Jena
- 
+
 """
 
 import sys
@@ -16,10 +16,8 @@ from DLL import _DLL
 
 
 class CVManager:
-    def __init__(self,path,folds):
+    def __init__(self):
         self.status = Status("CVManager")
-        self.path = path
-        self.folds = folds
 
     def CrossValidate(self,List,folds,TestingQueue,TrainingQueue):
         self.status.message(1,"CrossValidate(self,path,folds)")
@@ -27,10 +25,10 @@ class CVManager:
         for i in range(1,folds+1):
             self.trainingFoldCSV = "/home/skjena/data/testData/trainingFolds_%s.csv" % i
             self.combine=open(trainingFoldCSV,"w")
-            
+
             self.testingFoldCSV = "/home/skjena/data/testData/testingFold_%s.csv" % i
             self.testing=open(testingFoldCSV,"w")
-            
+
             self.testingFold = List.head.get_data()
             self.trainingFold_1 = List.head.get_next().get_data()
             self.currentFold = List.head.get_next()
@@ -53,4 +51,3 @@ class CVManager:
             List.updateList()
 
         self.status.message(0,"CrossValidate(self,path,folds)")
-

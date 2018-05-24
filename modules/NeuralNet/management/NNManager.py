@@ -26,8 +26,6 @@ from Status.Status import Status
 #from django.core.exceptions import ObjectDoesNotExist
 #from typings.network import Network
 
-#mode 0: Path leads to training fold
-#mode 1: Path leads to testing fold
 
 class NNManager():
     def __init__(self, trainpath, testpath, network):
@@ -44,4 +42,3 @@ class NNManager():
         self.executor.test()
         self.executor.predict()
         self.status.message(0, "modelZero()")
-
