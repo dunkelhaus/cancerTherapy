@@ -1,27 +1,23 @@
 #FoldManager.py
-# Used https://gist.github.com/jrivero/1085501 to split CSV into multiple files
-
 """
-    Given a path to a csv file, generateFolds(path) will:
-        - split the csv dataset into a specified number of folds (num_folds)
-        - store each fold in a csv file within specified directory (output_path)
-        - store each fold in a linked list, DLL, where each node contains a fold
-        - stores file_X.csv wher X = {1,2,3,..} within data directory outside of cancerTherapy
+ Deep Learning for Cancer Therapy
 
-    returns: DLL object with 10 nodes each containing a fold of data
+ Authors:
+ Kumud Ravisankaran | Valeria Brewer
+ Ninad Mehta | Suraj Jena
+
 """
 import sys
 sys.dont_write_bytecode = True
 
-from DLL import _DLL
 import csv
 import os
 
-def generateFolds(path, folds):
-    List = _DLL()
+def generateFolds(path, List, folds):
     num_folds = folds
     output_name_template='fold_%s.csv'
-    output_path='/home/skjena/data/testData/'
+    #output_path='/home/skjena/data/testData/'
+    output_path='/home/valeria/ECS193/data/testing/'
     keep_headers=False
 
     #determine number of rows in csv file, calculate how many rows per fold

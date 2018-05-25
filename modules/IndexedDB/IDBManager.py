@@ -1,4 +1,5 @@
-"""i
+#IDBManager.py
+"""
  Deep Learning for Cancer Therapy
 
  Authors:
@@ -11,9 +12,8 @@ import sys
 sys.path.append('../')
 sys.dont_write_bytecode = True
 
-from RawDB.RDBManager import GETDATASETFILE
+from DLL import _DLL
 from FoldManager import generateFolds
-
 
 class IDBManager():
 
@@ -22,7 +22,6 @@ class IDBManager():
        self.folds = folds
 
    def createFolds(self):
-       self.List = generateFolds(self.path, self.folds)
+       self.newList = _DLL()
+       self.List = generateFolds(self.path, self.newList, self.folds)
        return self.List
-
-IDB("fm_mutations_independent.tab")
