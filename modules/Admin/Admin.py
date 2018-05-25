@@ -49,7 +49,7 @@ class Admin:
         """VB: Begin NNManager portion"""
         #self.neuralNets Queue will hold all NNManager instances
         self.neuralNets = Queue()
-        for i in range(0, self.numFolds)
+        for i in range(0, self.numFolds):
             self.NNProcess NNManager(self.dataDispatcherQ.get(),self.dataDispatcherQ.get(),self.restApi.network)
             self.neuralNets.put(self.NNProcess)
 
