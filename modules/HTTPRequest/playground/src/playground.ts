@@ -68,16 +68,16 @@ let INPUTS: {[name: string]: InputFeature} = {
   "5C": {f: (x, y) => x, label: "5C"},
   "5G": {f: (x, y) => x, label: "5G"},
   "5T": {f: (x, y) => x,  label: "5T"},
-  "C>A": {f: (x, y) => x, label: "C>A"},
-  "C>G": {f: (x, y) => x, label: "C>G"},
-  "C>T": {f: (x, y) => x, label: "C>T"},
-  "T>A": {f: (x, y) => x, label: "T>A"},
-  "T>C": {f: (x, y) => x, label: "T>C"},
-  "T>G": {f: (x, y) => x, label: "T>G"},
   "3A": {f: (x, y) => x, label: "3A"},
   "3C": {f: (x, y) => x, label: "3C"},
   "3G": {f: (x, y) => x, label: "3G"},
   "3T": {f: (x, y) => x, label: "3T"},
+  "C>A": {f: (x, y) => x, label: "C>A"},
+  "C>G": {f: (x, y) => x, label: "C>G"},
+  "C>T": {f: (x, y) => x, label: "C>T"},
+  "T>A": {f: (x, y) => y, label: "T>A"},
+  "T>C": {f: (x, y) => y, label: "T>C"},
+  "T>G": {f: (x, y) => y, label: "T>G"},
 };
 
 let HIDABLE_CONTROLS = [
