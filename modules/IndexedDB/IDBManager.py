@@ -17,7 +17,6 @@ from DLL import _DLL
 from FoldManager import generateFolds
 
 class IDBManager():
-
    def __init__(self, path, folds):
        self.status = Status("IDBManager")
        self.path = path

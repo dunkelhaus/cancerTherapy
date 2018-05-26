@@ -16,20 +16,16 @@ sys.dont_write_bytecode = True
 
 class CVManager:
     def __init__(self):
-        print "CVManager instance successfully created!"
         self.status = Status("CVManager")
 
     def CrossValidate(self,List,folds,TestingQueue,TrainingQueue):
-        print "Entered CVManager.CrossValidate()"
         self.status.message(1,"CrossValidate(self,path,folds)")
         # List will hold 10 nodes where the head is Testing and the other 9 nodes are Training data
         for i in range(1,folds+1):
-            #self.trainingFoldCSV = "/home/skjena/data/testData/trainingFolds_%s.csv" % i
-            self.trainingFoldCSV = "/home/valeria/ECS193/data/testing/trainingFolds_%s.csv" % i
+            self.trainingFoldCSV = "/home/skjena/data/testData/trainingFolds_%s.csv" % i
             self.combine=open(self.trainingFoldCSV,"w")
 
-            #self.testingFoldCSV = "/home/skjena/data/testData/testingFold_%s.csv" % i
-            self.testingFoldCSV = "/home/valeria/ECS193/data/testing/testingFolds_%s.csv" % i
+            self.testingFoldCSV = "/home/skjena/data/testData/testingFold_%s.csv" % i
             self.testing=open(self.testingFoldCSV,"w")
 
             self.testingFold = List.head.get_data()
@@ -53,5 +49,4 @@ class CVManager:
             TestingQueue.put(self.testingFoldCSV)
             List.updateList()
 
-        print "Exiting CVManager.CrossValidate()"
         self.status.message(0,"CrossValidate(self,path,folds)")
