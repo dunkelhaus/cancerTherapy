@@ -9,17 +9,19 @@
 """
 
 import sys
+from Status.Status import Status
+
 sys.path.append('../')
 sys.dont_write_bytecode = True
 
 class CVManager:
     def __init__(self):
         print "CVManager instance successfully created!"
-        #self.status = Status("CVManager")
+        self.status = Status("CVManager")
 
     def CrossValidate(self,List,folds,TestingQueue,TrainingQueue):
         print "Entered CVManager.CrossValidate()"
-        #self.status.message(1,"CrossValidate(self,path,folds)")
+        self.status.message(1,"CrossValidate(self,path,folds)")
         # List will hold 10 nodes where the head is Testing and the other 9 nodes are Training data
         for i in range(1,folds+1):
             #self.trainingFoldCSV = "/home/skjena/data/testData/trainingFolds_%s.csv" % i
@@ -52,4 +54,4 @@ class CVManager:
             List.updateList()
 
         print "Exiting CVManager.CrossValidate()"
-        #self.status.message(0,"CrossValidate(self,path,folds)")
+        self.status.message(0,"CrossValidate(self,path,folds)")

@@ -8,7 +8,7 @@ from CrossValidation.CVManager import CVManager
 from DataDispatcher.DDManager import DDManager
 from IndexedDB.IDBManager import IDBManager
 from RawDB.RDBManager import RDBManager
-#from NeuralNet.management.NNManager import NNManager
+from NeuralNet.management.NNManager import NNManager
 import time
 
 class Admin:
@@ -16,12 +16,13 @@ class Admin:
         #self.status = Status("Admin")
         self.numFolds = 10
 
-        #self.rawDb = RDBManager()
+        self.rawDb = RDBManager()
         #self.restApi = RAPIManager()
         #while self.restApi.djangostatus == False:
             #self.restApi.isRunning()
         #if self.restApi.networkState == False:
             #self.restApi.populate()
+
         #self.origin = self.rawDb.GETDATASETFILE(self.restApi.network.settings.dataset)
         #self.indexedDb = IDBManager(self.origin, self.numFolds)
 
@@ -46,28 +47,24 @@ class Admin:
         self.dataDispatcherQ = Queue()
         for j in range(0, self.numFolds):
             self.dispatchData = Process(target=self.DD.DispatchData, args=(self.trainPaths,self.testPaths,self.dataDispatcherQ))
-            print "Starting Data Dispatch process ", j+1
             self.dispatchData.start()
 
         """VB: Begin NNManager portion"""
-"""        #self.neuralNets Queue will hold all NNManager instances
+        #self.neuralNets Queue will hold all NNManager instances
         self.neuralNets = Queue()
         for i in range(0, self.numFolds):
-            self.NNProcess NNManager(self.dataDispatcherQ.get(),self.dataDispatcherQ.get(),self.restApi.network)
+            while (self.dataDispatcherQ.empty()==True):
+                #if DD does not have data ready to send to NN, wait until it does.
+                time.sleep(1)
+            train = self.dataDispatcherQ.get()
+            test = self.dataDispatcherQ.get()
+            self.NNProcess = NNManager(train,test,0)#self.restApi.network)
             self.neuralNets.put(self.NNProcess)
-"""
-"""
-            VB: At this point we have cross validated all folds, DataDispatcher has done its job, and we have created 10
-            instances of NNManager each with appropriate train/test paths. These instances are stored in self.nerualNets
-            which is a Queue. We are now ready for each NNManager instance to call modelZero(). To retrieve an instance
-            of NNManager from the queue do:
 
-                " self.NameOfInstance = self.nerualNets.get() ".
-
-            modelZero() can then be called for that specific instance of NNManager by doing:
-
-                " self.NameOfInstance.modelZero() "
-"""
+        for j in range(0, self.numFolds):
+            NeuralNetInstance = self.neuralNets.get()
+            self.NNProcess = Process(target=NeuralNetInstance.modelZero)
+            self.NNProcess.start()
 
     #def initialize(self):
         #self.status.message(1,"initialize()")
