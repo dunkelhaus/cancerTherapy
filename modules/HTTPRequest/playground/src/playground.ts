@@ -64,20 +64,20 @@ interface InputFeature {
 }
 
 let INPUTS: {[name: string]: InputFeature} = {
-  "5A": {f: (x, y) => x, label: "5A"},
-  "5C": {f: (x, y) => x, label: "5C"},
-  "5G": {f: (x, y) => x, label: "5G"},
-  "5T": {f: (x, y) => x,  label: "5T"},
-  "3A": {f: (x, y) => x, label: "3A"},
-  "3C": {f: (x, y) => x, label: "3C"},
-  "3G": {f: (x, y) => x, label: "3G"},
-  "3T": {f: (x, y) => x, label: "3T"},
-  "C>A": {f: (x, y) => x, label: "C>A"},
-  "C>G": {f: (x, y) => x, label: "C>G"},
-  "C>T": {f: (x, y) => x, label: "C>T"},
-  "T>A": {f: (x, y) => y, label: "T>A"},
-  "T>C": {f: (x, y) => y, label: "T>C"},
-  "T>G": {f: (x, y) => y, label: "T>G"},
+  "_5A": {f: (x, y) => x, label: "5A"},
+  "_5C": {f: (x, y) => x, label: "5C"},
+  "_5G": {f: (x, y) => x, label: "5G"},
+  "_5T": {f: (x, y) => x,  label: "5T"},
+  "_3A": {f: (x, y) => x, label: "3A"},
+  "_3C": {f: (x, y) => x, label: "3C"},
+  "_3G": {f: (x, y) => x, label: "3G"},
+  "_3T": {f: (x, y) => x, label: "3T"},
+  "_CA": {f: (x, y) => x, label: "C>A"},
+  "_CG": {f: (x, y) => x, label: "C>G"},
+  "_CT": {f: (x, y) => x, label: "C>T"},
+  "_TA": {f: (x, y) => y, label: "T>A"},
+  "_TC": {f: (x, y) => y, label: "T>C"},
+  "_TG": {f: (x, y) => y, label: "T>G"},
 };
 
 let HIDABLE_CONTROLS = [
