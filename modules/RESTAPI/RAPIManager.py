@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
 import sys
 sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
 import socket
 import django
 django.setup()
@@ -20,7 +20,7 @@ class RAPIManager():
 
     def getArguments(self):
         self.status.message(1, "getArguments(self)")
-        model = Arguments.objects.get(id=1)
+        model = Arguments.objects.get(id=3)
         self.network.arguments.learningRate = model.learningRate
         self.network.arguments.activation = model.activation
         self.network.arguments.regularization = model.regularization

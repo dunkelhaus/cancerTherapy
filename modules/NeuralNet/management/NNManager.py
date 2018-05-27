@@ -13,17 +13,16 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from NeuralNet.management.execManager import execManager
-from execManager import execManager
 import sys
-sys.path.append('/home/skjena/cancerTherapy/modules/RESTAPI/mutationDnnWeb/')
-from mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
-from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
+sys.path.append('/home/skjena/cancerTherapy/modules/RESTAPI/mutationDnnWeb/mutationDnnWeb/')
+from mutationDnnWeb.mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
+from mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 import argparse
 import tensorflow as tf
 from Status.Status import Status
 import os
 from django.core.exceptions import ObjectDoesNotExist
-from typings.network import Network
+from RESTAPI.mutationDnnWeb.typings.network import Network
 
 
 class NNManager():

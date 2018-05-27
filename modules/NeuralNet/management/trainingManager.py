@@ -19,9 +19,7 @@ class trainingManager():
 
   def run(self):
     self.status.message(1, "run()")
-    self.classifier.model.train(
-    input_fn=lambda:dataProcessor.train_input_fn(self.train_x, self.train_y, self.network.state.batchSize,
-    steps=self.network.arguments.learningRate)
+    self.classifier.model.train(input_fn=lambda:dataProcessor.train_input_fn(self.train_x, self.train_y, self.network.state.batchSize,steps=self.network.arguments.learningRate))
     self.status.message(3, self.network.state.networkShape)
     self.status.message(0, "run()")
     return True
