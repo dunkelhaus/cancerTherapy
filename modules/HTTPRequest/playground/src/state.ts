@@ -129,15 +129,6 @@ export class State {
     {name: "_3C", type: Type.BOOLEAN},
     {name: "_3G", type: Type.BOOLEAN},
     {name: "_3T", type: Type.BOOLEAN},
-    //{name: "x", type: Type.BOOLEAN},
-    //{name: "y", type: Type.BOOLEAN},
-    //{name: "xTimesY", type: Type.BOOLEAN},
-    //{name: "xSquared", type: Type.BOOLEAN},
-    //{name: "ySquared", type: Type.BOOLEAN},
-    //{name: "cosX", type: Type.BOOLEAN},
-    //{name: "sinX", type: Type.BOOLEAN},
-    //{name: "cosY", type: Type.BOOLEAN},
-    //{name: "sinY", type: Type.BOOLEAN},
     {name: "collectStats", type: Type.BOOLEAN},
     {name: "tutorial", type: Type.STRING},
     {name: "problem", type: Type.OBJECT, keyMap: problems},
@@ -166,27 +157,18 @@ export class State {
     networkShape: number[] = [10, 10, 10, 10, 10];
     _5A = true;
     _5C = true;
-    _5G = false;
-    _5T = false;
+    _5G = true;
+    _5T = true;
     _CA = false;
     _CG = false;
     _CT = false;
     _TA = false;
     _TC = false;
     _TG = false;
-    _3A = false;
-    _3C = false;
-    _3G = false;
-    _3T = false;
-    //x = true;
-    //y = true;
-    //xTimesY = false;
-    //xSquared = false;
-    //ySquared = false;
-    //cosX = false;
-    //sinX = false;
-    //cosY = false;
-    //sinY = false;
+    _3A = true;
+    _3C = true;
+    _3G = true;
+    _3T = true;
     dataset: dataset.DataGenerator = dataset.classifyCircleData;
     regDataset: dataset.DataGenerator = dataset.regressPlane;
     seed: string;
