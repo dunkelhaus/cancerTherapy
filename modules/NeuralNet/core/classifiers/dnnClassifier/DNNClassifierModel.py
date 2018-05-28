@@ -10,8 +10,6 @@ A custom TensorFlow Estimator for a DNNClassifier for mutation classification.
 
 This code runs in correlation with ./dataProcessor.py, overseen by ./__main__.py
 """
-# REVIEW Do Not Run
-#=======================================================
 
 from __future__ import absolute_import
 from __future__ import division
@@ -23,7 +21,7 @@ import tensorflow as tf
 #from django.core.exceptions import ObjectDoesNotExist
 #from typings.network import Network
 #import dataProcessor
-from NeuralNet.core.classifiers.dnnClassifier import dataProcessor
+from NeuralNet.core import dataProcessor
 # maintains a verbose tensorflow log
 tf.logging.set_verbosity(tf.logging.INFO)
 #/v1/: ALL
@@ -33,29 +31,18 @@ tf.logging.set_verbosity(tf.logging.INFO)
 #/v1/settings: dataset, weights
 #/v1/features: features
 
-"""
-    This function checks whether there has been changes
-
-    To determine whether a change has been made:
-        compare value stored in ../v1/ to the value in ../v1/xxxx/
-
-    When a value is changed in the playground, ../v1/xxxx/ is updated.
-    However, ../v1/ is not changed at this time and so is the two tables
-    do not match, then we know that there has been a change.
-"""
-
 class DNNClassifierModel:
     def __init__(self, network):
         self.network = network
         self.model = None
 
     def getLearningRate(self):
-        learningRate = Arguments.objects.get(name="learningRate")
+        learningRate = self.network.arguments.learningRate
         number = float(learningRate)
         return tf.Variable(number, tf.float64)
 
     def getActivation(self):
-        activation = Arguments.objects.get(name="activation")
+        activation = self.network.arguments.activation
 
         if activation == "RELU":
             return tf.nn.relu
@@ -66,11 +53,8 @@ class DNNClassifierModel:
         if activation == "SIGMOID":
             return tf.nn.sigmoid
 
-        """if activation == "LINEAR": #tf.nn doesn't have linear. Moving on.
-            return           """
-
     def getRegularization(self):
-        regularization = Arguments.objects.get(name="regularization")
+        regularization = self.network.arguments.regularization
 
         if regularization == "None":
             return tf.Variable("None", tf.string)
@@ -82,39 +66,24 @@ class DNNClassifierModel:
             return tf.contrib.layers.l2_regularizer
 
     def getRegularizationRate(self):
-        regularizationRate = Arguments.objects.get(name="regularizationRate")
+        regularizationRate = self.network.arguments.regularizationRate
         number = float(regularizationRate)
         return tf.Variable(number, tf.float64)
 
-    def getProblemType(self):
-        problemType = Arguments.objects.get(name="problemType")
-
-        if problemType == "CLASSIFICATION":
-            return tf.contrib.learn.ProblemType.CLASSIFICATION
-
     def getBatchSize(self):
-        batchSize = State.objects.get(name="batchSize")
+        batchSize = self.network.state.batchSize
         number = int(batchSize)
         return tf.Variable(number, tf.int32)
 
     def getNoise(self):
-        noise = State.objects.get(name="noise")
+        noise = self.network.state.noise
         number = int(noise)
-        return tf.Variable(number, tf.int32)
-
-    def getTrainToTestRatio(self):
-        trainToTestRatio = State.objects.get(name="trainToTestRatio")
-        number = int(trainToTestRatio)
         return tf.Variable(number, tf.int32)
 
     def getNetworkShape(self): #Unsure what to return here
         shape = []
-        i = 0
         done = False
-        flag = "n"
-        while(done != True):
-            i = i + 1
-            units = input("Enter number of neurons in %d hidden layer: " %(i))
+        for i in self.network.state.networkShape:
             shape.append(units)
             flag = raw_input("Done? (press n to add another hidden layer) y/n: ")
             if flag == "y":
@@ -189,7 +158,7 @@ class DNNClassifierModel:
         # Compute logits (one per class)
         logits = tf.layers.dense(net, params['n_classes'], activation=None)
         predicted_classes = tf.argmax(logits, 1)
-          
+
         # Compute the predictions below
         if mode == tf.estimator.ModeKeys.PREDICT:
             predictions = {
