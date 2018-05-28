@@ -11,8 +11,8 @@ class RDBManager():
         CreateCSV.createCSV(row, column, numRows, numCols, path)
 
     def GETDATASETFILE(csvFile):
-        if csvFile == "fm_mutations_independent.tab":
+        if csvFile == "fm_mutations_independent":
             return "/home/skjena/cancerTherapy/modules/RawDB/scripts/fm_mutations_independent.csv"
 
-        if csvFile == "fm_sample_independent.tab":
+        if csvFile == "fm_sample_independent":
             return "/home/skjena/cancerTherapy/modules/RawDB/scripts/fm_sample_independent.csv"
