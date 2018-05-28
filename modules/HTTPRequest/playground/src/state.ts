@@ -35,14 +35,17 @@ export let regularizations: {[key: string]: nn.RegularizationFunction} = {
 
 /** A map between dataset names and functions that generate classification data. */
 export let datasets: {[key: string]: dataset.DataGenerator} = {
-  "fm_mutations_independent": dataset.classifyCircleData,
-  "fm_sample_independent": dataset.classifyXORData
+  "fm_sample_independent": dataset.classifyXORData,
+  "top10000LungMel": dataset.classifyCircleData,
+  "top1000LungMel": dataset.classifyXORData,
+  "top100LungMel": dataset.classifyCircleData,
+  "top10LungMel": dataset.classifyXORData
 };
 
 /** A map between dataset names and functions that generate regression data. */
 export let regDatasets: {[key: string]: dataset.DataGenerator} = {
   "fm_mutations_independent": dataset.regressPlane,
-  "fm_sample_independent": dataset.regressGaussian
+  "": dataset.regressGaussian
 };
 
 export function getKeyFromValue(obj: any, value: any): string {
@@ -170,7 +173,7 @@ export class State {
     _3C = false;
     _3G = false;
     _3T = false;
-    dataset: dataset.DataGenerator = dataset.classifyCircleData;
+    dataset: dataset.DataGenerator = dataset.classifyXORData;
     regDataset: dataset.DataGenerator = dataset.regressPlane;
     seed: string;
     weights = false;
