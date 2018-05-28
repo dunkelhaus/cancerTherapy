@@ -39,6 +39,52 @@ limitations under the License.
   <link rel="stylesheet" href="bundle.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
   <script src="lib.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+   <script type="text/javascript">  
+    $(document).ready(function() {
+
+    // The event listener for the file upload
+    document.getElementById('txtFileUpload').addEventListener('change', upload, false);
+
+    var data = null;
+
+    // Method that checks that the browser supports the HTML5 File API
+    function browserSupportFileUpload() {
+        var isCompatible = false;
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+        isCompatible = true;
+        }
+        return isCompatible;
+    }
+
+    // Method that reads and processes the selected file
+    function upload(evt) {
+        if (!browserSupportFileUpload()) {
+            alert('The File APIs are not fully supported in this browser!');
+            } else {
+                
+                var file = evt.target.files[0];
+                var reader = new FileReader();
+                reader.readAsText(file);
+                reader.onload = function(event) {
+                    var csvData = event.target.result;
+                    data = $.csv.toArrays(csvData);
+                    if (data && data.length > 0) {
+                    alert('Imported -' + data.length + '- rows successfully!');
+                    } else {
+                        alert('No data to import!');
+                    }
+                };
+                reader.onerror = function() {
+                    alert('Unable to read ' + file.fileName);
+                };
+            }
+        }
+    });
+</script>
+
   <!--<script src="requests.js"></script>-->
 </head>
 <body>
@@ -157,12 +203,6 @@ limitations under the License.
           <div class="dataset" title="fm_sample_independent">
             <canvas class="data-thumbnail" data-dataset="fm_sample_independent"></canvas>
           </div>
-          <!--<div class="dataset" title="Gaussian">
-            <canvas class="data-thumbnail" data-dataset="gauss"></canvas>
-          </div>
-           <div class="dataset" title="Spiral">
-            <canvas class="data-thumbnail" data-dataset="spiral"></canvas>
-          </div> -->
         </div>
       </div>
       <div>
@@ -184,15 +224,20 @@ limitations under the License.
             <input class="mdl-slider mdl-js-slider" type="range" id="batchSize" min="1" max="30" step="1">
           </p>
         </div>
+	
+	<hr>
+
 	<div id="dvImportSegments" class="fileupload ">
     	  <fieldset>
             <legend>Upload a CSV File</legend>
               <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
-   	  </fieldset>
+          </fieldset>
 	</div>
-          <!--<button class="basic-button" id="data-regen-button" title="Regenerate data">
-            Regenerate
-          </button>-->
+        
+         <!--<button class="basic-button" id="upload-csv-button" title="Upload file">
+            Upload File
+         </button>-->
+
       </div>
     </div>
 
