@@ -292,6 +292,15 @@ function makeGUI() {
       return; // No-op.
     }
     state.regDataset =  newDataset;
+
+    var data = "dataset="+this.dataset.regdataset+"&weights=False&biases=False";
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://35.184.171.249/v1/settings/");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    xhr.send(data);
+
     regDataThumbnails.classed("selected", false);
     d3.select(this).classed("selected", true);
     generateData();
@@ -534,11 +543,6 @@ function makeGUI() {
     {
         str2 = "SIGMOID";
     }
-    if (state.activation == nn.Activations.LINEAR)
-    {
-        str2 = "LINEAR";
-    }
-
 
     var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
 
@@ -595,11 +599,6 @@ function makeGUI() {
     {
         str2 = "SIGMOID";
     }
-    if (state.activation == nn.Activations.LINEAR)
-    {
-        str2 = "LINEAR";
-    }
-
 
     var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
 
@@ -658,11 +657,6 @@ function makeGUI() {
     {
         str2 = "SIGMOID";
     }
-    if (state.activation == nn.Activations.LINEAR)
-    {
-        str2 = "LINEAR";
-    }
-
 
     var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
     var xhr = new XMLHttpRequest();
@@ -717,11 +711,6 @@ function makeGUI() {
     {
         str2 = "SIGMOID";
     }
-    if (state.activation == nn.Activations.LINEAR)
-    {
-        str2 = "LINEAR";
-    }
-
 
     var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
 
@@ -778,11 +767,6 @@ function makeGUI() {
     {
         str2 = "SIGMOID";
     }
-    if (state.activation == nn.Activations.LINEAR)
-    {
-        str2 = "LINEAR";
-    }
-
 
     var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
 

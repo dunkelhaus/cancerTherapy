@@ -75,6 +75,29 @@ export function classifyFmSampleIndependent(numSamples: number, noise: number):
 }
 
 
+export function regressFmMutationsIndependent(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function genFmMutationsIndependent() {
+
+
+  }
+  return points;
+}
+
+
+export function regressFmSampleIndependent(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function getFmSampleIndependent() {
+
+
+  }
+  return points;
+}
+
 export function regressPlane(numSamples: number, noise: number):
   Example2D[] {
   let radius = 6;
