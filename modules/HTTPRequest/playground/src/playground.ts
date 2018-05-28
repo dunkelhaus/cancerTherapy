@@ -53,7 +53,7 @@ const BIAS_SIZE = 5;
 const NUM_SAMPLES_CLASSIFY = 500;
 const NUM_SAMPLES_REGRESS = 1200;
 const DENSITY = 100;
-var djangoDataset = "fm_mutations_independent";
+var djangoDataset = "fm_sample_independent";
 
 enum HoverType {
   BIAS, WEIGHT
@@ -159,6 +159,8 @@ class Player {
     state.isPlaying = this.isPlaying
 
     // sent post request
+    console.log("Problem type is: ");
+    console.log(state.problem);
     var data = "discretize="+state.discretize+"&play=False&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
@@ -174,6 +176,61 @@ class Player {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
         xhr.send(data);
+
+        var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+               +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
+        var xhr = new XMLHttpRequest();
+
+       xhr.open("POST", "http://35.184.171.249/v1/state/");
+       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+       xhr.send(data);
+
+        var str;
+   if (state.regularization == null)
+   {
+       str = "none";    
+   }
+   if (state.regularization == nn.RegularizationFunction.L1)
+   {
+       str = "L1";
+   }
+   if (state.regularization == nn.RegularizationFunction.L2)
+   {
+       str = "L2";
+   }
+
+
+
+   var str2;
+   if (state.activation == nn.Activations.RELU)
+   {
+       str2 = "RELU";    
+   }
+   if (state.activation == nn.Activations.TANH)
+   {
+       str2 = "TANH";
+   }
+   if (state.activation == nn.Activations.SIGMOID)
+   {
+       str2 = "SIGMOID";
+   }
+
+       var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+       var xhr = new XMLHttpRequest();
+       xhr.open("POST", "http://35.184.171.249/v1/arguments/");
+       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+       xhr.send(data);
+
+        var data = "dataset="+djangoDataset+"&weights="+state.weights+"&biases="+state.biases;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://35.184.171.249/v1/settings/");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+        xhr.send(data);
+       
 
     if (this.callback) {
       this.callback(this.isPlaying);
