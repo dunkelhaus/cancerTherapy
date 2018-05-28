@@ -262,7 +262,17 @@ function makeGUI() {
     if (newDataset === state.dataset) {
       return; // No-op.
     }
+
     state.dataset =  newDataset;
+
+    var data = "dataset="+this.dataset.dataset+"&weights=False&biases=False";
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://35.184.171.249/v1/settings/");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+    xhr.send(data);
+
     dataThumbnails.classed("selected", false);
     d3.select(this).classed("selected", true);
     generateData();
