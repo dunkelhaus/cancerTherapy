@@ -53,6 +53,7 @@ const BIAS_SIZE = 5;
 const NUM_SAMPLES_CLASSIFY = 500;
 const NUM_SAMPLES_REGRESS = 1200;
 const DENSITY = 100;
+var djangoDataset = "fm_mutations_independent";
 
 enum HoverType {
   BIAS, WEIGHT
@@ -152,7 +153,6 @@ class Player {
     this.start(this.timerIndex);
   }
 
-// send post request
   pause() {
     this.timerIndex++;
     this.isPlaying = false;
@@ -264,8 +264,8 @@ function makeGUI() {
     }
 
     state.dataset =  newDataset;
-
-    var data = "dataset="+this.dataset.dataset+"&weights=False&biases=False";
+    djangoDataset = this.dataset.dataset;
+    var data = "dataset="+this.dataset.dataset+"&weights="+state.weights+"&biases="+state.biases;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://35.184.171.249/v1/settings/");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -292,8 +292,8 @@ function makeGUI() {
       return; // No-op.
     }
     state.regDataset =  newDataset;
-
-    var data = "dataset="+this.dataset.regdataset+"&weights=False&biases=False";
+    djangoDataset = this.dataset.regdataset;
+    var data = "dataset="+this.dataset.regdataset+"&weights="+state.weights+"&biases="+state.biases;
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "http://35.184.171.249/v1/settings/");
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -826,12 +826,31 @@ function makeGUI() {
 }
 
 function updateBiasesUI(network: nn.Node[][]) {
+  state.biases = true;
+  var data = "dataset="+djangoDataset+"&weights="+state.weights+"&biases="+state.biases;
+   var xhr = new XMLHttpRequest();
+   xhr.open("POST", "http://35.184.171.249/v1/settings/");
+   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+   xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+   xhr.send(data);
+
   nn.forEachNode(network, true, node => {
     d3.select(`rect#bias-${node.id}`).style("fill", colorScale(node.bias));
   });
 }
 
 function updateWeightsUI(network: nn.Node[][], container: d3.Selection<any>) {
+
+  state.weights = true;
+  var data = "dataset="+djangoDataset+"&weights="+state.weights+"&biases="+state.biases;
+   var xhr = new XMLHttpRequest();
+   xhr.open("POST", "http://35.184.171.249/v1/settings/");
+   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+   xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+   xhr.send(data);
+
   for (let layerIdx = 1; layerIdx < network.length; layerIdx++) {
     let currentLayer = network[layerIdx];
     // Update all the nodes in this layer.

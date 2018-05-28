@@ -133,6 +133,8 @@ export class State {
     {name: "problem", type: Type.OBJECT, keyMap: problems},
     {name: "initZero", type: Type.BOOLEAN},
     {name: "hideText", type: Type.BOOLEAN},
+    {name: "weights", type: Type.BOOLEAN},
+    {name: "biases", type: Type.BOOLEAN},
   ];
 
   [key: string]: any;
@@ -171,6 +173,8 @@ export class State {
     dataset: dataset.DataGenerator = dataset.classifyCircleData;
     regDataset: dataset.DataGenerator = dataset.regressPlane;
     seed: string;
+    weights = false;
+    biases = false;
 
 
   /**
