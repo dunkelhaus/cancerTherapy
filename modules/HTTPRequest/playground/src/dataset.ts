@@ -51,6 +51,32 @@ export function shuffle(array: any[]): void {
 
 export type DataGenerator = (numSamples: number, noise: number) => Example2D[];
 
+export function classifyFmMutationsIndependent(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D = [];
+
+  function genFmMutationsIndependent() {
+    
+    
+  }
+  return points;
+}
+
+
+export function classifyFmSampleIndependent(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D = [];
+
+  function getFmSampleIndependent() {
+
+
+  }
+  return points;
+}
+
+
+
+
 export function classifyTwoGaussData(numSamples: number, noise: number):
     Example2D[] {
   let points: Example2D[] = [];
