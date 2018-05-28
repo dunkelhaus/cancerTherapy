@@ -53,7 +53,7 @@ export type DataGenerator = (numSamples: number, noise: number) => Example2D[];
 
 export function classifyFmMutationsIndependent(numSamples: number, noise: number):
     Example2D[] {
-  let points: Example2D = [];
+  let points: Example2D[] = [];
 
   function genFmMutationsIndependent() {
     
@@ -65,7 +65,7 @@ export function classifyFmMutationsIndependent(numSamples: number, noise: number
 
 export function classifyFmSampleIndependent(numSamples: number, noise: number):
     Example2D[] {
-  let points: Example2D = [];
+  let points: Example2D[] = [];
 
   function getFmSampleIndependent() {
 
