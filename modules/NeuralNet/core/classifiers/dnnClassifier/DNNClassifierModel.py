@@ -84,12 +84,9 @@ class DNNClassifierModel:
         shape = []
         done = False
         for i in self.network.state.networkShape:
+            if i != ',':
+                continue
             shape.append(units)
-            flag = raw_input("Done? (press n to add another hidden layer) y/n: ")
-            if flag == "y":
-                done = True
-            else:
-                done = False
 
         return shape
 
