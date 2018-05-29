@@ -75,6 +75,56 @@ export function classifyFmSampleIndependent(numSamples: number, noise: number):
 }
 
 
+export function classifytop10000LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function genFmMutationsIndependent() {
+
+
+  }
+  return points;
+}
+
+
+export function classifytop1000LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function getFmSampleIndependent() {
+
+
+  }
+  return points;
+}
+
+
+export function classifytop100LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function genFmMutationsIndependent() {
+
+
+  }
+  return points;
+}
+
+
+export function classifytop10LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function getFmSampleIndependent() {
+
+
+  }
+  return points;
+}
+
+
+
+
 export function regressFmMutationsIndependent(numSamples: number, noise: number):
     Example2D[] {
   let points: Example2D[] = [];
