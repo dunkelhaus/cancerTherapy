@@ -16,7 +16,7 @@ class trainingManager():
     self.train_x = train_x
     self.train_y = train_y
     self.network = network
-    self.dnnModelr = dnnModel
+    self.dnnModel = dnnModel
     self.status = Status("trainingManager")
 
   def run(self):
