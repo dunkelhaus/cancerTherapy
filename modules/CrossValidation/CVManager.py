@@ -22,13 +22,16 @@ class CVManager:
         self.status.message(1,"CrossValidate(self,path,folds)")
         # List will hold 10 nodes where the head is Testing and the other 9 nodes are Training data
         for i in range(1,folds+1):
-            self.trainingFoldCSV = "/home/skjena/data/testData/trainingFolds_%s.csv" % i
+            self.testingFold = List.head.get_data()
+            if(i == 1):
+                path = self.testingFold[0:-10]
+
+            self.trainingFoldCSV = path +"trainingFolds_%s.csv" % i
             self.combine=open(self.trainingFoldCSV,"w")
 
-            self.testingFoldCSV = "/home/skjena/data/testData/testingFold_%s.csv" % i
+            self.testingFoldCSV = path+"testingFold_%s.csv" % i
             self.testing=open(self.testingFoldCSV,"w")
 
-            self.testingFold = List.head.get_data()
             self.trainingFold_1 = List.head.get_next().get_data()
             self.currentFold = List.head.get_next()
 

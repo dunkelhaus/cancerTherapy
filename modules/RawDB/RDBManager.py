@@ -1,3 +1,4 @@
+import shutil
 from IE import CreateCSV
 
 # GETCSV creates a csv file in the specified path
@@ -28,3 +29,7 @@ class RDBManager():
 
         if csvFile == "top10LungMel":
             return "/home/skjena/cancerTherapy/modules/RawDB/scripts/top10LungMel.csv"
+
+    def deleleDirAndContents(fileToDelete):
+        path = "/home/skjena/data/" + fileToDelete + "/"
+        shutil.rmtree(path)

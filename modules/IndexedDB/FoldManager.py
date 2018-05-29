@@ -16,7 +16,14 @@ import os
 def generateFolds(path, List, folds):
     num_folds = folds
     output_name_template='fold_%s.csv'
-    output_path='/home/skjena/data/testData/'
+    
+    file_name_w_ext = os.path.basename(path)
+    filename, file_ext = os.path.splitext(file_name_w_ext)
+    
+    output_path='/home/skjena/data/'+filename+'/'
+    if not os.path.exists(output_path):
+        os.makedirs(output_path)    
+
     keep_headers=False
 
     #determine number of rows in csv file, calculate how many rows per fold
