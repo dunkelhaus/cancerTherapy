@@ -54,7 +54,7 @@ class execManager():
         self.status.message(1, "predict(self)")
         predictor = pr(self.predict_x, self.expected)
         if(self.problemType == "0"):
-            predictor.run(self.classifier)
+            predictor.run(self.classifier, self.problemType)
         else:
-            predictor.run(self.regressor)
+            predictor.run(self.regressor, self.problemType)
         self.status.message(0, "predict(self)")
