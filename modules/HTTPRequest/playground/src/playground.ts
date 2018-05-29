@@ -159,8 +159,6 @@ class Player {
     state.isPlaying = this.isPlaying
 
     // sent post request
-    console.log("Problem type is: ");
-    console.log(state.problem);
     var data = "discretize="+state.discretize+"&play=False&showTestData="+state.showTestData;
     var xhr = new XMLHttpRequest();
     //xhr.withCredentials = true;
