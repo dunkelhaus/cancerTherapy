@@ -16,25 +16,23 @@ class predictManager():
 		self.expected = expected
 
 	def run(self, dnnModel, problemType):
-	    self.status.message(1, "run(self, model)")
-        if(problemType == "0"):
-    	    predictions = dnnModel.predict(
-	        	input_fn=lambda:dataProcessor.predict_input_fn(self.predict_x,
-	        		labels=None, batch_size=DNNClassifierModel.getBatchSize()))
-        else:
-            predictions = dnnModel.predict(
-                input_fn=lambda:dataProcessor.predict_input_fn(self.predict_x,
-                    labels=None, batch_size=DNNRegressorModel.getBatchSize()))
+		self.status.message(1, "run(self, model)")
+		if(problemType == "0"):
+			predictions = dnnModel.predict(
+			input_fn=lambda:dataProcessor.predict_input_fn(self.predict_x,
+			labels=None, batch_size=DNNClassifierModel.getBatchSize()))
+		else:
+			predictions = dnnModel.predict(
+			input_fn=lambda:dataProcessor.predict_input_fn(self.predict_x,
+			labels=None, batch_size=DNNRegressorModel.getBatchSize()))
 
-	    for pred_dict, expec in zip(predictions, expected):
-	    	template = ('\nPrediction is "{}" ({:.1f}%), expected "{}"')
-            class_id = pred_dict['class_ids'][0]
-            probability = pred_dict['probabilities'][class_id]
+		for pred_dict, expec in zip(predictions, expected):
+			template = ('\nPrediction is "{}" ({:.1f}%), expected "{}"')
+			class_id = pred_dict['class_ids'][0]
+			probability = pred_dict['probabilities'][class_id]
 
-            # print the correct answer's label, it's probability scaled into a percentage, and the expected class from the list
-            print(template.format(dataProcessor.TUMOR[class_id],
-                                  100 * probability, expec))
+	# print the correct answer's label, it's probability scaled into a percentage, and the expected class from the list
+	print(template.format(dataProcessor.TUMOR[class_id], 100 * probability, expec))
 
-	    self.status.message(0, "run(self, model)")
-
-	    return
+	self.status.message(0, "run(self, model)")
+	return
