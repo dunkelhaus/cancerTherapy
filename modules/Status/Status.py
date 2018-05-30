@@ -5,6 +5,7 @@ import os
 class Status():
     def __init__(self, name):
         self.name = name
+        print("%s module loaded." %(name))
 
     def message(self, code, process=None):
         if code == 0:
