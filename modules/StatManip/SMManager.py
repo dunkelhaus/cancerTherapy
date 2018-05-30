@@ -33,7 +33,7 @@ class SMManager:
 
     def skewLabels(self, dataframe, problemType):
         self.status.message(1, "skewLabels(self, dataframe, problemType)")
-        if problemType == "CLASSIFICATION":
+        if problemType == "0":
             labels = np.array(list(dataframe.index))
             labelsnew = labels.reshape(110,1)
             booleanLabels = np.core.defchararray.startswith(labelsnew, 'l')
