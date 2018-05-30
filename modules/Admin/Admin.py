@@ -12,6 +12,8 @@ from DataDispatcher.DDManager import DDManager
 from IndexedDB.IDBManager import IDBManager
 from RawDB.RDBManager import RDBManager
 from NeuralNet.management.NNManager import NNManager
+from StatManip.SMManager import SMManager
+from VectorSpace.mds.mds import MDS
 import time
 from Status.Status import Status
 
@@ -19,15 +21,19 @@ class Admin:
     def __init__(self):
         self.status = Status("Admin")
         self.numFolds = 10
-        self.rawDb = RDBManager()
         self.restApi = RAPIManager()
         while self.restApi.djangostatus == False:
             self.restApi.isRunning()
         if self.restApi.networkstate == False:
             self.restApi.populate()
-        
-        self.origin = self.rawDb.GETDATASETFILE(self.restApi.network.settings.dataset)
-        self.indexedDb = IDBManager(self.origin, self.numFolds)
+
+        self.rawDb = RDBManager(self.restApi.network.settings.dataset)
+        self.statmanip = SMManager()
+        self.mds = MDS(self.rawDb.dataframe)
+        self.statmanip.writeToFile(self.statmanip.adjoin(self.mds.scale(2),
+            self.statmanip.skewLabels(self.rawDb.dataframe, self.restApi.network.arguments.problemType)),
+                self.rawDb.scaledpath)
+        self.indexedDb = IDBManager(self.rawDb.scaledpath, self.numFolds)
         #self.foldList is a list of 10 nodes where each node holds a path to a fold.csv file.
         self.foldList = self.indexedDb.createFolds()
 
