@@ -127,7 +127,7 @@ class DNNRegressorModel:
       # Build a custom Estimator, using the model_fn.
       # `params` is passed through to the `model_fn`.
       model = tf.estimator.Estimator(
-          model_fn=my_dnn_regression_fn,
+          model_fn=regressionModel,
           params={
               "feature_columns": feature_columns,
               "learning_rate": 0.001,
