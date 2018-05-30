@@ -21,22 +21,22 @@ class MDS:
     def getObjectAndFeatureAmount(self):
         self.status.message(1, "getObjectAndFeatureAmount(self)")
         self.status.message(0, "getObjectAndFeatureAmount(self)")
-        return (len(self.dataframe.index), len(list(self.dataframe)))
+        return (len(self.dataframe.index), list(self.dataframe))
 
     def getAggregateDistanceMatrix(self):
         self.status.message(1, "getAggregateDistanceMatrix(self)")
-        distances = pd.DataFrame()
-        for k in range(0, self.features):
+        distances = []
+        for k in range(0, len(self.features)):
             distance = np.zeros((len(self.dataframe), len(self.dataframe)))
             for i in range(len(self.dataframe)):
                 for j in range(len(self.dataframe)):
                     if i == j:
                         distance[i][j]= 0
                     else:
-                        distance[i][j] = np.sqrt((abs(self.dataframe.iloc[j, 0] - self.dataframe.iloc[i, 0])) ** 2)
+                        distance[i][j] = np.sqrt((abs(self.dataframe.iloc[j, k] - self.dataframe.iloc[i, k])) ** 2)
             distances.append(pd.DataFrame(distance))
-        aggregate = self.getDistanceSum(distances, distances[self.features], self.features)
-        weighted = aggregate/float(self.features)
+        aggregate = self.getDistanceSum(distances, None, len(self.features))
+        weighted = aggregate/float(len(self.features))
 
         self.status.message(0, "getAggregateDistanceMatrix(self)")
         return weighted
@@ -50,20 +50,21 @@ class MDS:
         i = i - 1
 
         self.status.message(0, "getDistanceSum(self, distances, currentDistance, i)")
-        return nextDistance.add(self.getDistanceSum(distances, distances[i], i), axis = 0)
+        print("Adding %d to (.add) %d" %(i, i - 1))
+        return self.getDistanceSum(distances, distances[i], i).add(nextDistance, axis = 0)
 
     def getMassMatrix(self):
         self.status.message(1, "getMassMatrix(self)")
-        m = np.zeros((110))
+        m = np.zeros((self.objects))
         m.fill(1.0 / 110.0)
-        m = m.reshape(110, 1)
+        m = m.reshape(self.objects, 1)
 
         self.status.message(0, "getMassMatrix(self)")
         return m
 
     def getCenteringMatrix(self):
         self.status.message(1, "getCenteringMatrix(self)")
-        mt = m.T
+        mt = self.mass.T
         onem = np.ones((110,1))
         rhs = onem * mt
         lhs = np.eye(110)
@@ -76,7 +77,7 @@ class MDS:
         self.status.message(1, "getCrossProductMatrix(self)")
         D = self.distances.as_matrix()
         ct = self.centering.T
-        centering = -0.5 * centering
+        centering = - 0.5 * self.centering
         product = centering.dot(D)
         diff = product.dot(ct)
 
@@ -108,7 +109,7 @@ class MDS:
         diagm = np.diag(self.mass)
         root = np.sqrt(diagm)
         termM = 1.0 / float(root)
-        diagroot = np.sqrt(abs(diagonal))
+        diagroot = np.sqrt(abs(self.eigenvalues))
         termA = termM * self.eigenvectors
         score = termA.dot(diagroot)
 
