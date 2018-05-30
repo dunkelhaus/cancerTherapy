@@ -27,7 +27,7 @@ class Admin:
         if self.restApi.networkstate == False:
             self.restApi.populate()
 
-        self.rawDb = RDBManager(self.restApi.network.settings.dataset)
+        self.rawDb = RDBManager("fm_mutations_independent")
         self.statmanip = SMManager()
         self.mds = MDS(self.rawDb.dataframe)
         self.statmanip.writeToFile(self.statmanip.adjoin(self.mds.scale(2),
