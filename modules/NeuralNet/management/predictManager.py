@@ -30,9 +30,7 @@ class predictManager():
 			template = ('\nPrediction is "{}" ({:.1f}%), expected "{}"')
 			class_id = pred_dict['class_ids'][0]
 			probability = pred_dict['probabilities'][class_id]
-
-	# print the correct answer's label, it's probability scaled into a percentage, and the expected class from the list
-	print(template.format(dataProcessor.TUMOR[class_id], 100 * probability, expec))
-
-	self.status.message(0, "run(self, model)")
-	return
+			# print the correct answer's label, it's probability scaled into a percentage, and the expected class from the list
+		print(template.format(dataProcessor.TUMOR[class_id], 100 * probability, expec))
+		self.status.message(0, "run(self, model)")
+		return
