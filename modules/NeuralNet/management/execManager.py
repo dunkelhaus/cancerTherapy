@@ -10,7 +10,7 @@ sys.path.append('/home/skjena/cnnCancerTherapy/modules/NeuralNet/core/classifier
 sys.path.append('/home/skjena/cnnCancerTherapy/modules/NeuralNet/core/regressors/dnnRegressor')
 from NeuralNet.core.classifiers.dnnClassifier import dataProcessor
 from NeuralNet.core.classifiers.dnnClassifier import DNNClassifierModel
-from NeuralNet.core.regressors.dnnRegressor import DNNRegressorModel
+#from NeuralNet.core.regressors.dnnRegressor import DNNRegressorModel
 
 class execManager():
 
@@ -46,7 +46,7 @@ class execManager():
             tester = te(self.test_x, self.test_y, self.network, self.classifier)
             self.result = tester.run(self.classifier)
         else:
-           tester = te(self.test_x, self.test_y, self.network, self.regressor) 
+           tester = te(self.test_x, self.test_y, self.network, self.regressor)
            self.result = tester.run(self.regressor)
         self.status.message(0, "test(self)")
 

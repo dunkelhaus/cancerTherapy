@@ -7,7 +7,7 @@ sys.path.append('/home/skjena/cnnCancerTherapy/modules/NeuralNet/core/classifier
 sys.path.append('/home/skjena/cnnCancerTherapy/modules/NeuralNet/core/regressor/dnnRegressor')
 
 from NeuralNet.core.classifiers.dnnClassifier import DNNClassifierModel
-from NeuralNet.core.regressors/dnnRegressor import DNNRegressorModel
+#from NeuralNet.core.regressors/dnnRegressor import DNNRegressorModel
 from NeuralNet.core.classifiers.dnnClassifier import dataProcessor
 
 class testingManager():
