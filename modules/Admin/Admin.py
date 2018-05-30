@@ -54,7 +54,7 @@ class Admin:
                 time.sleep(1)
             train = self.dataDispatcherQ.get()
             test = self.dataDispatcherQ.get()
-            self.NNProcess = NNManager(train,test,0)#self.restApi.network)
+            self.NNProcess = NNManager(train,test,self.restApi.network,self.restApi.network.arguments.problemType)
             self.neuralNets.put(self.NNProcess)
 
         for j in range(0, self.numFolds):

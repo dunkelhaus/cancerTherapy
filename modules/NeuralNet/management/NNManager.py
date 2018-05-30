@@ -26,12 +26,13 @@ from RESTAPI.mutationDnnWeb.typings.network import Network
 
 
 class NNManager():
-    def __init__(self, trainpath, testpath, network):
+    def __init__(self, trainpath, testpath, network, problem):
         self.iteration = 0
         self.trainpath = trainpath
         self.testpath = testpath
         self.network = network
-        self.executor = execManager(self.trainpath, self.testpath, self.network)
+        self.problemType = problem
+        self.executor = execManager(self.trainpath, self.testpath, self.network, self.problemType)
         self.status = Status("NNManager")
 
     def modelZero(self):
