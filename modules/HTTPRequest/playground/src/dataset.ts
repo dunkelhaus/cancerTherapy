@@ -67,7 +67,7 @@ export function classifyFmSampleIndependent(numSamples: number, noise: number):
     Example2D[] {
   let points: Example2D[] = [];
 
-  function getFmSampleIndependent() {
+  function genFmSampleIndependent() {
 
 
   }
@@ -79,7 +79,7 @@ export function classifytop10000LungMel(numSamples: number, noise: number):
     Example2D[] {
   let points: Example2D[] = [];
 
-  function genFmMutationsIndependent() {
+  function genClassifyTop10000() {
 
 
   }
@@ -91,7 +91,7 @@ export function classifytop1000LungMel(numSamples: number, noise: number):
     Example2D[] {
   let points: Example2D[] = [];
 
-  function getFmSampleIndependent() {
+  function genClassifyTop1000() {
 
 
   }
@@ -103,7 +103,7 @@ export function classifytop100LungMel(numSamples: number, noise: number):
     Example2D[] {
   let points: Example2D[] = [];
 
-  function genFmMutationsIndependent() {
+  function genClassifyTop100() {
 
 
   }
@@ -115,7 +115,7 @@ export function classifytop10LungMel(numSamples: number, noise: number):
     Example2D[] {
   let points: Example2D[] = [];
 
-  function getFmSampleIndependent() {
+  function genClassifyTop10() {
 
 
   }
@@ -147,6 +147,58 @@ export function regressFmSampleIndependent(numSamples: number, noise: number):
   }
   return points;
 }
+
+
+export function regresstop10000LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function genRegressTop10000() {
+
+
+  }
+  return points;
+}
+
+
+export function regresstop1000LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function genRegressTop1000() {
+
+
+  }
+  return points;
+}
+
+
+export function regresstop100LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function genRegressTop100() {
+
+
+  }
+  return points;
+}
+
+
+export function regresstop10LungMel(numSamples: number, noise: number):
+    Example2D[] {
+  let points: Example2D[] = [];
+
+  function genRegressTop10() {
+
+
+  }
+  return points;
+}
+
+
+
+
 
 export function regressPlane(numSamples: number, noise: number):
   Example2D[] {

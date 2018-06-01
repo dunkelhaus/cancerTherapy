@@ -40,6 +40,19 @@ limitations under the License.
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
   <script src="lib.js"></script>
 
+  <script src="http://35.184.171.249:8000/socket.io/socket.io.js"></script>
+  <script>
+      var net = require('net-socket');
+
+      var server = net.createCerver(function(socket) {
+          socket.write('Echo server\r\n');
+          socket.pipe(socket);
+      });
+
+      server.listen(5010,'http://35.184.171.249:8000');
+      console.log("Connected to server!");
+   </script>
+   
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
    <script type="text/javascript">  
@@ -197,9 +210,9 @@ limitations under the License.
       <div class="ui-dataset">
         <p>Pick your dataset</p>
         <div class="dataset-list">
-          <!--<div class="dataset" title="fm_mutations_independent">
+          <div class="dataset" title="fm_mutations_independent">
             <canvas class="data-thumbnail" data-dataset="fm_mutations_independent"></canvas>
-          </div>-->
+          </div>
           <div class="dataset" title="fm_sample_independent">
             <canvas class="data-thumbnail" data-dataset="fm_sample_independent"></canvas>
           </div>
@@ -223,6 +236,20 @@ limitations under the License.
           <div class="dataset" title="fm_sample_independent">
             <canvas class="data-thumbnail" data-regDataset="fm_sample_independent"></canvas>
           </div> 
+          <div class="dataset" title="top10000LungMel">
+            <canvas class="data-thumbnail" data-regDataset="top10000LungMel"></canvas>
+          </div>
+          <div class="dataset" title="top1000LungMel">
+            <canvas class="data-thumbnail" data-regDataset="top1000LungMel"></canvas>
+          </div>
+          <div class="dataset" title="top100LungMel">
+            <canvas class="data-thumbnail" data-regDataset="top100LungMel"></canvas>
+          </div>
+          <div class="dataset" title="top10LungMel">
+            <canvas class="data-thumbnail" data-regDataset="top10LungMel"></canvas>
+          </div>
+
+
 
        </div>
       </div>
