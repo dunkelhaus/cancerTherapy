@@ -11,8 +11,17 @@ def getBoolFrequencies(boolData):
 
 def getFrequencies(data):
     df = pd.read_table(data, sep="\t")
-    return df
+    columns = list(df)
+    #frequencies = df.apply(pd.to_numeric, errors = 'ignore')
+    for i in columns:
+        #df[i] = df[i].astype('float64')
+        pd.to_numeric(df[i])
+    return frequencies
 
 def getCSVFrequencies(data):
     df = pd.read_table(data, sep=",")
-    return df
+    #frequencies = df.apply(pd.to_numeric, errors = 'ignore')
+    dft = df.transpose()
+    dft.rename(columns=dft.iloc[0])
+    frequencies = dft.drop(dft.index[0])
+    return frequencies

@@ -5,5 +5,6 @@ from NeuralNet.management import NNManager
 from NNManager import NNManager
 
 if __name__ == "__main__":
-    neuralNet = NNManager("/home/skjena/data/oldtestData/trainingFolds_1.csv", "/home/skjena/data/oldtestData/testingFold_1.csv")
+    network = Network()
+    neuralNet = NNManager("/home/skjena/data/fm_mutations_independent/trainingFolds_1.csv", "/home/skjena/data/fm_mutations_independent/testingFolds_1.csv")
     neuralNet.modelZero()

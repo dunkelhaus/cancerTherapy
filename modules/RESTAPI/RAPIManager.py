@@ -36,7 +36,7 @@ class RAPIManager():
         self.network.arguments.regularizationRate = model.regularizationRate
         self.network.arguments.problemType = model.problemType
         self.status.message(0, "getArguments(self)")
-        return
+        return self.network.arguments
 
     def getState(self):
         self.status.message(1, "getState(self)")
@@ -48,7 +48,7 @@ class RAPIManager():
         self.network.state.networkShape = model.networkShape
 
         self.status.message(0, "getState(self)")
-        return
+        return self.network.state
 
     def getFeatures(self):
         self.status.message(1, "getFeatures(self)")
@@ -61,7 +61,7 @@ class RAPIManager():
         self.network.features.tXc = model.tXc
 
         self.status.message(0, "getFeatures(self)")
-        return
+        return self.network.features
 
     def getRun(self):
         self.status.message(1, "getRun(self)")
@@ -73,7 +73,7 @@ class RAPIManager():
         self.network.run.discretize = model.discretize
 
         self.status.message(0, "getRun(self)")
-        return
+        return self.network.run
 
     def getSettings(self):
         self.status.message(1, "getSettings(self)")
@@ -83,7 +83,7 @@ class RAPIManager():
         self.network.settings.biases = model.biases
 
         self.status.message(0, "getSettings(self)")
-        return
+        return self.network.settings
 
     def populate(self):
         if self.djangostatus == False:

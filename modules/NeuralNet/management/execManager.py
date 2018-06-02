@@ -8,8 +8,8 @@ import sys
 from Status.Status import Status
 sys.path.append('/home/skjena/cnnCancerTherapy/modules/NeuralNet/core/classifiers/dnnClassifier')
 sys.path.append('/home/skjena/cnnCancerTherapy/modules/NeuralNet/core/regressors/dnnRegressor')
-from NeuralNet.core.classifiers.dnnClassifier import dataProcessor
-from NeuralNet.core.classifiers.dnnClassifier import DNNClassifierModel
+from NeuralNet.core import dataProcessor
+from NeuralNet.core.classifiers.dnnClassifier.DNNClassifierModel import DNNClassifierModel
 #from NeuralNet.core.regressors.dnnRegressor import DNNRegressorModel
 
 class execManager():

@@ -10,6 +10,7 @@ import numpy as np
 def main():
     rawdb = RDBManager("fm_mutations_independent")
     md = MDS(rawdb.dataframe)
+    print(md.variances)
     
 
 if __name__ == '__main__':
