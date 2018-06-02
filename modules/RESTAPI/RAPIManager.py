@@ -1,15 +1,24 @@
 #!/usr/bin/env python
 import sys
-sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
-import socket
+sys.path.insert(0, "/home/skjena/cancerTherapy/modules/RESTAPI/mutationDnnWeb")
 import django
+from django.conf import settings
+#settings.configure()
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mutationDnnWeb.settings")
 django.setup()
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
+#django.setup()
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
+#import sys
+#sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
+#os.environ['DJANGO_SETTINGS_MODULE'] = 'RESTAPI.mutationDnnWeb.mutationDnnWeb.settings'
+import socket
 from Status.Status import Status
-from mutationDnnWeb.mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
-from mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
-from mutationDnnWeb.typings.network import Network
+from mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
+from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
+from typings.network import Network
 
 class RAPIManager():
     def __init__(self):
@@ -26,7 +35,6 @@ class RAPIManager():
         self.network.arguments.regularization = model.regularization
         self.network.arguments.regularizationRate = model.regularizationRate
         self.network.arguments.problemType = model.problemType
-
         self.status.message(0, "getArguments(self)")
         return
 
@@ -93,7 +101,6 @@ class RAPIManager():
 
         self.status.message(0, "populate(self)")
         return self.networkstate
-
     def isRunning(self):
         self.status.message(1, "isRunning(self)")
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -108,3 +115,5 @@ class RAPIManager():
 
         self.status.message(0, "isRunning(self)")
         return self.djangostatus
+
+#!/usr/bin/env python

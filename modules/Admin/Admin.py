@@ -1,12 +1,14 @@
+#!/usr/bin/env python
 import os
 import sys
+#import django
 sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
-os.environ['DJANGO_SETTINGS_MODULE'] = 'RESTAPI.mutationDnnWeb.mutationDnnWeb.settings'
+#os.environ['DJANGO_SETTINGS_MODULE'] = 'RESTAPI.mutationDnnWeb.mutationDnnWeb.settings'
 from multiprocessing import Process, Queue
-sys.path.insert(0, "/home/skjena/cancerTherapy/modules/RESTAPI")
-from RAPIManager import RAPIManager
-sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
+#sys.path.insert(0, "/home/skjena/cancerTherapy/modules/RESTAPI")
+from RESTAPI.RAPIManager import RAPIManager
+#sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 from CrossValidation.CVManager import CVManager
 from DataDispatcher.DDManager import DDManager
 from IndexedDB.IDBManager import IDBManager
@@ -31,7 +33,7 @@ class Admin:
         self.statmanip = SMManager()
         self.mds = MDS(self.rawDb.dataframe)
         self.statmanip.writeToFile(self.statmanip.adjoin(self.mds.scale(2),
-            self.statmanip.skewLabels(self.rawDb.dataframe, self.restApi.network.arguments.problemType)),
+            self.statmanip.skewLabels(self.rawDb.dataframe, "0")),
                 self.rawDb.scaledpath)
         self.indexedDb = IDBManager(self.rawDb.scaledpath, self.numFolds)
         #self.foldList is a list of 10 nodes where each node holds a path to a fold.csv file.
@@ -78,4 +80,3 @@ class Admin:
     def build(self):
         self.status.message(1, "build(self)")
 
-Admin()

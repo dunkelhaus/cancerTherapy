@@ -14,16 +14,21 @@ from __future__ import division
 from __future__ import print_function
 from NeuralNet.management.execManager import execManager
 import sys
-sys.path.append('/home/skjena/cancerTherapy/modules/RESTAPI/mutationDnnWeb/mutationDnnWeb/')
-from mutationDnnWeb.mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
-from mutationDnnWeb.mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
+import os
+sys.path.insert(0, '/home/skjena/cancerTherapy/modules/RESTAPI/mutationDnnWeb')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mutationDnnWeb.settings")
+import django
+django.setup()
+from mutationDnnWeb.models import V1, State, Run, Arguments, Features, Settings
+from mutationDnnWeb.serializers import V1Serializer, ArgSerializer, StateSerializer, RunSerializer, FeatureSerializer, SettingsSerializer
 import argparse
 import tensorflow as tf
 from Status.Status import Status
 import os
 from django.core.exceptions import ObjectDoesNotExist
-from RESTAPI.mutationDnnWeb.typings.network import Network
-
+from typings.network import Network
+sys.path.insert(0, '/home/skjena/cancerTherapy/modules')
+from RESTAPI.RAPIManager import RAPIManager
 
 class NNManager():
     def __init__(self, trainpath, testpath, network, problem):

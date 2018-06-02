@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+
+import sys
 from django.conf.urls import url
 from django.conf.urls import include
 from django.contrib import admin
-from mutationDnnWeb.views import V1List, ArgumentList, StateList, RunList, FeatureList, SettingsList
+from .views import V1List, ArgumentList, StateList, RunList, FeatureList, SettingsList
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [

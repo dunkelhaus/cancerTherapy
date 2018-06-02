@@ -7,6 +7,7 @@ from Status.Status import Status
 
 class MDS:
     def __init__(self, dataframe):
+        self.D = None
         self.status = Status("MDS")
         self.dataframe = dataframe
         (self.objects, self.features) = self.getObjectAndFeatureAmount()
@@ -75,10 +76,12 @@ class MDS:
 
     def getCrossProductMatrix(self):
         self.status.message(1, "getCrossProductMatrix(self)")
-        D = self.distances.as_matrix()
+        self.D = self.distances.as_matrix()
+        wherenans = np.isnan(self.D)
+        self.D[wherenans] = 0
         ct = self.centering.T
         centering = - 0.5 * self.centering
-        product = centering.dot(D)
+        product = centering.dot(self.D)
         diff = product.dot(ct)
 
         self.status.message(0, "getCrossProductMatrix(self)")
@@ -86,6 +89,9 @@ class MDS:
 
     def getEigenVectorsAndValues(self):
         self.status.message(1, "getEigenVectorsAndValues(self)")
+        crossp = self.crossProduct
+        print(crossp)
+        self.crossProduct = np.nan_to_num(self.crossProduct)
         eigenvals, eigenvecs = np.linalg.eig(self.crossProduct)
         diagonal = np.diag(eigenvals)
 
@@ -98,6 +104,8 @@ class MDS:
         dist = self.eigenvalues[mask]
         combined = dist.reshape(1, dist.shape[0])
         total = combined.sum()
+        if total == 0:
+            total = -1
         variances = ((1.0) / (float(total))) * combined
         percentages = variances * 100
 
