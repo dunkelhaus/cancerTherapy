@@ -21,23 +21,152 @@ limitations under the License.
   <meta name="keywords" content="neural networks,machine learning,javascript">
 
   <meta property="og:type" content="article"/>
-  <meta property="og:title" content="Tensorflow — Neural Network Playground"/>
-  <meta property="og:description" content="Tinker with a real neural network right here in your browser.">
-  <meta property="og:url" content="http://playground.tensorflow.org"/>
+  <meta property="og:title" content="Deep Learning for Cancer Therapy"/>
+  <meta property="og:description" content="A Somatic Mutation Classification DNN & Multivariate Distribution Visualizer">
+  <meta property="og:url" content="http://dlforcancertherapy.ml"/>
   <meta property="og:image" content="http://playground.tensorflow.org/preview.png"/>
 
   <meta name="twitter:card" value="summary_large_image">
-  <meta name="twitter:title" content="Tensorflow — Neural Network Playground">
-  <meta name="twitter:description" content="Tinker with a real neural network right here in your browser.">
-  <meta name="twitter:url" content="http://playground.tensorflow.org">
+  <meta name="twitter:title" content="Deep Learning for Cancer Therapy">
+  <meta name="twitter:description" content="A Somatic Mutation Classification DNN & Multivariate Distribution Visualizer">
+  <meta name="twitter:url" content="http://dlforcancertherapy.ml">
   <meta name="twitter:image" content="http://playground.tensorflow.org/preview.png">
   <meta name="twitter:image:width" content="560">
   <meta name="twitter:image:height" content="295">
 
-  <meta name="author" content="Daniel Smilkov and Shan Carter">
-  <title>A Neural Network Playground</title>
+  <meta name="author" content="Suraj Jena | Kumud Ravisankaran | Valeria Brewer | Ninad Mehta">
+  <title>Deep Learning for Cancer Therapy</title>
   <link rel="stylesheet" href="bundle.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
+  <style type="text/css">
+svg {
+  font-size: 14px;
+}
+.axis {
+  shape-rendering: crispEdges;
+}
+.axis line {
+  stroke: #ddd;
+  stroke-width: .5px;
+}
+.axis path {
+  display: none;
+}
+rect.extent {
+  fill: #000;
+  fill-opacity: .125;
+  stroke: #fff;
+}
+rect.frame {
+  fill: #fff;
+  fill-opacity: .7;
+  stroke: #aaa;
+}
+circle {
+  fill: #800;
+  fill-opacity: .5;
+}
+.legend circle {
+  fill-opacity: 1;
+}
+.legend text {
+  font-size: 18px;
+  font-style: oblique;
+}
+.cell text {
+  pointer-events: none;
+}
+.Lungad {
+  fill: #800;
+}
+.Melanoma {
+  fill: #080;
+}
+.virginica {
+  fill: #008;
+}
+
+a:link, a:visited {
+  color: #777;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #666;
+}
+
+blockquote {
+  margin: 0;
+}
+
+blockquote:before {
+  content: "“";
+  position: absolute;
+  left: -.4em;
+}
+
+blockquote:after {
+  content: "”";
+  position: absolute;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+h1, h2, h3 {
+  font-weight: inherit;
+  margin: 0;
+}
+
+h2, h3 {
+  text-align: right;
+  font-size: inherit;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+h2 {
+  font-size: 24px;
+  position: absolute;
+}
+
+h3 {
+  bottom: -20px;
+  font-size: 18px;
+}
+
+.invert {
+  background: #1f1f1f;
+  color: #dcdccc;
+}
+
+.invert h2, .invert h3 {
+  color: #7f9f7f;
+}
+
+.string, .regexp {
+  color: #f39;
+}
+
+.keyword {
+  color: #00c;
+}
+
+.comment {
+  color: #777;
+  font-style: oblique;
+}
+
+.number {
+  color: #369;
+}
+
+.class, .special {
+  color: #1181B8;
+}
+    </style>
   <script src="lib.js"></script>
 
   <script src="http://35.184.171.249:8000/socket.io/socket.io.js"></script>
@@ -112,6 +241,128 @@ limitations under the License.
   <header>
     <h1 class="l--page">Welcome to <b> Deep Learning for Cancer Therapy </b> </span> <br> A Mutation Signature Classification DNN </h1>
   </header>
+    <script type="text/javascript">
+d3.csv("fm_mutations_independent_plot.csv", function(flowers) {
+  // Size parameters.
+  var size = 140,
+      padding = 10,
+      n = 2,
+      traits = ["X", "Y"];
+  // Position scales.
+  var x = {}, y = {};
+  traits.forEach(function(trait) {
+    // Coerce values to numbers.
+    flowers.forEach(function(d) { d[trait] = +d[trait]; });
+    var value = function(d) { return d[trait]; },
+        domain = [d3.min(flowers, value), d3.max(flowers, value)],
+        range = [padding / 2, size - padding / 2];
+    x[trait] = d3.scale.linear().domain(domain).range(range);
+    y[trait] = d3.scale.linear().domain(domain).range(range.reverse());
+  });
+  // Axes.
+  var axis = d3.svg.axis()
+      .ticks(5)
+      .tickSize(size * n);
+  // Brush.
+  var brush = d3.svg.brush()
+      .on("brushstart", brushstart)
+      .on("brush", brush)
+      .on("brushend", brushend);
+  // Root panel.
+  var svg = d3.select("body").append("svg:svg")
+      .attr("width", 1280)
+      .attr("height", 800)
+    .append("svg:g")
+      .attr("transform", "translate(359.5,69.5)");
+  // Legend.
+  var legend = svg.selectAll("g.legend")
+      .data(["0.000000000000000000+e00", "1.000000000000000000+e00"])
+    .enter().append("svg:g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(-179," + (i * 20 + 594) + ")"; });
+  legend.append("svg:versicolor")
+      .attr("class", String)
+      .attr("r", 2);
+  legend.append("svg:text")
+      .attr("x", 12)
+      .attr("dy", ".31em")
+      .text(function(d) { return d; });
+  // X-axis.
+  svg.selectAll("g.x.axis")
+      .data(traits)
+    .enter().append("svg:g")
+      .attr("class", "x axis")
+      .attr("transform", function(d, i) { return "translate(" + i * size + ",0)"; })
+      .each(function(d) { d3.select(this).call(axis.scale(x[d]).orient("bottom")); });
+  // Y-axis.
+  svg.selectAll("g.y.axis")
+      .data(traits)
+    .enter().append("svg:g")
+      .attr("class", "y axis")
+      .attr("transform", function(d, i) { return "translate(0," + i * size + ")"; })
+      .each(function(d) { d3.select(this).call(axis.scale(y[d]).orient("right")); });
+  // Cell and plot.
+  var cell = svg.selectAll("g.cell")
+      .data(cross(traits, traits))
+    .enter().append("svg:g")
+      .attr("class", "cell")
+      .attr("transform", function(d) { return "translate(" + d.i * size + "," + d.j * size + ")"; })
+      .each(plot);
+  // Titles for the diagonal.
+  cell.filter(function(d) { return d.i == d.j; }).append("svg:text")
+      .attr("x", padding)
+      .attr("y", padding)
+      .attr("dy", ".71em")
+      .text(function(d) { return d.x; });
+  function plot(p) {
+    var cell = d3.select(this);
+    // Plot frame.
+    cell.append("svg:rect")
+        .attr("class", "frame")
+        .attr("x", padding / 2)
+        .attr("y", padding / 2)
+        .attr("width", size - padding)
+        .attr("height", size - padding);
+    // Plot dots.
+    cell.selectAll("circle")
+        .data(flowers)
+      .enter().append("svg:circle")
+        .attr("class", function(d) { return d.species; })
+        .attr("cx", function(d) { return x[p.x](d[p.x]); })
+        .attr("cy", function(d) { return y[p.y](d[p.y]); })
+        .attr("r", 3);
+    // Plot brush.
+    cell.call(brush.x(x[p.x]).y(y[p.y]));
+  }
+  // Clear the previously-active brush, if any.
+  function brushstart(p) {
+    if (brush.data !== p) {
+      cell.call(brush.clear());
+      brush.x(x[p.x]).y(y[p.y]).data = p;
+    }
+  }
+  // Highlight the selected circles.
+  function brush(p) {
+    var e = brush.extent();
+    svg.selectAll(".cell circle").attr("class", function(d) {
+      return e[0][0] <= d[p.x] && d[p.x] <= e[1][0]
+          && e[0][1] <= d[p.y] && d[p.y] <= e[1][1]
+          ? d.species : null;
+    });
+  }
+  // If the brush is empty, select all circles.
+  function brushend() {
+    if (brush.empty()) svg.selectAll(".cell circle").attr("class", function(d) {
+      return d.species;
+    });
+  }
+  function cross(a, b) {
+    var c = [], n = a.length, m = b.length, i, j;
+    for (i = -1; ++i < n;) for (j = -1; ++j < m;) c.push({x: a[i], i: i, y: b[j], j: j});
+    return c;
+  }
+});
+    </script>
 
   <!-- Top Controls -->
   <div id="top-controls">
@@ -261,9 +512,9 @@ limitations under the License.
           </p>
         </div>-->
         <div class="ui-noise">
-          <label for="noise">Noise:&nbsp;&nbsp;<span class="value">XX</span></label>
+          <label for="noise">MDS Dimensions:&nbsp;&nbsp;<span class="value">XX</span></label>
           <p class="slider">
-            <input class="mdl-slider mdl-js-slider" type="range" id="noise" min="0" max="50" step="5">
+            <input class="mdl-slider mdl-js-slider" type="range" id="noise" min="0" max="10" step="1">
           </p>
         </div>
         <div class="ui-batchSize">
@@ -282,9 +533,6 @@ limitations under the License.
           </fieldset>
 	</div>
         
-         <!--<button class="basic-button" id="upload-csv-button" title="Upload file">
-            Upload File
-         </button>-->
 
       </div>
     </div>
@@ -387,7 +635,7 @@ limitations under the License.
             </g>
           </svg>
           <div class="label" style="width:45px; margin-right: 10px">
-            Lungad
+            Lung Adenocarcinoma
           </div>
         </div>
         <br/>
@@ -405,6 +653,7 @@ limitations under the License.
     </div>
 
   </div>
+  <a href="http://dlforcancertherapy.ml:8000/iris-plom.html"> Scatterplot Matrix </a>
 
   <!-- More -->
   <div class="more">
@@ -479,7 +728,7 @@ limitations under the License.
         </svg>
       </a>
       <div class="links">
-        <a href="https://github.com/skjena/cnnCancerTherapy">Source on GitHub</a>
+        <a href="https://github.com/skjena/cancerTherapy">Source on GitHub</a>
       </div>
     </div>
   </footer>

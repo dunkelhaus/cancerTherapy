@@ -35,7 +35,8 @@ export let regularizations: {[key: string]: nn.RegularizationFunction} = {
 
 /** A map between dataset names and functions that generate classification data. */
 export let datasets: {[key: string]: dataset.DataGenerator} = {
-  "fm_mutations_independent": dataset.classifyXORData,
+  //"fm_mutations_independent": dataset.classifyXORData,
+  "fm_mutations_independent": dataset.classifyFmMutationsIndependent,
   "fm_sample_independent": dataset.classifyFmSampleIndependent,
   "top10000LungMel": dataset.classifytop10000LungMel,
   "top1000LungMel": dataset.classifytop1000LungMel,
@@ -46,7 +47,8 @@ export let datasets: {[key: string]: dataset.DataGenerator} = {
 /** A map between dataset names and functions that generate regression data. */
 export let regDatasets: {[key: string]: dataset.DataGenerator} = {
   "fm_sample_independent": dataset.regressFmSampleIndependent,
-  "fm_mutations_independent": dataset.regressPlane,
+  //"fm_mutations_independent": dataset.regressPlane,
+  "fm_mutations_independent": dataset.regressFmMutationsIndependent,
   "top10000LungMel": dataset.regresstop10000LungMel,
   "top1000LungMel": dataset.regresstop1000LungMel,
   "top100LungMel": dataset.regresstop100LungMel,
