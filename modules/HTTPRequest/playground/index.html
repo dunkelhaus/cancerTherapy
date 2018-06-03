@@ -1,4 +1,4 @@
-<!doctype html>
+
 <!-- Copyright 2016 Google Inc. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,8 @@ limitations under the License.
 ==============================================================================-->
 <html>
 <head lang="en">
+<!-- Tab links -->
+
   <link rel="icon" type="image/png" href="favicon.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=1024">
@@ -27,17 +29,25 @@ limitations under the License.
   <meta property="og:image" content="http://playground.tensorflow.org/preview.png"/>
 
   <meta name="twitter:card" value="summary_large_image">
+  <div class="tab">
+  <button class="tablinks">Dataset1</button>
+  <button class="tablinks">Dataset2</button>
+  <button class="tablinks">Dataset3</button>
+  </div>
+
+
   <meta name="twitter:title" content="Deep Learning for Cancer Therapy">
   <meta name="twitter:description" content="A Somatic Mutation Classification DNN & Multivariate Distribution Visualizer">
   <meta name="twitter:url" content="http://dlforcancertherapy.ml">
   <meta name="twitter:image" content="http://playground.tensorflow.org/preview.png">
   <meta name="twitter:image:width" content="560">
-  <meta name="twitter:image:height" content="295">
+  <meta name="twitter:image:height" content="1095">
 
   <meta name="author" content="Suraj Jena | Kumud Ravisankaran | Valeria Brewer | Ninad Mehta">
   <title>Deep Learning for Cancer Therapy</title>
   <link rel="stylesheet" href="bundle.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
+
   <style type="text/css">
 svg {
   font-size: 14px;
@@ -121,12 +131,12 @@ h1 {
   font-size: 64px;
 }
 
-h1, h2, h3 {
+h1, h2, h3{
   font-weight: inherit;
   margin: 0;
 }
 
-h2, h3 {
+h2, h3, h4 {
   text-align: right;
   font-size: inherit;
   position: absolute;
@@ -174,68 +184,17 @@ h3 {
   color: #1181B8;
 }
     </style>
+
   <script src="lib.js"></script>
 
-  <script src="http://35.184.171.249:8000/socket.io/socket.io.js"></script>
-  <script>
-      var net = require('net-socket');
-
-      var server = net.createCerver(function(socket) {
-          socket.write('Echo server\r\n');
-          socket.pipe(socket);
-      });
-
-      server.listen(5010,'http://35.184.171.249:8000');
-      console.log("Connected to server!");
-   </script>
-   
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
-   <script type="text/javascript">  
-    $(document).ready(function() {
-
-    // The event listener for the file upload
-    document.getElementById('txtFileUpload').addEventListener('change', upload, false);
-
-    var data = null;
-
-    // Method that checks that the browser supports the HTML5 File API
-    function browserSupportFileUpload() {
-        var isCompatible = false;
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-        isCompatible = true;
-        }
-        return isCompatible;
-    }
-
-    // Method that reads and processes the selected file
-    function upload(evt) {
-        if (!browserSupportFileUpload()) {
-            alert('The File APIs are not fully supported in this browser!');
-            } else {
-                
-                var file = evt.target.files[0];
-                var reader = new FileReader();
-                reader.readAsText(file);
-                reader.onload = function(event) {
-                    var csvData = event.target.result;
-                    data = $.csv.toArrays(csvData);
-                    if (data && data.length > 0) {
-                    alert('Imported -' + data.length + '- rows successfully!');
-                    } else {
-                        alert('No data to import!');
-                    }
-                };
-                reader.onerror = function() {
-                    alert('Unable to read ' + file.fileName);
-                };
-            }
-        }
-    });
-</script>
+<!--  <script src="http://35.184.171.249:8000/socket.io/socket.io.js"></script> -->
 
   <!--<script src="requests.js"></script>-->
+
+  <link type = "text/css" href = "styles.css" media = "all" />
+
 </head>
+
 <body>
   <!-- GitHub link -->
   <a class="github-link" href="https://github.com/skjena/cnnCancerTherapy" title="Source on GitHub">
@@ -246,8 +205,69 @@ h3 {
   </a>
   <!-- Header -->
   <header>
-    <h1 class="l--page">Welcome to <b> Deep Learning for Cancer Therapy </b> </span> <br> A Mutation Signature Classification DNN </h1>
-  </header>
+    <h1 class="l--page">Welcome to <b> Deep Learning for Cancer Therapy </b> </span> <br> A Somatic Mutation Classification DNN & Multivariate Distribution Visualizer </h1>
+
+<hr>
+
+<div class="plots">
+  <div class="MDS">
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+    <div> Place Plot Here</div>
+
+  </div>
+  <div class="otherPlot">
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+  
+  </div>
+</div>
+
+
+ </header>
+
+
+<script src="histogram-chart.js"></script> 
+
     <script type="text/javascript">
 d3.csv("fm_mutations_independent_plot.csv", function(flowers) {
   // Size parameters.
@@ -372,13 +392,11 @@ d3.csv("fm_mutations_independent_plot.csv", function(flowers) {
     </script>
 
   <script>
-
 d3.select("body")
     .datum(irwinHallDistribution(10000, 10))
   .call(histogramChart()
     .bins(d3.scale.linear().ticks(20))
     .tickFormat(d3.format(".02f")));
-
 function irwinHallDistribution(n, m) {
   var distribution = [];
   for (var i = 0; i < n; i++) {
@@ -389,8 +407,27 @@ function irwinHallDistribution(n, m) {
   }
   return distribution;
 }
-
 </script>
+
+
+
+
+<section>
+  <h1>   
+
+ 
+   </h1>
+
+<!--  <h1> Level1</h1>
+  Level1 Text
+  <section>
+    <h1>Level2</h1>
+    Level2 Text
+  </section>
+-->
+
+</section>
+
 
   <!-- Top Controls -->
   <div id="top-controls">
@@ -554,13 +591,13 @@ function irwinHallDistribution(n, m) {
 	
 	<hr>
 
-	<div id="dvImportSegments" class="fileupload ">
+	<!--<div id="dvImportSegments" class="fileupload ">
     	  <fieldset>
             <legend>Upload a CSV File</legend>
               <input type="file" name="File Upload" id="txtFileUpload" accept=".csv, .tab" />
           </fieldset>
 	</div>
-        
+        -->
 
       </div>
     </div>
@@ -694,7 +731,7 @@ function irwinHallDistribution(n, m) {
 
   <article id="article-text">
     <div class="l--body">
-      <h2>How does this help cancer?</h2>
+      <h2 style="position:relative; right:150px;">How does this help cancer?</h2>
       <p>Machine learning can be used to perform unsupervised learning on the DNA sequences of patient tumors in order to identify non-linear features of the tumor DNA that help predict treatment. Convolutional neural networks (CNN) have led to substantial advances in both supervised and unsupervised learning tasks in computer vision. It is easy to treat DNA sequence (an ordered sequence of A’s, C’s, G’s, and T’s) as an “image”, and therefore apply many of the same techniques used in imaging to DNA sequence. The R package <a href="https://github.com/friend1ws/pmsignature">pmsignature</a> extracts characteristic mutation patterns from sets of mutations, as proposed in the paper: <a href="http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1005657"> A simple model-based approach to inferring and visualizing cancer mutation signatures</a> by Shiraishi, et. al. (2015). </p>
       <p>
 	      We use Principal Component Analysis (PCA) on these signatures generated by pmsignature, to compute scatter-plots of labelled training data; The DNN is then trained over a large amount of such signatures, ultimately computing and displaying the probability distribution on the heatmap in the output - the distribution of predictions to be made for testing data, having labelled the regions.
@@ -707,7 +744,7 @@ function irwinHallDistribution(n, m) {
     </div>
 
     <div class="l--body">
-      <h2>What Do All the Colors Mean?</h2>
+      <h2 style="position:relative; right: 150px;">What Do All the Colors Mean?</h2>
       <p>Orange and blue are used throughout the visualization in slightly different ways, but in general orange shows negative values while blue shows positive values.</p>
       <p>The data points (represented by small circles) are initially colored orange or blue, which correspond to positive one and negative one.</p>
       <p> The blue dots represent labelled <b> BRCA </b> tumors, whereas the orange dots represent the labelled <b> Lung Adenocarcinoma </b> (lungad_10) tumors. </p>
