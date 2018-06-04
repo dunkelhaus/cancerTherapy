@@ -59,6 +59,8 @@ limitations under the License.
 	    x[trait] = d3.scale.linear().domain(domain).range(range);
 	    y[trait] = d3.scale.linear().domain(domain).range(range.reverse());
 	  });
+
+	  d3.select("#svg1").remove();
 	  // Axes.
 	  var axis = d3.svg.axis()
 	      .ticks(5)
@@ -71,21 +73,23 @@ limitations under the License.
 	  // Root panel.
 	  var svg = d3.select(".MDS").append("svg")
 	      .attr("width", 1280)
+	      .attr("id", "svg1")
 	      .attr("height", 800)
 	    .append("svg:g")
-	      .attr("transform", "translate(359.5,69.5)");
+	      .attr("transform", "translate(100,0)");
 	  // Legend.
 	  var legend = svg.selectAll("g.legend")
 	      .data(["0.000000000000000000+e00", "1.000000000000000000+e00"])
 	    .enter().append("svg:g")
 	      .attr("class", "legend")
-	      .attr("transform", function(d, i) { return "translate(-179," + (i * 20 + 594) + ")"; });
+	      .attr("transform", function(d, i) { return "translate(-70," + (i * 20 + 394) + ")"; });
 	  legend.append("svg:versicolor")
 	      .attr("class", String)
 	      .attr("r", 2);
 	  legend.append("svg:text")
 	      .attr("x", 12)
 	      .attr("dy", ".31em")
+	      .attr("fill","white")
 	      .text(function(d) { return d; });
 	  // X-axis.
 	  svg.selectAll("g.x.axis")

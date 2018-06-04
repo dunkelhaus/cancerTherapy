@@ -523,12 +523,12 @@ function makeGUI() {
     	xhr.send(data);
 
     d3.select("label[for='noise'] .value").text(this.value);
-    generateData();
-    parametersChanged = true;
-    reset();
+    //generateData();
+    //parametersChanged = true;
+    //reset();
   });
   let currentMax = parseInt(noise.property("max"));
-  if (state.noise > currentMax) {
+  /*if (state.noise > currentMax) {
     if (state.noise <= 80) {
       noise.property("max", state.noise);
     } else {
@@ -536,7 +536,7 @@ function makeGUI() {
     }
   } else if (state.noise < 0) {
     state.noise = 0;
-  }
+  }*/
   noise.property("value", state.noise);
   d3.select("label[for='noise'] .value").text(state.noise);
 
@@ -1630,7 +1630,7 @@ function generateData(firstTime = false) {
       NUM_SAMPLES_REGRESS : NUM_SAMPLES_CLASSIFY;
   let generator = state.problem === Problem.CLASSIFICATION ?
       state.dataset : state.regDataset;
-  let data = generator(numSamples, state.noise / 100);
+  let data = generator(numSamples, 0); //, state.noise / 100);
   // Shuffle the data in-place.
   shuffle(data);
   // Split into train and test data.
