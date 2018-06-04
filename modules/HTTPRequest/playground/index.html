@@ -29,11 +29,187 @@ limitations under the License.
   <meta property="og:image" content="http://playground.tensorflow.org/preview.png"/>
 
   <meta name="twitter:card" value="summary_large_image">
+
   <div class="tab">
-  <button class="tablinks">Dataset1</button>
-  <button class="tablinks">Dataset2</button>
-  <button class="tablinks">Dataset3</button>
+  <button class="tablinks" onclick="tabSelect('fm_mutations_independent_plot.csv')">fm_mutations_independent</button>
+  <button class="tablinks" onclick="tabSelect('fm_samples_independent_plot.csv')">fm_samples_independent</button>
+  <button class="tablinks" onclick="tabSelect('top10_LungMel_plot.csv')">top10_LungMel</button>
+  <button class="tablinks" onclick="tabSelect('top100_LungMel_plot.csv')">top100_LungMel</button>
+  <button class="tablinks" onclick="tabSelect('top1000_LungMel_plot.csv')">top1000_LungMel</button>
+  <button class="tablinks" onclick="tabSelect('top10000_LungMel_plot.csv')">top10000_LungMel</button>
   </div>
+
+  <script type="text/javascript">
+     function tabSelect(file) {
+
+	d3.csv(file, function(flowers) {
+	  // Size parameters.
+	  var size = 140,
+	      padding = 10,
+	      n = 2,
+	      traits = ["X", "Y"];
+	  // Position scales.
+	  var x = {}, y = {};
+	  traits.forEach(function(trait) {
+	    // Coerce values to numbers.
+	    flowers.forEach(function(d) { d[trait] = +d[trait]; });
+	    var value = function(d) { return d[trait]; },
+	        domain = [d3.min(flowers, value), d3.max(flowers, value)],
+	        range = [padding / 2, size - padding / 2];
+	    x[trait] = d3.scale.linear().domain(domain).range(range);
+	    y[trait] = d3.scale.linear().domain(domain).range(range.reverse());
+	  });
+	  // Axes.
+	  var axis = d3.svg.axis()
+	      .ticks(5)
+	      .tickSize(size * n);
+	  // Brush.
+	  var brush = d3.svg.brush()
+	      .on("brushstart", brushstart)
+	      .on("brush", brush)
+	      .on("brushend", brushend);
+	  // Root panel.
+	  var svg = d3.select("body").append("svg:svg")
+	      .attr("width", 1280)
+	      .attr("height", 800)
+	    .append("svg:g")
+	      .attr("transform", "translate(359.5,69.5)");
+	  // Legend.
+	  var legend = svg.selectAll("g.legend")
+	      .data(["0.000000000000000000+e00", "1.000000000000000000+e00"])
+	    .enter().append("svg:g")
+	      .attr("class", "legend")
+	      .attr("transform", function(d, i) { return "translate(-179," + (i * 20 + 594) + ")"; });
+	  legend.append("svg:versicolor")
+	      .attr("class", String)
+	      .attr("r", 2);
+	  legend.append("svg:text")
+	      .attr("x", 12)
+	      .attr("dy", ".31em")
+	      .text(function(d) { return d; });
+	  // X-axis.
+	  svg.selectAll("g.x.axis")
+	      .data(traits)
+	    .enter().append("svg:g")
+	      .attr("class", "x axis")
+	      .attr("transform", function(d, i) { return "translate(" + i * size + ",0)"; })
+	      .each(function(d) { d3.select(this).call(axis.scale(x[d]).orient("bottom")); });
+	  // Y-axis.
+	  svg.selectAll("g.y.axis")
+	      .data(traits)
+	    .enter().append("svg:g")
+	      .attr("class", "y axis")
+	      .attr("transform", function(d, i) { return "translate(0," + i * size + ")"; })
+	      .each(function(d) { d3.select(this).call(axis.scale(y[d]).orient("right")); });
+	  // Cell and plot.
+	  var cell = svg.selectAll("g.cell")
+	      .data(cross(traits, traits))
+	    .enter().append("svg:g")
+	      .attr("class", "cell")
+	      .attr("transform", function(d) { return "translate(" + d.i * size + "," + d.j * size + ")"; })
+	      .each(plot);
+	  // Titles for the diagonal.
+	  cell.filter(function(d) { return d.i == d.j; }).append("svg:text")
+	      .attr("x", padding)
+	      .attr("y", padding)
+	      .attr("dy", ".71em")
+	      .text(function(d) { return d.x; });
+	  function plot(p) {
+	    var cell = d3.select(this);
+	    // Plot frame.
+	    cell.append("svg:rect")
+	        .attr("class", "frame")
+	        .attr("x", padding / 2)
+	        .attr("y", padding / 2)
+	        .attr("width", size - padding)
+	        .attr("height", size - padding);
+	    // Plot dots.
+	    cell.selectAll("circle")
+	        .data(flowers)
+	      .enter().append("svg:circle")
+	        .attr("class", function(d) { return d.species; })
+	        .attr("cx", function(d) { return x[p.x](d[p.x]); })
+	        .attr("cy", function(d) { return y[p.y](d[p.y]); })
+	        .attr("r", 3);
+	    // Plot brush.
+	    cell.call(brush.x(x[p.x]).y(y[p.y]));
+	  }
+	  // Clear the previously-active brush, if any.
+	  function brushstart(p) {
+	    if (brush.data !== p) {
+	      cell.call(brush.clear());
+	      brush.x(x[p.x]).y(y[p.y]).data = p;
+	    }
+	  }
+	  // Highlight the selected circles.
+	  function brush(p) {
+	    var e = brush.extent();
+	    svg.selectAll(".cell circle").attr("class", function(d) {
+	      return e[0][0] <= d[p.x] && d[p.x] <= e[1][0]
+	          && e[0][1] <= d[p.y] && d[p.y] <= e[1][1]
+	          ? d.species : null;
+	    });
+	  }
+	  // If the brush is empty, select all circles.
+	  function brushend() {
+	    if (brush.empty()) svg.selectAll(".cell circle").attr("class", function(d) {
+	      return d.species;
+	    });
+	  }
+	  function cross(a, b) {
+	    var c = [], n = a.length, m = b.length, i, j;
+	    for (i = -1; ++i < n;) for (j = -1; ++j < m;) c.push({x: a[i], i: i, y: b[j], j: j});
+	    return c;
+	  }
+	});
+
+  
+	d3.select("body")
+	    .datum(irwinHallDistribution(10000, 10))
+	  .call(histogramChart()
+	    .bins(d3.scale.linear().ticks(20))
+	    .tickFormat(d3.format(".02f")));
+	function irwinHallDistribution(n, m) {
+	  var distribution = [];
+	  for (var i = 0; i < n; i++) {
+	    for (var s = 0, j = 0; j < m; j++) {
+	      s += Math.random();
+	    }
+	    distribution.push(s / m);
+	  }
+	  return distribution;
+	}
+
+     }
+  </script>
+
+<p id="fm_mutations_independent"></p>
+<script type = "text/javascript" src="dataPlot.js"></script>
+
+
+
+
+  <div id="fm_mutations_independent" class="tabcontent">
+	
+    <!-- function call here with fm_mutations_independent as argument  -->
+  </div>
+  <div id="fm_samples_independent" class="tabcontent">
+    <!-- function call here with fm_samples_independent as argument  -->
+  </div>
+  <div id="top10_LungMel" class="tabcontent">
+    <!-- function call here with top10_LungMel as argument  -->
+  </div>
+  <div id="top100_LungMel" class="tabcontent">
+    <!-- function call here with top100_LungMel as argument  -->
+  </div>
+  <div id="top1000_LungMel" class="tabcontent">
+    <!-- function call here with top1000_LungMel as argument  -->
+  </div>
+  <div id="top10000_LungMel" class="tabcontent">
+    <!-- function call here with top10000_LungMel as argument  -->
+  </div>
+
+
 
 
   <meta name="twitter:title" content="Deep Learning for Cancer Therapy">
@@ -195,6 +371,7 @@ h3 {
 
 </head>
 
+
 <body>
   <!-- GitHub link -->
   <a class="github-link" href="https://github.com/skjena/cnnCancerTherapy" title="Source on GitHub">
@@ -211,29 +388,30 @@ h3 {
 
 <div class="plots">
   <div class="MDS">
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-    <div> Place Plot Here</div>
-
+    <div id="MDS_ID">
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+   	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+   	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    	<div> Place Plot Here</div>
+    </div>
   </div>
   <div class="otherPlot">
     <div> Place Other Plot Here</div>
@@ -268,8 +446,10 @@ h3 {
 
 <script src="histogram-chart.js"></script> 
 
+<!--
     <script type="text/javascript">
 d3.csv("fm_mutations_independent_plot.csv", function(flowers) {
+var element = document.getElementById("fm_mutations_independent");
   // Size parameters.
   var size = 140,
       padding = 10,
@@ -408,8 +588,7 @@ function irwinHallDistribution(n, m) {
   return distribution;
 }
 </script>
-
-
+-->
 
 
 <section>
