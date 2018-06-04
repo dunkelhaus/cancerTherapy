@@ -31,7 +31,7 @@ class Admin:
 
         self.rawDb = RDBManager("fm_mutations_independent")
         self.statmanip = SMManager()
-        self.mds = MDS(self.rawDb.dataframe)
+        self.mds = MDS(self.rawDb.dataframe,self.restApi.network.state.noise)
         self.statmanip.writeToFile(self.statmanip.adjoin(self.mds.scale(2),
             self.statmanip.skewLabels(self.rawDb.dataframe, "0")),
                 self.rawDb.scaledpath)
