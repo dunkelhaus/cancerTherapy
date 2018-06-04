@@ -151,7 +151,7 @@ export class State {
     learningRate = 0.1;
     regularizationRate = 0;
     showTestData = false;
-    noise = 0;
+    noise = 2;
     batchSize = 10;
     discretize = false;
     tutorial: string = null;
