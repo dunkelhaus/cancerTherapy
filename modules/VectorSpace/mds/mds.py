@@ -127,10 +127,10 @@ class MDS:
 
     def getNDimensions(self, n):
         self.status.message(1, "getXYDimensions(self)")
-        dimensions = self.scores[:,:n]
+        #dimensions = self.scores[:,:n]
 
         self.status.message(0, "getXYDimensions(self)")
-        return dimensions
+        return self.dimensions
 
     def scale(self, n):
         self.status.message(1, "scale(self)")
