@@ -1,4 +1,4 @@
-<!doctype html>
+
 <!-- Copyright 2016 Google Inc. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,91 +15,367 @@ limitations under the License.
 ==============================================================================-->
 <html>
 <head lang="en">
+<!-- Tab links -->
+
   <link rel="icon" type="image/png" href="favicon.png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=1024">
   <meta name="keywords" content="neural networks,machine learning,javascript">
 
   <meta property="og:type" content="article"/>
-  <meta property="og:title" content="Tensorflow — Neural Network Playground"/>
-  <meta property="og:description" content="Tinker with a real neural network right here in your browser.">
-  <meta property="og:url" content="http://playground.tensorflow.org"/>
+  <meta property="og:title" content="Deep Learning for Cancer Therapy"/>
+  <meta property="og:description" content="A Somatic Mutation Classification DNN & Multivariate Distribution Visualizer">
+  <meta property="og:url" content="http://dlforcancertherapy.ml"/>
   <meta property="og:image" content="http://playground.tensorflow.org/preview.png"/>
 
   <meta name="twitter:card" value="summary_large_image">
-  <meta name="twitter:title" content="Tensorflow — Neural Network Playground">
-  <meta name="twitter:description" content="Tinker with a real neural network right here in your browser.">
-  <meta name="twitter:url" content="http://playground.tensorflow.org">
+
+  <div class="tab">
+  <button class="tablinks" onclick="tabSelect('fm_mutations_independent_plot.csv')">fm_mutations_independent</button>
+  <button class="tablinks" onclick="tabSelect('fm_samples_independent_plot.csv')">fm_samples_independent</button>
+  <button class="tablinks" onclick="tabSelect('top10_LungMel_plot.csv')">top10_LungMel</button>
+  <button class="tablinks" onclick="tabSelect('top100_LungMel_plot.csv')">top100_LungMel</button>
+  <button class="tablinks" onclick="tabSelect('top1000_LungMel_plot.csv')">top1000_LungMel</button>
+  <button class="tablinks" onclick="tabSelect('top10000_LungMel_plot.csv')">top10000_LungMel</button>
+  </div>
+
+  <script type="text/javascript">
+     function tabSelect(file) {
+
+	d3.csv(file, function(flowers) {
+	  // Size parameters.
+	  var size = 140,
+	      padding = 10,
+	      n = 2,
+	      traits = ["X", "Y"];
+	  // Position scales.
+	  var x = {}, y = {};
+	  traits.forEach(function(trait) {
+	    // Coerce values to numbers.
+	    flowers.forEach(function(d) { d[trait] = +d[trait]; });
+	    var value = function(d) { return d[trait]; },
+	        domain = [d3.min(flowers, value), d3.max(flowers, value)],
+	        range = [padding / 2, size - padding / 2];
+	    x[trait] = d3.scale.linear().domain(domain).range(range);
+	    y[trait] = d3.scale.linear().domain(domain).range(range.reverse());
+	  });
+
+	  d3.select("#svg1").remove();
+	  // Axes.
+	  var axis = d3.svg.axis()
+	      .ticks(5)
+	      .tickSize(size * n);
+	  // Brush.
+	  var brush = d3.svg.brush()
+	      .on("brushstart", brushstart)
+	      .on("brush", brush)
+	      .on("brushend", brushend);
+	  // Root panel.
+	  var svg = d3.select(".MDS").append("svg")
+	      .attr("width", 1280)
+	      .attr("id", "svg1")
+	      .attr("height", 800)
+	    .append("svg:g")
+	      .attr("transform", "translate(100,0)");
+	  // Legend.
+	  var legend = svg.selectAll("g.legend")
+	      .data(["0.000000000000000000+e00", "1.000000000000000000+e00"])
+	    .enter().append("svg:g")
+	      .attr("class", "legend")
+	      .attr("transform", function(d, i) { return "translate(-70," + (i * 20 + 394) + ")"; });
+	  legend.append("svg:versicolor")
+	      .attr("class", String)
+	      .attr("r", 2);
+	  legend.append("svg:text")
+	      .attr("x", 12)
+	      .attr("dy", ".31em")
+	      .attr("fill","white")
+	      .text(function(d) { return d; });
+	  // X-axis.
+	  svg.selectAll("g.x.axis")
+	      .data(traits)
+	    .enter().append("svg:g")
+	      .attr("class", "x axis")
+	      .attr("transform", function(d, i) { return "translate(" + i * size + ",0)"; })
+	      .each(function(d) { d3.select(this).call(axis.scale(x[d]).orient("bottom")); });
+	  // Y-axis.
+	  svg.selectAll("g.y.axis")
+	      .data(traits)
+	    .enter().append("svg:g")
+	      .attr("class", "y axis")
+	      .attr("transform", function(d, i) { return "translate(0," + i * size + ")"; })
+	      .each(function(d) { d3.select(this).call(axis.scale(y[d]).orient("right")); });
+	  // Cell and plot.
+	  var cell = svg.selectAll("g.cell")
+	      .data(cross(traits, traits))
+	    .enter().append("svg:g")
+	      .attr("class", "cell")
+	      .attr("transform", function(d) { return "translate(" + d.i * size + "," + d.j * size + ")"; })
+	      .each(plot);
+	  // Titles for the diagonal.
+	  cell.filter(function(d) { return d.i == d.j; }).append("svg:text")
+	      .attr("x", padding)
+	      .attr("y", padding)
+	      .attr("dy", ".71em")
+	      .text(function(d) { return d.x; });
+	  function plot(p) {
+	    var cell = d3.select(this);
+	    // Plot frame.
+	    cell.append("svg:rect")
+	        .attr("class", "frame")
+	        .attr("x", padding / 2)
+	        .attr("y", padding / 2)
+	        .attr("width", size - padding)
+	        .attr("height", size - padding);
+	    // Plot dots.
+	    cell.selectAll("circle")
+	        .data(flowers)
+	      .enter().append("svg:circle")
+	        .attr("class", function(d) { return d.species; })
+	        .attr("cx", function(d) { return x[p.x](d[p.x]); })
+	        .attr("cy", function(d) { return y[p.y](d[p.y]); })
+	        .attr("r", 3);
+	    // Plot brush.
+	    cell.call(brush.x(x[p.x]).y(y[p.y]));
+	  }
+	  // Clear the previously-active brush, if any.
+	  function brushstart(p) {
+	    if (brush.data !== p) {
+	      cell.call(brush.clear());
+	      brush.x(x[p.x]).y(y[p.y]).data = p;
+	    }
+	  }
+	  // Highlight the selected circles.
+	  function brush(p) {
+	    var e = brush.extent();
+	    svg.selectAll(".cell circle").attr("class", function(d) {
+	      return e[0][0] <= d[p.x] && d[p.x] <= e[1][0]
+	          && e[0][1] <= d[p.y] && d[p.y] <= e[1][1]
+	          ? d.species : null;
+	    });
+	  }
+	  // If the brush is empty, select all circles.
+	  function brushend() {
+	    if (brush.empty()) svg.selectAll(".cell circle").attr("class", function(d) {
+	      return d.species;
+	    });
+	  }
+	  function cross(a, b) {
+	    var c = [], n = a.length, m = b.length, i, j;
+	    for (i = -1; ++i < n;) for (j = -1; ++j < m;) c.push({x: a[i], i: i, y: b[j], j: j});
+	    return c;
+	  }
+	});
+
+  
+	d3.select("body")
+	    .datum(irwinHallDistribution(10000, 10))
+	  .call(histogramChart()
+	    .bins(d3.scale.linear().ticks(20))
+	    .tickFormat(d3.format(".02f")));
+	function irwinHallDistribution(n, m) {
+	  var distribution = [];
+	  for (var i = 0; i < n; i++) {
+	    for (var s = 0, j = 0; j < m; j++) {
+	      s += Math.random();
+	    }
+	    distribution.push(s / m);
+	  }
+	  return distribution;
+	}
+
+     }
+  </script>
+
+<p id="fm_mutations_independent"></p>
+<script type = "text/javascript" src="dataPlot.js"></script>
+
+
+
+
+  <div id="fm_mutations_independent" class="tabcontent">
+	
+    <!-- function call here with fm_mutations_independent as argument  -->
+  </div>
+  <div id="fm_samples_independent" class="tabcontent">
+    <!-- function call here with fm_samples_independent as argument  -->
+  </div>
+  <div id="top10_LungMel" class="tabcontent">
+    <!-- function call here with top10_LungMel as argument  -->
+  </div>
+  <div id="top100_LungMel" class="tabcontent">
+    <!-- function call here with top100_LungMel as argument  -->
+  </div>
+  <div id="top1000_LungMel" class="tabcontent">
+    <!-- function call here with top1000_LungMel as argument  -->
+  </div>
+  <div id="top10000_LungMel" class="tabcontent">
+    <!-- function call here with top10000_LungMel as argument  -->
+  </div>
+
+
+
+
+  <meta name="twitter:title" content="Deep Learning for Cancer Therapy">
+  <meta name="twitter:description" content="A Somatic Mutation Classification DNN & Multivariate Distribution Visualizer">
+  <meta name="twitter:url" content="http://dlforcancertherapy.ml">
   <meta name="twitter:image" content="http://playground.tensorflow.org/preview.png">
   <meta name="twitter:image:width" content="560">
-  <meta name="twitter:image:height" content="295">
+  <meta name="twitter:image:height" content="1095">
 
-  <meta name="author" content="Daniel Smilkov and Shan Carter">
-  <title>A Neural Network Playground</title>
+  <meta name="author" content="Suraj Jena | Kumud Ravisankaran | Valeria Brewer | Ninad Mehta">
+  <title>Deep Learning for Cancer Therapy</title>
   <link rel="stylesheet" href="bundle.css" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500|Material+Icons" rel="stylesheet" type="text/css">
+
+  <style type="text/css">
+svg {
+  font-size: 14px;
+}
+.axis {
+  shape-rendering: crispEdges;
+}
+.bars rect {
+  fill: steelblue;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+rect.extent {
+  fill: #000;
+  fill-opacity: .125;
+  stroke: #fff;
+}
+rect.frame {
+  fill: #fff;
+  fill-opacity: .7;
+  stroke: #aaa;
+}
+circle {
+  fill: #800;
+  fill-opacity: .5;
+}
+.legend circle {
+  fill-opacity: 1;
+}
+.legend text {
+  font-size: 18px;
+  font-style: oblique;
+}
+.cell text {
+  pointer-events: none;
+}
+.Lungad {
+  fill: #800;
+}
+.Melanoma {
+  fill: #080;
+}
+.virginica {
+  fill: #008;
+}
+
+a:link, a:visited {
+  color: #777;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #666;
+}
+
+blockquote {
+  margin: 0;
+}
+
+blockquote:before {
+  content: "“";
+  position: absolute;
+  left: -.4em;
+}
+
+blockquote:after {
+  content: "”";
+  position: absolute;
+}
+
+h1 {
+  font-size: 64px;
+}
+
+h1, h2, h3{
+  font-weight: inherit;
+  margin: 0;
+}
+
+h2, h3, h4 {
+  text-align: right;
+  font-size: inherit;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+h2 {
+  font-size: 24px;
+  position: absolute;
+}
+
+h3 {
+  bottom: -20px;
+  font-size: 18px;
+}
+
+.invert {
+  background: #1f1f1f;
+  color: #dcdccc;
+}
+
+.invert h2, .invert h3 {
+  color: #7f9f7f;
+}
+
+.string, .regexp {
+  color: #f39;
+}
+
+.keyword {
+  color: #00c;
+}
+
+.comment {
+  color: #777;
+  font-style: oblique;
+}
+
+.number {
+  color: #369;
+}
+
+.class, .special {
+  color: #1181B8;
+}
+    </style>
+
   <script src="lib.js"></script>
 
-  <script src="http://35.184.171.249:8000/socket.io/socket.io.js"></script>
-  <script>
-      var net = require('net-socket');
-
-      var server = net.createCerver(function(socket) {
-          socket.write('Echo server\r\n');
-          socket.pipe(socket);
-      });
-
-      server.listen(5010,'http://35.184.171.249:8000');
-      console.log("Connected to server!");
-   </script>
-   
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
-   <script type="text/javascript">  
-    $(document).ready(function() {
-
-    // The event listener for the file upload
-    document.getElementById('txtFileUpload').addEventListener('change', upload, false);
-
-    var data = null;
-
-    // Method that checks that the browser supports the HTML5 File API
-    function browserSupportFileUpload() {
-        var isCompatible = false;
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-        isCompatible = true;
-        }
-        return isCompatible;
-    }
-
-    // Method that reads and processes the selected file
-    function upload(evt) {
-        if (!browserSupportFileUpload()) {
-            alert('The File APIs are not fully supported in this browser!');
-            } else {
-                
-                var file = evt.target.files[0];
-                var reader = new FileReader();
-                reader.readAsText(file);
-                reader.onload = function(event) {
-                    var csvData = event.target.result;
-                    data = $.csv.toArrays(csvData);
-                    if (data && data.length > 0) {
-                    alert('Imported -' + data.length + '- rows successfully!');
-                    } else {
-                        alert('No data to import!');
-                    }
-                };
-                reader.onerror = function() {
-                    alert('Unable to read ' + file.fileName);
-                };
-            }
-        }
-    });
-</script>
+<!--  <script src="http://35.184.171.249:8000/socket.io/socket.io.js"></script> -->
 
   <!--<script src="requests.js"></script>-->
+
+  <link type = "text/css" href = "styles.css" media = "all" />
+
 </head>
+
+
 <body>
   <!-- GitHub link -->
   <a class="github-link" href="https://github.com/skjena/cnnCancerTherapy" title="Source on GitHub">
@@ -110,8 +386,209 @@ limitations under the License.
   </a>
   <!-- Header -->
   <header>
-    <h1 class="l--page">Welcome to <b> Deep Learning for Cancer Therapy </b> </span> <br> A Mutation Signature Classification DNN </h1>
-  </header>
+    <h1 class="l--page">Welcome to <b> Deep Learning for Cancer Therapy </b> </span> <br> A Somatic Mutation Classification DNN & Multivariate Distribution Visualizer </h1>
+
+<hr>
+
+<div class="plots">
+  <div class="MDS">
+    <div id="MDS_ID">
+    </div>
+  </div>
+  <div class="otherPlot">
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+    <div> Place Other Plot Here</div>
+  
+  </div>
+</div>
+
+
+ </header>
+
+
+<script src="histogram-chart.js"></script> 
+
+<!--
+    <script type="text/javascript">
+d3.csv("fm_mutations_independent_plot.csv", function(flowers) {
+var element = document.getElementById("fm_mutations_independent");
+  // Size parameters.
+  var size = 140,
+      padding = 10,
+      n = 2,
+      traits = ["X", "Y"];
+  // Position scales.
+  var x = {}, y = {};
+  traits.forEach(function(trait) {
+    // Coerce values to numbers.
+    flowers.forEach(function(d) { d[trait] = +d[trait]; });
+    var value = function(d) { return d[trait]; },
+        domain = [d3.min(flowers, value), d3.max(flowers, value)],
+        range = [padding / 2, size - padding / 2];
+    x[trait] = d3.scale.linear().domain(domain).range(range);
+    y[trait] = d3.scale.linear().domain(domain).range(range.reverse());
+  });
+  // Axes.
+  var axis = d3.svg.axis()
+      .ticks(5)
+      .tickSize(size * n);
+  // Brush.
+  var brush = d3.svg.brush()
+      .on("brushstart", brushstart)
+      .on("brush", brush)
+      .on("brushend", brushend);
+  // Root panel.
+  var svg = d3.select("body").append("svg:svg")
+      .attr("width", 1280)
+      .attr("height", 800)
+    .append("svg:g")
+      .attr("transform", "translate(359.5,69.5)");
+  // Legend.
+  var legend = svg.selectAll("g.legend")
+      .data(["0.000000000000000000+e00", "1.000000000000000000+e00"])
+    .enter().append("svg:g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(-179," + (i * 20 + 594) + ")"; });
+  legend.append("svg:versicolor")
+      .attr("class", String)
+      .attr("r", 2);
+  legend.append("svg:text")
+      .attr("x", 12)
+      .attr("dy", ".31em")
+      .text(function(d) { return d; });
+  // X-axis.
+  svg.selectAll("g.x.axis")
+      .data(traits)
+    .enter().append("svg:g")
+      .attr("class", "x axis")
+      .attr("transform", function(d, i) { return "translate(" + i * size + ",0)"; })
+      .each(function(d) { d3.select(this).call(axis.scale(x[d]).orient("bottom")); });
+  // Y-axis.
+  svg.selectAll("g.y.axis")
+      .data(traits)
+    .enter().append("svg:g")
+      .attr("class", "y axis")
+      .attr("transform", function(d, i) { return "translate(0," + i * size + ")"; })
+      .each(function(d) { d3.select(this).call(axis.scale(y[d]).orient("right")); });
+  // Cell and plot.
+  var cell = svg.selectAll("g.cell")
+      .data(cross(traits, traits))
+    .enter().append("svg:g")
+      .attr("class", "cell")
+      .attr("transform", function(d) { return "translate(" + d.i * size + "," + d.j * size + ")"; })
+      .each(plot);
+  // Titles for the diagonal.
+  cell.filter(function(d) { return d.i == d.j; }).append("svg:text")
+      .attr("x", padding)
+      .attr("y", padding)
+      .attr("dy", ".71em")
+      .text(function(d) { return d.x; });
+  function plot(p) {
+    var cell = d3.select(this);
+    // Plot frame.
+    cell.append("svg:rect")
+        .attr("class", "frame")
+        .attr("x", padding / 2)
+        .attr("y", padding / 2)
+        .attr("width", size - padding)
+        .attr("height", size - padding);
+    // Plot dots.
+    cell.selectAll("circle")
+        .data(flowers)
+      .enter().append("svg:circle")
+        .attr("class", function(d) { return d.species; })
+        .attr("cx", function(d) { return x[p.x](d[p.x]); })
+        .attr("cy", function(d) { return y[p.y](d[p.y]); })
+        .attr("r", 3);
+    // Plot brush.
+    cell.call(brush.x(x[p.x]).y(y[p.y]));
+  }
+  // Clear the previously-active brush, if any.
+  function brushstart(p) {
+    if (brush.data !== p) {
+      cell.call(brush.clear());
+      brush.x(x[p.x]).y(y[p.y]).data = p;
+    }
+  }
+  // Highlight the selected circles.
+  function brush(p) {
+    var e = brush.extent();
+    svg.selectAll(".cell circle").attr("class", function(d) {
+      return e[0][0] <= d[p.x] && d[p.x] <= e[1][0]
+          && e[0][1] <= d[p.y] && d[p.y] <= e[1][1]
+          ? d.species : null;
+    });
+  }
+  // If the brush is empty, select all circles.
+  function brushend() {
+    if (brush.empty()) svg.selectAll(".cell circle").attr("class", function(d) {
+      return d.species;
+    });
+  }
+  function cross(a, b) {
+    var c = [], n = a.length, m = b.length, i, j;
+    for (i = -1; ++i < n;) for (j = -1; ++j < m;) c.push({x: a[i], i: i, y: b[j], j: j});
+    return c;
+  }
+});
+    </script>
+
+  <script>
+d3.select("body")
+    .datum(irwinHallDistribution(10000, 10))
+  .call(histogramChart()
+    .bins(d3.scale.linear().ticks(20))
+    .tickFormat(d3.format(".02f")));
+function irwinHallDistribution(n, m) {
+  var distribution = [];
+  for (var i = 0; i < n; i++) {
+    for (var s = 0, j = 0; j < m; j++) {
+      s += Math.random();
+    }
+    distribution.push(s / m);
+  }
+  return distribution;
+}
+</script>
+-->
+
+
+<section>
+  <h1>   
+
+ 
+   </h1>
+
+<!--  <h1> Level1</h1>
+  Level1 Text
+  <section>
+    <h1>Level2</h1>
+    Level2 Text
+  </section>
+-->
+
+</section>
+
 
   <!-- Top Controls -->
   <div id="top-controls">
@@ -261,9 +738,9 @@ limitations under the License.
           </p>
         </div>-->
         <div class="ui-noise">
-          <label for="noise">Noise:&nbsp;&nbsp;<span class="value">XX</span></label>
+          <label for="noise">MDS Dimensions:&nbsp;&nbsp;<span class="value">XX</span></label>
           <p class="slider">
-            <input class="mdl-slider mdl-js-slider" type="range" id="noise" min="0" max="50" step="5">
+            <input class="mdl-slider mdl-js-slider" type="range" id="noise" min="0" max="10" step="1">
           </p>
         </div>
         <div class="ui-batchSize">
@@ -275,16 +752,13 @@ limitations under the License.
 	
 	<hr>
 
-	<div id="dvImportSegments" class="fileupload ">
+	<!--<div id="dvImportSegments" class="fileupload ">
     	  <fieldset>
             <legend>Upload a CSV File</legend>
               <input type="file" name="File Upload" id="txtFileUpload" accept=".csv, .tab" />
           </fieldset>
 	</div>
-        
-         <!--<button class="basic-button" id="upload-csv-button" title="Upload file">
-            Upload File
-         </button>-->
+        -->
 
       </div>
     </div>
@@ -387,7 +861,7 @@ limitations under the License.
             </g>
           </svg>
           <div class="label" style="width:45px; margin-right: 10px">
-            Lungad
+            Lung Adenocarcinoma
           </div>
         </div>
         <br/>
@@ -405,6 +879,7 @@ limitations under the License.
     </div>
 
   </div>
+  <a href="http://dlforcancertherapy.ml:8000/iris-plom.html"> Scatterplot Matrix </a>
 
   <!-- More -->
   <div class="more">
@@ -417,7 +892,7 @@ limitations under the License.
 
   <article id="article-text">
     <div class="l--body">
-      <h2>How does this help cancer?</h2>
+      <h2 style="position:relative; right:150px;">How does this help cancer?</h2>
       <p>Machine learning can be used to perform unsupervised learning on the DNA sequences of patient tumors in order to identify non-linear features of the tumor DNA that help predict treatment. Convolutional neural networks (CNN) have led to substantial advances in both supervised and unsupervised learning tasks in computer vision. It is easy to treat DNA sequence (an ordered sequence of A’s, C’s, G’s, and T’s) as an “image”, and therefore apply many of the same techniques used in imaging to DNA sequence. The R package <a href="https://github.com/friend1ws/pmsignature">pmsignature</a> extracts characteristic mutation patterns from sets of mutations, as proposed in the paper: <a href="http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1005657"> A simple model-based approach to inferring and visualizing cancer mutation signatures</a> by Shiraishi, et. al. (2015). </p>
       <p>
 	      We use Principal Component Analysis (PCA) on these signatures generated by pmsignature, to compute scatter-plots of labelled training data; The DNN is then trained over a large amount of such signatures, ultimately computing and displaying the probability distribution on the heatmap in the output - the distribution of predictions to be made for testing data, having labelled the regions.
@@ -430,7 +905,7 @@ limitations under the License.
     </div>
 
     <div class="l--body">
-      <h2>What Do All the Colors Mean?</h2>
+      <h2 style="position:relative; right: 150px;">What Do All the Colors Mean?</h2>
       <p>Orange and blue are used throughout the visualization in slightly different ways, but in general orange shows negative values while blue shows positive values.</p>
       <p>The data points (represented by small circles) are initially colored orange or blue, which correspond to positive one and negative one.</p>
       <p> The blue dots represent labelled <b> BRCA </b> tumors, whereas the orange dots represent the labelled <b> Lung Adenocarcinoma </b> (lungad_10) tumors. </p>
@@ -479,7 +954,7 @@ limitations under the License.
         </svg>
       </a>
       <div class="links">
-        <a href="https://github.com/skjena/cnnCancerTherapy">Source on GitHub</a>
+        <a href="https://github.com/skjena/cancerTherapy">Source on GitHub</a>
       </div>
     </div>
   </footer>
