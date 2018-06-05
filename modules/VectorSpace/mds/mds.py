@@ -6,10 +6,11 @@ sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 from Status.Status import Status
 
 class MDS:
-    def __init__(self, dataframe):
+    def __init__(self, dataframe, numDimensions):
         self.D = None
         self.status = Status("MDS")
         self.dataframe = dataframe
+        self.dimensions = numDimensions
         (self.objects, self.features) = self.getObjectAndFeatureAmount()
         self.distances = self.getAggregateDistanceMatrix()
         self.mass = self.getMassMatrix()
@@ -126,10 +127,10 @@ class MDS:
 
     def getNDimensions(self, n):
         self.status.message(1, "getXYDimensions(self)")
-        dimensions = self.scores[:,:n]
+        #dimensions = self.scores[:,:n]
 
         self.status.message(0, "getXYDimensions(self)")
-        return dimensions
+        return self.dimensions
 
     def scale(self, n):
         self.status.message(1, "scale(self)")

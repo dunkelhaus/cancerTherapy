@@ -24,10 +24,11 @@ class CVManager:
         # List will hold 10 nodes where the head is Testing and the other 9 nodes are Training data
         for i in range(1,folds+1):
             testingFold = List.head.get_data()
+            
             if(i == 1):
                 path = testingFold[0:-10]
-            print "path: ", path
-            trainingFoldCSV = path +"trainingFolds_%s.csv" % i
+
+            trainingFoldCSV = path +"trainingFold_%s.csv" % i
             combine=open(trainingFoldCSV,"w")
 
             testingFoldCSV = path+"testingFold_%s.csv" % i

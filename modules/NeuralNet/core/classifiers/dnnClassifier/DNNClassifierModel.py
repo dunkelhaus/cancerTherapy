@@ -194,10 +194,15 @@ class DNNClassifierModel:
         for key in train_x.keys():
             # append a numeric feature column to the list, with key same as the training set key
             feature_columns.append(tf.feature_column.numeric_column(key=key))
-
+        my_checkpointing_config = tf.estimator.RunConfig(
+        save_checkpoints_secs = 20*60,  # Save checkpoints every 20 minutes.
+        keep_checkpoint_max = 10,       # Retain the 10 most recent checkpoints.
+        )
         classifier = tf.estimator.Estimator(
             model_fn=self.classifierModel,
             params={
+                'model_tir' : "/home/skjena/cancerTherapy/logs/mutation",
+                'config' : my_checkpointing_config,
                 'feature_columns' : feature_columns,
                 'hidden_units' : shape,
                 'n_classes' : 2,
