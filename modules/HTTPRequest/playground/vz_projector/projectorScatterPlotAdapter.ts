@@ -13,6 +13,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ==============================================================================*/
 import * as THREE from "three"
+import { ScatterPlot } from "./scatterPlot"
+import { ScatterPlotVisualizer } from "./scatterPlotVisualizer"
+import { ScatterPlotVisualizerSprites } from "./scatterPlotVisualizerSprites"
+import { ScatterPlotVisualizer3DLabels } from "./scatterPlotVisualizer3DLabels"
+import { ScatterPlotVisualizerCanvasLabels } from "./ScatterPlotVisualizerCanvasLabels"
+import { ScatterPlotVisualizerPolylines } from "./ScatterPlotVisualizerPolylines"
+import { ProjectorEventContext } from "./projectorEventContext"
+import { Projection, DataSet, DistanceFunction, State, ProjectionComponents3D } from "./data"
+import { knn } from "./knn"
+
 namespace vz_projector {
 
 const LABEL_FONT_SIZE = 10;
