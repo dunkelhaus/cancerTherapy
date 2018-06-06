@@ -1,0 +1,373 @@
+
+> deep-playground-prototype@2016.3.10 start /home/service/cnnCancerTherapy/modules/HTTPRequest/playground
+> npm run serve-watch
+
+
+> deep-playground-prototype@2016.3.10 serve-watch /home/service/cnnCancerTherapy/modules/HTTPRequest/playground
+> concurrently "live-server --port=80 dist/" "npm run watch"
+
+[0] [32mServing "dist/" at http://127.0.0.1:80[39m
+[1] 
+[1] > deep-playground-prototype@2016.3.10 watch /home/service/cnnCancerTherapy/modules/HTTPRequest/playground
+[1] > npm run prep && concurrently "npm run watch-js" "npm run watch-css" "npm run watch-html"
+[1] 
+[1] 
+[1] > deep-playground-prototype@2016.3.10 prep /home/service/cnnCancerTherapy/modules/HTTPRequest/playground
+[1] > typings install && copyfiles analytics.js dist && catw node_modules/material-design-lite/material.min.js node_modules/d3/d3.min.js node_modules/seedrandom/seedrandom.min.js > dist/lib.js
+[1] 
+[1] typings WARN deprecated 9/7/2016, 12:57:44 AM: "registry:dt/d3#0.0.0+20160514171929" has been deprecated
+[1] 
+[1] └── d3 (ambient)
+[1] 
+[0] (node:8854) UnhandledPromiseRejectionWarning: Error: Exited with code 3
+[0]     at ChildProcess.cp.once.code (/home/service/cnnCancerTherapy/modules/HTTPRequest/playground/node_modules/opn/index.js:84:13)
+[0]     at Object.onceWrapper (events.js:219:13)
+[0]     at ChildProcess.emit (events.js:127:13)
+[0]     at ChildProcess.emit (domain.js:421:20)
+[0]     at maybeClose (internal/child_process.js:936:16)
+[0]     at Socket.stream.socket.on (internal/child_process.js:353:11)
+[0]     at Socket.emit (events.js:127:13)
+[0]     at Socket.emit (domain.js:421:20)
+[0]     at Pipe._handle.close [as _onclose] (net.js:558:12)
+[0] (node:8854) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+[0] (node:8854) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+[1] [0] 
+[1] [0] > deep-playground-prototype@2016.3.10 watch-js /home/service/cnnCancerTherapy/modules/HTTPRequest/playground
+[1] [0] > watchify src/playground.ts -p [tsify] -v --debug -o dist/bundle.js
+[1] [0] 
+[1] [1] 
+[1] [1] > deep-playground-prototype@2016.3.10 watch-css /home/service/cnnCancerTherapy/modules/HTTPRequest/playground
+[1] [1] > catw node_modules/material-design-lite/material.min.css styles.css -o dist/bundle.css
+[1] [1] 
+[1] [2] 
+[1] [2] > deep-playground-prototype@2016.3.10 watch-html /home/service/cnnCancerTherapy/modules/HTTPRequest/playground
+[1] [2] > catw index.html -o dist/index.html
+[1] [2] 
+[1] [0] TypeScript error: src/seedrandom.d.ts(20,13): Error TS2451: Cannot redeclare block-scoped variable 'ga'.
+[1] [0] TypeScript error: vz_projector/external.d.ts(51,13): Error TS2451: Cannot redeclare block-scoped variable 'ga'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(59,8): Error TS2339: Property 'scaleLinear' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(69,23): Error TS2304: Cannot find name 'ScatterPlot'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(70,23): Error TS2304: Cannot find name 'Projection'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(73,42): Error TS2503: Cannot find namespace 'knn'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(76,36): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(77,27): Error TS2304: Cannot find name 'DistanceFunction'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(79,29): Error TS2304: Cannot find name 'ScatterPlotVisualizerSprites'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(80,31): Error TS2304: Cannot find name 'ScatterPlotVisualizer3DLabels'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(81,35): Error TS2304: Cannot find name 'ScatterPlotVisualizerCanvasLabels'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(82,31): Error TS2304: Cannot find name 'ScatterPlotVisualizerPolylines'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(86,30): Error TS2304: Cannot find name 'ProjectorEventContext'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(88,13): Error TS2304: Cannot find name 'ScatterPlot'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(120,23): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(162,32): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(179,33): Error TS2304: Cannot find name 'State'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(183,32): Error TS2304: Cannot find name 'State'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(234,11): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(234,42): Error TS2304: Cannot find name 'ProjectionComponents3D'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(239,24): Error TS2339: Property 'scaleLinear' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(240,24): Error TS2339: Property 'scaleLinear' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(261,22): Error TS2339: Property 'scaleLinear' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(290,11): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(291,30): Error TS2503: Cannot find namespace 'knn'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(292,33): Error TS2304: Cannot find name 'LabelRenderParams'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(369,16): Error TS2304: Cannot find name 'LabelRenderParams'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(375,11): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(376,30): Error TS2503: Cannot find namespace 'knn'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(417,11): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(417,45): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(463,39): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(481,37): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(498,11): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(498,45): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(499,17): Error TS2304: Cannot find name 'DistanceFunction'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(500,30): Error TS2503: Cannot find namespace 'knn'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(593,29): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(605,28): Error TS2304: Cannot find name 'DataSet'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(609,58): Error TS2304: Cannot find name 'Projection'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(633,37): Error TS2304: Cannot find name 'ScatterPlotVisualizer3DLabels'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(637,35): Error TS2304: Cannot find name 'ScatterPlotVisualizerSprites'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(640,15): Error TS2304: Cannot find name 'ScatterPlotVisualizerCanvasLabels'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(642,35): Error TS2304: Cannot find name 'ScatterPlotVisualizerPolylines'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(694,15): Error TS2304: Cannot find name 'DistanceFunction'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(695,24): Error TS2304: Cannot find name 'vector'.
+[1] [0] TypeScript error: vz_projector/projectorScatterPlotAdapter.ts(700,15): Error TS2304: Cannot find name 'DistanceFunction'.
+[1] [0] TypeScript error: vz_projector/renderContext.ts(45,22): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/renderContext.ts(46,28): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(37,33): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(38,36): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(39,33): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(40,36): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(46,22): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(46,51): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(80,21): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(82,18): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(83,27): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(84,18): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(87,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(111,22): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(112,25): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(116,22): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(158,15): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(163,14): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(164,23): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(166,25): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(172,32): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(173,30): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(176,30): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(186,17): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(189,20): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(194,22): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(205,17): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(206,24): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(223,15): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(226,23): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(294,57): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(298,53): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(299,51): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(302,57): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(304,53): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(305,51): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(339,53): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(340,51): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(353,53): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(354,51): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(440,36): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(449,22): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(571,48): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(670,38): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(674,38): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(696,33): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlot.ts(699,47): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer.ts(25,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(88,12): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(95,18): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(97,21): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(101,21): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(103,23): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(104,22): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(160,23): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(189,25): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(202,13): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(210,30): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(211,18): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(212,22): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(214,25): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(275,27): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(286,59): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(292,21): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(303,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(333,59): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizer3DLabels.ts(348,59): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerCanvasLabels.ts(72,12): Error TS2339: Property 'scalePow' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerCanvasLabels.ts(79,26): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerCanvasLabels.ts(91,18): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerCanvasLabels.ts(180,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(25,18): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(26,22): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(28,33): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(30,33): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(42,34): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(51,28): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(55,28): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(59,23): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(62,28): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(82,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(104,15): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(108,15): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerPolylines.ts(136,38): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(108,5): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(109,5): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(125,7): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(152,18): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(153,16): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(154,20): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(155,36): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(159,39): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(160,27): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(161,28): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(163,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(183,13): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(186,32): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(205,53): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(207,16): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(215,17): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(219,54): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(221,16): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(229,17): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(237,37): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(242,20): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(244,23): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(247,32): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(271,47): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(279,23): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(286,26): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(288,25): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(290,22): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(292,28): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(336,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(373,48): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(374,56): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(393,43): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(394,48): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(399,34): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(400,45): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(409,54): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(415,32): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(430,43): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(431,48): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(437,34): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/scatterPlotVisualizerSprites.ts(438,45): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/test/assert.ts(17,23): Error TS2304: Cannot find name 'chai'.
+[1] [0] TypeScript error: vz_projector/test/data-provider_test.ts(42,1): Error TS2304: Cannot find name 'describe'.
+[1] [0] TypeScript error: vz_projector/test/data-provider_test.ts(43,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data-provider_test.ts(62,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(40,1): Error TS2304: Cannot find name 'describe'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(41,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(50,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(59,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(65,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(75,1): Error TS2304: Cannot find name 'describe'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(76,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(83,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(90,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/data_test.ts(98,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(17,1): Error TS2304: Cannot find name 'describe'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(22,3): Error TS2304: Cannot find name 'beforeEach'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(28,25): Error TS2304: Cannot find name 'jasmine'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(33,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(38,5): Error TS2304: Cannot find name 'expect'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(42,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(47,5): Error TS2304: Cannot find name 'expect'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(51,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(56,5): Error TS2304: Cannot find name 'expect'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(60,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/scatterPlotRectangleSelector_test.ts(65,5): Error TS2304: Cannot find name 'expect'.
+[1] [0] TypeScript error: vz_projector/test/sptree_test.ts(17,1): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/sptree_test.ts(40,1): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/sptree_test.ts(63,1): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/sptree_test.ts(79,1): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/util_test.ts(17,1): Error TS2304: Cannot find name 'describe'.
+[1] [0] TypeScript error: vz_projector/test/util_test.ts(18,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/util_test.ts(23,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/util_test.ts(28,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/util_test.ts(33,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/util_test.ts(38,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(17,1): Error TS2304: Cannot find name 'describe'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(19,3): Error TS2304: Cannot find name 'beforeEach'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(20,74): Error TS2339: Property 'is' does not exist on type 'ProjectionsPanel'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(37,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(38,5): Error TS2304: Cannot find name 'spyOn'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(47,5): Error TS2304: Cannot find name 'expect'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(50,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(51,5): Error TS2304: Cannot find name 'spyOn'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(61,5): Error TS2304: Cannot find name 'expect'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(65,1): Error TS2304: Cannot find name 'describe'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(68,3): Error TS2304: Cannot find name 'beforeEach'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(69,74): Error TS2339: Property 'is' does not exist on type 'ProjectionsPanel'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(86,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/test/vz-projector-projections-panel_test.ts(96,3): Error TS2304: Cannot find name 'it'.
+[1] [0] TypeScript error: vz_projector/util.ts(71,10): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(71,49): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(73,16): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(83,43): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(85,14): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(93,48): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(94,19): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(97,27): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(98,30): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(101,15): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(102,24): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(124,51): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(125,17): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/util.ts(128,19): Error TS2304: Cannot find name 'THREE'.
+[1] [0] TypeScript error: vz_projector/vector.ts(205,21): Error TS2339: Property 'randomNormal' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(80,10): Error TS2339: Property '$' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(87,10): Error TS2339: Property '$' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(104,12): Error TS2339: Property 'notifyPath' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(107,10): Error TS2339: Property 'push' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(168,14): Error TS2339: Property 'push' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(203,10): Error TS2339: Property 'notifyPath' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(223,10): Error TS2339: Property 'splice' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(277,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector-bookmark-panel.ts(277,50): Error TS2339: Property 'is' does not exist on type 'BookmarkPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(158,10): Error TS2339: Property 'metadataFields' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(165,14): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(165,51): Error TS2339: Property 'metadataFields' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(166,23): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(168,12): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(168,40): Error TS2339: Property 'metadataFields' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(171,46): Error TS2339: Property 'metadataFields' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(174,35): Error TS2339: Property 'metadataFields' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(184,16): Error TS2339: Property 'set' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(188,16): Error TS2339: Property 'set' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(229,14): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(230,23): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(231,12): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(253,34): Error TS2339: Property 'scaleOrdinal' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(253,50): Error TS2339: Property 'schemeCategory20' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(268,26): Error TS2339: Property 'scaleLinear' does not exist on type 'typeof d3'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(297,58): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(302,20): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(361,40): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(362,55): Error TS2339: Property 'metadataEditorColumn' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(383,12): Error TS2339: Property '$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(384,12): Error TS2339: Property '$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(385,12): Error TS2339: Property '$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(642,13): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(643,13): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(645,13): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(648,11): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(653,14): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(668,14): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(682,14): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(694,14): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(708,14): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(709,46): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(710,45): Error TS2339: Property '$$' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(747,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector-data-panel.ts(747,46): Error TS2339: Property 'is' does not exist on type 'DataPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-input.ts(111,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector-input.ts(111,51): Error TS2339: Property 'is' does not exist on type 'ProjectorInput'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(63,10): Error TS2339: Property 'scopeSubtree' does not exist on type 'InspectorPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(155,11): Error TS2304: Cannot find name 'dist2color'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(171,11): Error TS2304: Cannot find name 'dist2color'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(173,11): Error TS2304: Cannot find name 'normalizeDist'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(289,11): Error TS2304: Cannot find name 'dist2color'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(305,11): Error TS2304: Cannot find name 'dist2color'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(307,11): Error TS2304: Cannot find name 'normalizeDist'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(427,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector-inspector-panel.ts(427,51): Error TS2339: Property 'is' does not exist on type 'InspectorPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-legend.ts(53,12): Error TS2339: Property 'async' does not exist on type 'Legend'.
+[1] [0] TypeScript error: vz_projector/vz-projector-legend.ts(96,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector-legend.ts(96,43): Error TS2339: Property 'is' does not exist on type 'Legend'.
+[1] [0] TypeScript error: vz_projector/vz-projector-metadata-card.ts(41,11): Error TS2339: Property '$$' does not exist on type 'MetadataCard'.
+[1] [0] TypeScript error: vz_projector/vz-projector-metadata-card.ts(43,10): Error TS2339: Property 'set' does not exist on type 'MetadataCard'.
+[1] [0] TypeScript error: vz_projector/vz-projector-metadata-card.ts(72,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector-metadata-card.ts(72,49): Error TS2339: Property 'is' does not exist on type 'MetadataCard'.
+[1] [0] TypeScript error: vz_projector/vz-projector-projections-panel.ts(164,33): Error TS2339: Property 'superviseFactor' does not exist on type 'ProjectionsPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-projections-panel.ts(166,44): Error TS2339: Property 'superviseFactor' does not exist on type 'ProjectionsPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-projections-panel.ts(416,14): Error TS2339: Property '$' does not exist on type 'ProjectionsPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-projections-panel.ts(417,25): Error TS2339: Property '$' does not exist on type 'ProjectionsPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-projections-panel.ts(652,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector-projections-panel.ts(652,53): Error TS2339: Property 'is' does not exist on type 'ProjectionsPanel'.
+[1] [0] TypeScript error: vz_projector/vz-projector-util.ts(32,10): Error TS2304: Cannot find name 'Polymer'.
+[1] [0] TypeScript error: vz_projector/vz-projector-util.ts(35,58): Error TS2503: Cannot find namespace 'polymer'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(53,40): Error TS2304: Cannot find name 'ProjectorScatterPlotAdapter'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(105,27): Error TS2339: Property '$' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(106,32): Error TS2339: Property '$' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(108,34): Error TS2339: Property '$' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(110,31): Error TS2339: Property '$' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(112,30): Error TS2339: Property '$' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(114,10): Error TS2339: Property 'scopeSubtree' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(114,28): Error TS2339: Property '$$' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(202,12): Error TS2339: Property 'metadataFile' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(207,60): Error TS2339: Property 'metadataFile' does not exist on type 'Projector'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(499,46): Error TS2304: Cannot find name 'ProjectorScatterPlotAdapter'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(506,26): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(506,55): Error TS2503: Cannot find namespace 'THREE'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(643,10): Error TS2339: Property 'registerElement' does not exist on type 'Document'.
+[1] [0] TypeScript error: vz_projector/vz-projector.ts(643,46): Error TS2339: Property 'is' does not exist on type 'Projector'.
+[0] live-server --port=80 dist/ exited with code null
+[1] [2] npm run watch-html exited with code null
+[1] [1] npm run watch-css exited with code null
+[1] [0] npm run watch-js exited with code 0
+[1] npm run watch exited with code 0
