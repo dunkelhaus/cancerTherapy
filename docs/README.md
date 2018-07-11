@@ -21,4 +21,4 @@ Installing Tensorflow: https://www.tensorflow.org/versions/r1.8/install/
 |Valeria Brewer        <valramirez@ucdavis.edu>|  
 |Ninad Mehta              <ntmehta@ucdavis.edu>|  
 
-#### Project no longer maintained, due to absence of cloud credits since this was a research project. Contact @author if interested in a HOWTO, or getting it back up.
+#### Project no longer maintained, due to absence of cloud credits since this was a research project & proof-of-concept was complete. Contact @author if interested in a HOWTO, or getting it back up.
