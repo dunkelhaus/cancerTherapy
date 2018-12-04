@@ -4,4 +4,4 @@ class Arguments:
         self.activation = None
         self.regularization = None
         self.regularizationRate = 0
-        self.problemType = None
+        self.problemType = 0

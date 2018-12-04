@@ -53,7 +53,7 @@ const BIAS_SIZE = 5;
 const NUM_SAMPLES_CLASSIFY = 500;
 const NUM_SAMPLES_REGRESS = 1200;
 const DENSITY = 100;
-var djangoDataset = "fm_mutations_independent";
+var djangoDataset = "fm_sample_independent";
 
 enum HoverType {
   BIAS, WEIGHT
@@ -175,6 +175,61 @@ class Player {
         xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
         xhr.send(data);
 
+        var data = "batchSize="+state.batchSize+"&noise="+state.noise+"&trainToTestRatio="+state.percTrainData
+               +"&numHiddenLayers="+state.numHiddenLayers+"&networkShape="+state.networkShape;
+        var xhr = new XMLHttpRequest();
+
+       xhr.open("POST", "http://35.184.171.249/v1/state/");
+       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+       xhr.send(data);
+
+        var str;
+   if (state.regularization == null)
+   {
+       str = "none";    
+   }
+   if (state.regularization == nn.RegularizationFunction.L1)
+   {
+       str = "L1";
+   }
+   if (state.regularization == nn.RegularizationFunction.L2)
+   {
+       str = "L2";
+   }
+
+
+
+   var str2;
+   if (state.activation == nn.Activations.RELU)
+   {
+       str2 = "RELU";    
+   }
+   if (state.activation == nn.Activations.TANH)
+   {
+       str2 = "TANH";
+   }
+   if (state.activation == nn.Activations.SIGMOID)
+   {
+       str2 = "SIGMOID";
+   }
+
+       var data = "learningRate="+state.learningRate+"&activation="+str2+"&regularization="+str+"&regularizationRate="+state.regularizationRate+"&problemType="+state.problem;
+       var xhr = new XMLHttpRequest();
+       xhr.open("POST", "http://35.184.171.249/v1/arguments/");
+       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+       xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+       xhr.send(data);
+
+        var data = "dataset="+djangoDataset+"&weights="+state.weights+"&biases="+state.biases;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://35.184.171.249/v1/settings/");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.setRequestHeader("Authorization", "Basic c2tqZW5hOmFtZGI5YXJzdHJhZGFsZUAmJSM=");
+        xhr.send(data);
+       
+
     if (this.callback) {
       this.callback(this.isPlaying);
     }
@@ -203,9 +258,10 @@ state.getHiddenProps().forEach(prop => {
 let boundary: {[id: string]: number[][]} = {};
 let selectedNodeId: string = null;
 // Plot the heatmap.
-let xDomain: [number, number] = [-6, 6];
+let xDomain: [number, number] = [-800, 400];
+let yDomain: [number, number] = [-500, 500];
 let heatMap =
-    new HeatMap(300, DENSITY, xDomain, xDomain, d3.select("#heatmap"),
+    new HeatMap(300, DENSITY, xDomain, yDomain, d3.select("#heatmap"),
         {showAxes: true});
 let linkWidthScale = d3.scale.linear()
   .domain([0, 5])
@@ -467,12 +523,12 @@ function makeGUI() {
     	xhr.send(data);
 
     d3.select("label[for='noise'] .value").text(this.value);
-    generateData();
-    parametersChanged = true;
-    reset();
+    //generateData();
+    //parametersChanged = true;
+    //reset();
   });
   let currentMax = parseInt(noise.property("max"));
-  if (state.noise > currentMax) {
+  /*if (state.noise > currentMax) {
     if (state.noise <= 80) {
       noise.property("max", state.noise);
     } else {
@@ -480,7 +536,7 @@ function makeGUI() {
     }
   } else if (state.noise < 0) {
     state.noise = 0;
-  }
+  }*/
   noise.property("value", state.noise);
   d3.select("label[for='noise'] .value").text(state.noise);
 
@@ -1574,7 +1630,7 @@ function generateData(firstTime = false) {
       NUM_SAMPLES_REGRESS : NUM_SAMPLES_CLASSIFY;
   let generator = state.problem === Problem.CLASSIFICATION ?
       state.dataset : state.regDataset;
-  let data = generator(numSamples, state.noise / 100);
+  let data = generator(numSamples, 0); //, state.noise / 100);
   // Shuffle the data in-place.
   shuffle(data);
   // Split into train and test data.

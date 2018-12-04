@@ -28,9 +28,93 @@ STEPS = 1000
 PRICE_NORM_FACTOR = 1000
 
 class DNNRegressorModel:
+
     def __init__(self, network):
         self.network = network
         self.model = None
+
+    def getLearningRate(self):
+        learningRate = self.network.arguments.learningRate
+        number = float(learningRate)
+        return tf.Variable(number, tf.float64)
+
+    def getActivation(self):
+        activation = self.network.arguments.activation
+
+        if activation == "RELU":
+            return tf.nn.relu
+
+        if activation == "TANH":
+            return tf.nn.tanh
+
+        if activation == "SIGMOID":
+            return tf.nn.sigmoid
+
+    def getRegularization(self):
+        regularization = self.network.arguments.regularization
+
+        if regularization == "None":
+            return tf.Variable("None", tf.string)
+
+        if regularization == "L1":
+            return tf.contrib.layers.l1_regularizer
+
+        if regularization == "L2":
+            return tf.contrib.layers.l2_regularizer
+
+    def getRegularizationRate(self):
+        regularizationRate = self.network.arguments.regularizationRate
+        number = float(regularizationRate)
+        return tf.Variable(number, tf.float64)
+
+    def getBatchSize(self):
+        batchSize = self.network.state.batchSize
+        number = int(batchSize)
+        return tf.Variable(number, tf.int32)
+
+    def getNoise(self):
+        noise = self.network.state.noise
+        number = int(noise)
+        return tf.Variable(number, tf.int32)
+
+    def getNetworkShape(self): #Unsure what to return here
+        shape = []
+        done = False
+        for i in self.network.state.networkShape:
+            if i != ',':
+                continue
+            shape.append(units)
+
+        return shape
+
+    def getDiscretize(self):
+        discretize = Run.objects.get(name="discretize")
+
+        if discretize.lower() == "true":
+            return tf.Variable(True, tf.bool)
+
+        if discretize.lower() == "false":
+            return tf.Variable(False, tf.bool)
+
+        return tf.Variable("None", tf.string)
+
+    def getPlay(self):
+        play = Run.objects.get(name="play")
+
+        if play.lower() == "true":
+            return tf.Variable(True, tf.bool)
+
+        if play.lower() == "false":
+            return tf.Variable(False, tf.bool)
+
+        return tf.Variable("None", tf.string)
+
+    def getReset(self): #Check if reset stored in DB
+        return tf.Variable("None", tf.string)
+
+    def getNext(self): #Check if next stored in DB
+        return tf.Variable("None", tf.string)
+
 
     def regressorModel(self, features, labels, mode, params):
       """A model function implementing DNN regression for a custom Estimator."""
@@ -38,13 +122,12 @@ class DNNRegressorModel:
       # Extract the input into a dense layer, according to the feature_columns.
       top = tf.feature_column.input_layer(features, params["feature_columns"])
 
-      # Iterate over the "hidden_units" list of layer sizes, default is [20].
-      for units in params.get("hidden_units", [20]):
+      for units in params.get("hidden_units"):
         # Add a hidden layer, densely connected on top of the previous layer.
-        top = tf.layers.dense(inputs=top, units=units, activation=tf.nn.relu)
+        net = tf.layers.dense(net, units=getNetworkShape(), activation=getActivation())
 
       # Connect a linear output layer on top.
-      output_layer = tf.layers.dense(inputs=top, units=1)
+      output_layer = tf.layers.dense(inputs=net, units=getNetworkShape())
 
       # Reshape the output layer to a 1-dim Tensor to return predictions
       predictions = tf.squeeze(output_layer, 1)
@@ -127,7 +210,7 @@ class DNNRegressorModel:
       # Build a custom Estimator, using the model_fn.
       # `params` is passed through to the `model_fn`.
       model = tf.estimator.Estimator(
-          model_fn=my_dnn_regression_fn,
+          model_fn=regressionModel,
           params={
               "feature_columns": feature_columns,
               "learning_rate": 0.001,

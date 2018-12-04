@@ -1,17 +1,21 @@
+#!/usr/bin/env python
 import os
 import sys
+#import django
 sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RESTAPI.mutationDnnWeb.mutationDnnWeb.settings")
-os.environ['DJANGO_SETTINGS_MODULE'] = 'RESTAPI.mutationDnnWeb.mutationDnnWeb.settings'
+#os.environ['DJANGO_SETTINGS_MODULE'] = 'RESTAPI.mutationDnnWeb.mutationDnnWeb.settings'
 from multiprocessing import Process, Queue
-sys.path.insert(0, "/home/skjena/cancerTherapy/modules/RESTAPI")
-from RAPIManager import RAPIManager
-sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
+#sys.path.insert(0, "/home/skjena/cancerTherapy/modules/RESTAPI")
+from RESTAPI.RAPIManager import RAPIManager
+#sys.path.insert(0, "/home/skjena/cancerTherapy/modules")
 from CrossValidation.CVManager import CVManager
 from DataDispatcher.DDManager import DDManager
 from IndexedDB.IDBManager import IDBManager
 from RawDB.RDBManager import RDBManager
 from NeuralNet.management.NNManager import NNManager
+from StatManip.SMManager import SMManager
+from VectorSpace.mds.mds import MDS
 import time
 from Status.Status import Status
 
@@ -19,15 +23,19 @@ class Admin:
     def __init__(self):
         self.status = Status("Admin")
         self.numFolds = 10
-        self.rawDb = RDBManager()
         self.restApi = RAPIManager()
         while self.restApi.djangostatus == False:
             self.restApi.isRunning()
         if self.restApi.networkstate == False:
             self.restApi.populate()
-        
-        self.origin = self.rawDb.GETDATASETFILE(self.restApi.network.settings.dataset)
-        self.indexedDb = IDBManager(self.origin, self.numFolds)
+
+        self.rawDb = RDBManager("fm_mutations_independent")
+        self.statmanip = SMManager()
+        self.mds = MDS(self.rawDb.dataframe,self.restApi.network.state.noise)
+        self.statmanip.writeToFile(self.statmanip.adjoin(self.mds.scale(2),
+            self.statmanip.skewLabels(self.rawDb.dataframe, "0")),
+                self.rawDb.scaledpath)
+        self.indexedDb = IDBManager(self.rawDb.scaledpath, self.numFolds)
         #self.foldList is a list of 10 nodes where each node holds a path to a fold.csv file.
         self.foldList = self.indexedDb.createFolds()
 
@@ -54,7 +62,7 @@ class Admin:
                 time.sleep(1)
             train = self.dataDispatcherQ.get()
             test = self.dataDispatcherQ.get()
-            self.NNProcess = NNManager(train,test,0)#self.restApi.network)
+            self.NNProcess = NNManager(train,test,self.restApi.network,self.restApi.network.arguments.problemType)
             self.neuralNets.put(self.NNProcess)
 
         for j in range(0, self.numFolds):
@@ -72,4 +80,3 @@ class Admin:
     def build(self):
         self.status.message(1, "build(self)")
 
-Admin()
